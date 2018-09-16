@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- mapper动态代理：  namespace 的值要等于 UserDao 接口的地址（包名.接口名） -->
+<mapper namespace="org.xmgreat.mapper.UserMapper">
+	<!-- 登陆：查询用户 -->
+	<select id="queryUser" resultType="org.xmgreat.bean.UserBean" parameterType="org.xmgreat.bean.UserBean">
+		select t.*, pc.paramName eduName 
+		from tabusers t, paramConfig pc 
+		where t.eduId = pc.paramId and  t.username = #{username} and t.psw = #{psw}
+	</select>
+</mapper>
