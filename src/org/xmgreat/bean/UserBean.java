@@ -3,7 +3,7 @@ package org.xmgreat.bean;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
-// 用户类
+
 //@Component("userBean")
 public class UserBean {
 
