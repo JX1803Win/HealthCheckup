@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	function changeCode() {
 		var image = document.getElementById("imageId");
-		image.src = "<%=basePath%>jsp/PicAction!validateCode?"+Math.random();
+		image.src = "<%=basePath%>user/validateCode?data="+Math.random();
 	}
 </script>
 </head>
@@ -77,8 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="snow middleground layered"></div>
 		<div class="snow background"></div>
 		<div class="snow background layered"></div>
-	</div><!-- onsubmit="return checkLogin()" -->
-	<form action="user/login" method = "post" >
+	</div>
+	<form action="user/login" method = "post" onsubmit="return checkLogin()">
 		<table border = "0" class = "backLoginTable">
 			<tr>
 				<td>用户名：</td>
@@ -88,20 +88,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>密码：</td>
 				<td><input type="password" id = "userPsw" name="psw"/></td>
 			</tr>
-			<%-- <tr>
+			<tr>
 				<td>验证码：</td>
 				<td style = "text-align:left;">
 					<input type="text" id="checkcode" name="keyCode" style = "width:90px; display:inline; text-align:left;"/>
   					<!-- 描述：把验证码定义为按钮，点击刷新 -->
-   					<img src="<%=basePath%>jsp/PicAction!validateCode" id="imageId" onclick="changeCode()"/>
+   					<img src="<%=basePath%>user/validateCode" id="imageId" onclick="changeCode()"/>
    					<label style="cursor: pointer;contenteditable:false;" onclick="changeCode()">看不清，换一张</label>
 				</td>
-			</tr> --%>
+			</tr>
 			<tr>
 				<td colspan = "2" style = "text-align:center;" >
 					<input type = "submit" value = "登陆" style="margin-right: 40px;"/>
-					<a href="<%=basePath%>jsp/index.jsp">
-						<input type = "button" value = "返回"/>
+					<a href="<%=basePath%>register.jsp">
+						<input type = "button" value = "注册"/>
 					</a>
 				</td>
 			</tr>
