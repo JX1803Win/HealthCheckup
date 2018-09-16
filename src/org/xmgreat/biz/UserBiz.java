@@ -16,4 +16,11 @@ public interface UserBiz {
 	 */
 	public UserBean login(String username, String psw);
 	
+	/**
+	 * @description 查询用户名是否存在
+	 * @param username 用户名
+	 * @return 用户名是否存在
+	 */
+	public boolean queryByUsername(String username);
+	
 }

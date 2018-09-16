@@ -14,4 +14,11 @@ public interface UserMapper {
 	 */
 	public UserBean queryUser(@Param("username")String username, @Param("psw")String psw);
 	
+	/**
+	 * @description 查询用户名是否存在
+	 * @param username 用户名
+	 * @return 用户名是否存在
+	 */
+	public UserBean queryByUsername(String username);
+	
 }

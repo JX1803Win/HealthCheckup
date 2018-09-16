@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="<%=basePath%>js/checkForm.js" type="text/javascript"></script>
 <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
 <script type="text/javascript">
-	$(function(){
+	<%-- $(function(){
 		$.getJSON("<%=basePath%>jsp/JsonAction!getEdu", 
 		function(datas) {
 			console.log(datas);
@@ -38,17 +38,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#edu").append("<option value="+ data[i].eduId +">"+data[i].eduName+"</option>");
 			}
 		});
-	});
+	}); --%>
 
 	function check() {// 检测用户名是否已注册
  		$.ajax({
- 			url:"<%=basePath%>jsp/JsonAction!checkUsername",
+ 			url:"<%=basePath%>user/checkUsername",
  			data:{username:$("#username").val()},
  			type:"get",
 			dataType:"text",
 			success:function(data){
 				console.log(data);
-				if(data.indexOf("null") == -1) {
+				if(data == "true") {
 					$("#nameError").html("*用户名已存在");
 					$("#username").focus();
 				} else {

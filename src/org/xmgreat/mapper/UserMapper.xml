@@ -11,4 +11,9 @@
 		from tabusers t, paramConfig pc 
 		where t.eduId = pc.paramId and  t.username = #{username} and t.psw = #{psw}
 	</select>
+	
+	<!-- 查询用户名在否存在 -->
+	<select id="queryByUsername" parameterType="String" resultType="org.xmgreat.bean.UserBean">
+		select * from tabusers where username = #{username}
+	</select>
 </mapper>

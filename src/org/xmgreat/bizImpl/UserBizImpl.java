@@ -16,4 +16,13 @@ public class UserBizImpl implements UserBiz {
 		return userMapper.queryUser(username, psw);
 	}
 
+	@Override
+	public boolean queryByUsername(String username) {
+		UserBean ub = userMapper.queryByUsername(username);
+		if(ub != null) {
+			return true;
+		}
+		return false;
+	}
+
 }
