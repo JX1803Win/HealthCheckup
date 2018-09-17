@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<form action="user/login" method = "post" onsubmit="return checkLogin()">
 		<table border = "0" class = "backLoginTable">
 			<tr>
-				<td>ID：</td>
+				<td>用户名：</td>
 				<td><input type="text" id = "username" name="username"/></td>
 			</tr>
 			<tr>
