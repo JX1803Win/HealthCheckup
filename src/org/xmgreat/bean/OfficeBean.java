@@ -1,16 +1,16 @@
 package org.xmgreat.bean;
 
-public class Office
+public class OfficeBean
 {
 	private Integer officeId; // 科室id
 	private String officeName; // 科室名称
 
-	public Office()
+	public OfficeBean()
 	{
 		super();
 	}
 
-	public Office(Integer officeId, String officeName)
+	public OfficeBean(Integer officeId, String officeName)
 	{
 		super();
 		this.officeId = officeId;
