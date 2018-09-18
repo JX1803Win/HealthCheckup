@@ -24,12 +24,12 @@
 		</div>
 		<form role="form" id="loginForm" method="post">
 			<div class="div1" id="d_name">
-				<label>用户名</label> <input name="uname" id="uname" type="text"
-					class="inp" placeholder="请输入用户名..." />
+				<label>用户名</label> <input name="mangerName" id="mangerName"
+					type="text" class="inp" placeholder="请输入用户名..." />
 			</div>
 			<div class="div1" id="d_pwd">
-				<label>密码</label> <input name="pwd" type="password" class="inp"
-					id="pwd" placeholder="请输入用户名..." />
+				<label>密码</label> <input name="password" type="password" class="inp"
+					id="password" placeholder="请输入用户名..." />
 			</div>
 			<div class="div1" id="d_pwd">
 				<label>验证码</label> <input name="verification" id="verification"

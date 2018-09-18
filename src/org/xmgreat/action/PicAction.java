@@ -20,7 +20,7 @@ import org.xmgreat.util.ImageUtil;
 public class PicAction
 {
 	@RequestMapping(value = "/validateCode")
-	public String validateCode(HttpServletRequest request, HttpServletResponse response)
+	public void validateCode(HttpServletRequest request, HttpServletResponse response)
 	{
 		Map<String, BufferedImage> map = ImageUtil.createImage();
 		String keyCode = map.keySet().iterator().next();
@@ -34,7 +34,6 @@ public class PicAction
 			e.printStackTrace();
 		}
 		request.getSession().setAttribute("keyCode", keyCode);
-		return null;
 	}
 
 }

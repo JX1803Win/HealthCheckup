@@ -8,7 +8,7 @@ public class Detail
 	private Integer parameterId; // 单位
 	private Double upperLimit; // 上限值
 	private Double lowerLimit; // 下限值
-	private ParamBean param; // 参数实体
+	private ParameterBean parameterBean; // 参数实体
 
 	public Detail()
 	{
@@ -16,7 +16,7 @@ public class Detail
 	}
 
 	public Detail(Integer detailId, String detailName, Double price, Integer parameterId, Double upperLimit,
-			Double lowerLimit, ParamBean param)
+			Double lowerLimit, ParameterBean parameterBean)
 	{
 		super();
 		this.detailId = detailId;
@@ -25,7 +25,7 @@ public class Detail
 		this.parameterId = parameterId;
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
-		this.param = param;
+		this.parameterBean = parameterBean;
 	}
 
 	public Integer getDetailId()
@@ -88,14 +88,14 @@ public class Detail
 		this.lowerLimit = lowerLimit;
 	}
 
-	public ParamBean getParam()
+	public ParameterBean getParameterBean()
 	{
-		return param;
+		return parameterBean;
 	}
 
-	public void setParam(ParamBean param)
+	public void setParameterBean(ParameterBean parameterBean)
 	{
-		this.param = param;
+		this.parameterBean = parameterBean;
 	}
 
 }

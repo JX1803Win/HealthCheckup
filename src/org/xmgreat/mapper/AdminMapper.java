@@ -13,6 +13,6 @@ public interface AdminMapper
 	 * @param psw       密码
 	 * @return 管理员
 	 */
-	public ManagerBean adminLogin(@Param("adminName") String adminName, @Param("psw") String psw);
+	public ManagerBean adminLogin(@Param("adminName") String adminName, @Param("pwd") String psw);
 
 }
