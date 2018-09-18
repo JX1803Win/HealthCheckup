@@ -3,26 +3,31 @@ package org.xmgreat.bean;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ManagerBean {//管理员信息表
-     private Integer addminId;
-     private String mangerName;
-     private String sex;
-     private Integer age;
-     private String birthDate;
-     private Integer cityId;
-     private String address;//地址
-     private Long phoneNum;
-     private String password;
-     private Integer ruleId;
-     private Integer officeId;//科室id
-     private Integer paramterId;//参数
-     public ManagerBean() {
+public class ManagerBean
+{// 管理员信息表
+	private Integer adminId;
+	private String mangerName;
+	private String sex;
+	private Integer age;
+	private String birthDate;
+	private Integer cityId;
+	private String address;// 地址
+	private Long phoneNum;
+	private String password;
+	private Integer ruleId;
+	private Integer officeId;// 科室id
+	private Integer paramterId;// 参数
+
+	public ManagerBean()
+	{
 		// TODO Auto-generated constructor stub
 	}
-	public ManagerBean(Integer addminId, String mangerName, String sex, Integer age, String birthDate, Integer cityId,
-			String address, Long phoneNum, String password, Integer ruleId, Integer officeId, Integer paramterId) {
+
+	public ManagerBean(Integer adminId, String mangerName, String sex, Integer age, String birthDate, Integer cityId,
+			String address, Long phoneNum, String password, Integer ruleId, Integer officeId, Integer paramterId)
+	{
 		super();
-		this.addminId = addminId;
+		this.adminId = adminId;
 		this.mangerName = mangerName;
 		this.sex = sex;
 		this.age = age;
@@ -35,78 +40,125 @@ public class ManagerBean {//管理员信息表
 		this.officeId = officeId;
 		this.paramterId = paramterId;
 	}
-	public Integer getAddminId() {
-		return addminId;
+
+	public Integer getAdminId()
+	{
+		return adminId;
 	}
-	public void setAddminId(Integer addminId) {
-		this.addminId = addminId;
+
+	public void setAdminId(Integer adminId)
+	{
+		this.adminId = adminId;
 	}
-	public String getMangerName() {
+
+	public String getMangerName()
+	{
 		return mangerName;
 	}
-	public void setMangerName(String mangerName) {
+
+	public void setMangerName(String mangerName)
+	{
 		this.mangerName = mangerName;
 	}
-	public String getSex() {
+
+	public String getSex()
+	{
 		return sex;
 	}
-	public void setSex(String sex) {
+
+	public void setSex(String sex)
+	{
 		this.sex = sex;
 	}
-	public Integer getAge() {
+
+	public Integer getAge()
+	{
 		return age;
 	}
-	public void setAge(Integer age) {
+
+	public void setAge(Integer age)
+	{
 		this.age = age;
 	}
-	public String getBirthDate() {
+
+	public String getBirthDate()
+	{
 		return birthDate;
 	}
-	public void setBirthDate(String birthDate) {
+
+	public void setBirthDate(String birthDate)
+	{
 		this.birthDate = birthDate;
 	}
-	public Integer getCityId() {
+
+	public Integer getCityId()
+	{
 		return cityId;
 	}
-	public void setCityId(Integer cityId) {
+
+	public void setCityId(Integer cityId)
+	{
 		this.cityId = cityId;
 	}
-	public String getAddress() {
+
+	public String getAddress()
+	{
 		return address;
 	}
-	public void setAddress(String address) {
+
+	public void setAddress(String address)
+	{
 		this.address = address;
 	}
-	public Long getPhoneNum() {
+
+	public Long getPhoneNum()
+	{
 		return phoneNum;
 	}
-	public void setPhoneNum(Long phoneNum) {
+
+	public void setPhoneNum(Long phoneNum)
+	{
 		this.phoneNum = phoneNum;
 	}
-	public String getPassword() {
+
+	public String getPassword()
+	{
 		return password;
 	}
-	public void setPassword(String password) {
+
+	public void setPassword(String password)
+	{
 		this.password = password;
 	}
-	public Integer getRuleId() {
+
+	public Integer getRuleId()
+	{
 		return ruleId;
 	}
-	public void setRuleId(Integer ruleId) {
+
+	public void setRuleId(Integer ruleId)
+	{
 		this.ruleId = ruleId;
 	}
-	public Integer getOfficeId() {
+
+	public Integer getOfficeId()
+	{
 		return officeId;
 	}
-	public void setOfficeId(Integer officeId) {
+
+	public void setOfficeId(Integer officeId)
+	{
 		this.officeId = officeId;
 	}
-	public Integer getParamterId() {
+
+	public Integer getParamterId()
+	{
 		return paramterId;
 	}
-	public void setParamterId(Integer paramterId) {
+
+	public void setParamterId(Integer paramterId)
+	{
 		this.paramterId = paramterId;
 	}
-     
-     
+
 }
