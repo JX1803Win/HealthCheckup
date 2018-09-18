@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class PermissionsInfBean {//权限信息表
       private Integer permissionsId;//权限ID
       private String menuName;//菜单名称
