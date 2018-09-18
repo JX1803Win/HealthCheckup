@@ -8,6 +8,8 @@ public class SubentryBean//用户细项结果表
 	private Integer subentryId;//细项ID
 	private String result;//结果
 	private String hint;//提示
+	private UserPhyRecordBean userPhyRecordBean;//用户体检记录实体
+	private Detail detail;//细项实体
 	public SubentryBean() {
 		super();
 	}
@@ -46,6 +48,18 @@ public class SubentryBean//用户细项结果表
 	}
 	public void setHint(String hint) {
 		this.hint = hint;
+	}
+	public UserPhyRecordBean getUserPhyRecordBean() {
+		return userPhyRecordBean;
+	}
+	public void setUserPhyRecordBean(UserPhyRecordBean userPhyRecordBean) {
+		this.userPhyRecordBean = userPhyRecordBean;
+	}
+	public Detail getDetail() {
+		return detail;
+	}
+	public void setDetail(Detail detail) {
+		this.detail = detail;
 	}
 
 }

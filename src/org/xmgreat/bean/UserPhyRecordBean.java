@@ -12,7 +12,8 @@ public class UserPhyRecordBean //用户体检记录
 	private String guidance;   //生活保健指导
 	private Integer adminId;   //总结医生ID
 	private String sumTime;    //总结时间
-	
+	private UserPhyRecordBean userPhyRecordBean;//用户体检记录实体
+	private ManagerBean managerBean;//管理员实体
 	public UserPhyRecordBean() {
 		
 	}
@@ -115,6 +116,22 @@ public class UserPhyRecordBean //用户体检记录
 	public void setSumTime(String sumTime)
 	{
 		this.sumTime = sumTime;
+	}
+
+	public UserPhyRecordBean getUserPhyRecordBean() {
+		return userPhyRecordBean;
+	}
+
+	public void setUserPhyRecordBean(UserPhyRecordBean userPhyRecordBean) {
+		this.userPhyRecordBean = userPhyRecordBean;
+	}
+
+	public ManagerBean getManagerBean() {
+		return managerBean;
+	}
+
+	public void setManagerBean(ManagerBean managerBean) {
+		this.managerBean = managerBean;
 	}
 	
 }
