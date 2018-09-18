@@ -7,7 +7,7 @@ public class ProjectBean
 	private Integer projectId; // 项目id
 	private String itemName; // 项目名称
 	private Integer officeId; // 科室id
-	private Office office; // 科室实体
+	private OfficeBean office; // 科室实体
 	private List<Detail> details; // 细项实体列表
 
 	public ProjectBean()
@@ -15,7 +15,7 @@ public class ProjectBean
 		super();
 	}
 
-	public ProjectBean(Integer projectId, String itemName, Integer officeId, Office office, List<Detail> details)
+	public ProjectBean(Integer projectId, String itemName, Integer officeId, OfficeBean office, List<Detail> details)
 	{
 		super();
 		this.projectId = projectId;
@@ -55,12 +55,12 @@ public class ProjectBean
 		this.officeId = officeId;
 	}
 
-	public Office getOffice()
+	public OfficeBean getOffice()
 	{
 		return office;
 	}
 
-	public void setOffice(Office office)
+	public void setOffice(OfficeBean office)
 	{
 		this.office = office;
 	}

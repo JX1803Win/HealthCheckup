@@ -5,26 +5,31 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ManagerBean
 {// 管理员信息表
-	private Integer adminId;
-	private String mangerName;
-	private String sex;
-	private Integer age;
-	private String birthDate;
-	private Integer cityId;
+	private Integer adminId; // 管理员id
+	private String mangerName; // 管理员名称
+	private String sex; // 性别
+	private Integer age; // 年龄
+	private String birthDate; // 生日
 	private String address;// 地址
-	private Long phoneNum;
-	private String password;
-	private Integer ruleId;
+	private Long phoneNum; // 电话号码
+	private String password; // 密码
+	private Integer ruleId; // 角色id
 	private Integer officeId;// 科室id
-	private Integer paramterId;// 参数
+	private Integer cityId; // 城市id
+	private Integer paramterId; // 参数id
+	private RuleBean ruleBean; // 角色实体
+	private OfficeBean officeBean; // 科室实体
+	private CityBean cityBean; // 城市实体
+	private ParamBean paramBean; // 参数实体
 
 	public ManagerBean()
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	public ManagerBean(Integer adminId, String mangerName, String sex, Integer age, String birthDate, Integer cityId,
-			String address, Long phoneNum, String password, Integer ruleId, Integer officeId, Integer paramterId)
+	public ManagerBean(Integer adminId, String mangerName, String sex, Integer age, String birthDate, String address,
+			Long phoneNum, String password, Integer ruleId, Integer officeId, Integer cityId, Integer paramterId,
+			RuleBean ruleBean, OfficeBean officeBean, CityBean cityBean, ParamBean paramBean)
 	{
 		super();
 		this.adminId = adminId;
@@ -32,13 +37,17 @@ public class ManagerBean
 		this.sex = sex;
 		this.age = age;
 		this.birthDate = birthDate;
-		this.cityId = cityId;
 		this.address = address;
 		this.phoneNum = phoneNum;
 		this.password = password;
 		this.ruleId = ruleId;
 		this.officeId = officeId;
+		this.cityId = cityId;
 		this.paramterId = paramterId;
+		this.ruleBean = ruleBean;
+		this.officeBean = officeBean;
+		this.cityBean = cityBean;
+		this.paramBean = paramBean;
 	}
 
 	public Integer getAdminId()
@@ -159,6 +168,46 @@ public class ManagerBean
 	public void setParamterId(Integer paramterId)
 	{
 		this.paramterId = paramterId;
+	}
+
+	public RuleBean getRuleBean()
+	{
+		return ruleBean;
+	}
+
+	public void setRuleBean(RuleBean ruleBean)
+	{
+		this.ruleBean = ruleBean;
+	}
+
+	public OfficeBean getOfficeBean()
+	{
+		return officeBean;
+	}
+
+	public void setOfficeBean(OfficeBean officeBean)
+	{
+		this.officeBean = officeBean;
+	}
+
+	public CityBean getCityBean()
+	{
+		return cityBean;
+	}
+
+	public void setCityBean(CityBean cityBean)
+	{
+		this.cityBean = cityBean;
+	}
+
+	public ParamBean getParamBean()
+	{
+		return paramBean;
+	}
+
+	public void setParamBean(ParamBean paramBean)
+	{
+		this.paramBean = paramBean;
 	}
 
 }
