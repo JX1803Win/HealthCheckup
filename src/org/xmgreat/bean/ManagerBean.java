@@ -20,7 +20,7 @@ public class ManagerBean
 	private RuleBean ruleBean; // 角色实体
 	private OfficeBean officeBean; // 科室实体
 	private CityBean cityBean; // 城市实体
-	private ParamBean paramBean; // 参数实体
+	private ParameterBean parameterBean; // 参数实体
 
 	public ManagerBean()
 	{
@@ -29,7 +29,7 @@ public class ManagerBean
 
 	public ManagerBean(Integer adminId, String mangerName, String sex, Integer age, String birthDate, String address,
 			Long phoneNum, String password, Integer ruleId, Integer officeId, Integer cityId, Integer paramterId,
-			RuleBean ruleBean, OfficeBean officeBean, CityBean cityBean, ParamBean paramBean)
+			RuleBean ruleBean, OfficeBean officeBean, CityBean cityBean, ParameterBean parameterBean)
 	{
 		super();
 		this.adminId = adminId;
@@ -47,7 +47,7 @@ public class ManagerBean
 		this.ruleBean = ruleBean;
 		this.officeBean = officeBean;
 		this.cityBean = cityBean;
-		this.paramBean = paramBean;
+		this.parameterBean = parameterBean;
 	}
 
 	public Integer getAdminId()
@@ -200,14 +200,14 @@ public class ManagerBean
 		this.cityBean = cityBean;
 	}
 
-	public ParamBean getParamBean()
+	public ParameterBean getParameterBean()
 	{
-		return paramBean;
+		return parameterBean;
 	}
 
-	public void setParamBean(ParamBean paramBean)
+	public void setParameterBean(ParameterBean parameterBean)
 	{
-		this.paramBean = paramBean;
+		this.parameterBean = parameterBean;
 	}
 
 }

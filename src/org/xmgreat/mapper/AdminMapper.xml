@@ -6,8 +6,43 @@
 <!-- mapper动态代理： namespace 的值要等于 UserDao 接口的地址（包名.接口名） -->
 <mapper namespace="org.xmgreat.mapper.AdminMapper">
 	<!-- 登陆：查询管理员 -->
-	<select id=adminLogin resultType="org.xmgreat.bean.ManagerBean">
-
+	<select id="adminLogin" resultMap="manager">
+	SELECT * FROM tblmanager
+	m,tblcity c,tbloffice o,tblparameter p where managername =
+	#{adminName} and
+	password = #{pwd} and m.cityid = c.cityid and
+	o.officeid = m.officeid
+	and p.parameterid = m.parameterid
 	</select>
+
+	<resultMap type="org.xmgreat.bean.ManagerBean" id="manager">
+		<id property="documentId" column="documentId" />
+		<result property="sex" column="sex" />
+		<result property="age" column="age" />
+		<result property="birthDate" column="birthDate" />
+		<result property="address" column="address" />
+		<result property="phoneNum" column="phoneNum" />
+		<result property="password" column="password" />
+		<association property="ruleBean" column="ruleId"
+			javaType="org.xmgreat.bean.RuleBean">
+			<id property="ruleId" column="ruleId" />
+			<result property="ruleName" column="ruleName" />
+		</association>
+		<association property="officeBean" column="officeId"
+			javaType="org.xmgreat.bean.OfficeBean">
+			<id property="officeId" column="officeId" />
+			<result property="officeName" column="officeName" />
+		</association>
+		<association property="cityBean" column="cityId"
+			javaType="org.xmgreat.bean.CityBean">
+			<id property="cityId" column="cityId" />
+			<result property="cityName" column="cityName" />
+		</association>
+		<association property="parameterBean" column="paramId"
+			javaType="org.xmgreat.bean.ParameterBean">
+			<id property="parameterId" column="parameterId" />
+			<result property="parameterName" column="parameterName" />
+		</association>
+	</resultMap>
 
 </mapper>
