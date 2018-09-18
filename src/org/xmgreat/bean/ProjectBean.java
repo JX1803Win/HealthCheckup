@@ -2,37 +2,37 @@ package org.xmgreat.bean;
 
 import java.util.List;
 
-public class ItemBean
+public class ProjectBean
 {
-	private Integer itemId; // 项目id
+	private Integer projectId; // 项目id
 	private String itemName; // 项目名称
 	private Integer officeId; // 科室id
 	private Office office; // 科室实体
 	private List<Detail> details; // 细项实体列表
 
-	public ItemBean()
+	public ProjectBean()
 	{
 		super();
 	}
 
-	public ItemBean(Integer itemId, String itemName, Integer officeId, Office office, List<Detail> details)
+	public ProjectBean(Integer projectId, String itemName, Integer officeId, Office office, List<Detail> details)
 	{
 		super();
-		this.itemId = itemId;
+		this.projectId = projectId;
 		this.itemName = itemName;
 		this.officeId = officeId;
 		this.office = office;
 		this.details = details;
 	}
 
-	public Integer getItemId()
+	public Integer getProjectId()
 	{
-		return itemId;
+		return projectId;
 	}
 
-	public void setItemId(Integer itemId)
+	public void setProjectId(Integer projectId)
 	{
-		this.itemId = itemId;
+		this.projectId = projectId;
 	}
 
 	public String getItemName()

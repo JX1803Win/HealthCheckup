@@ -6,14 +6,14 @@ public class SetmealBena
 {
 	private Integer setmealId; // 套餐id
 	private String setmealName; // 套餐名
-	private List<ItemBean> items; // 项目列表
+	private List<ProjectBean> items; // 项目列表
 
 	public SetmealBena()
 	{
 		super();
 	}
 
-	public SetmealBena(Integer setmealId, String setmealName, List<ItemBean> items)
+	public SetmealBena(Integer setmealId, String setmealName, List<ProjectBean> items)
 	{
 		super();
 		this.setmealId = setmealId;
@@ -41,12 +41,12 @@ public class SetmealBena
 		this.setmealName = setmealName;
 	}
 
-	public List<ItemBean> getItems()
+	public List<ProjectBean> getItems()
 	{
 		return items;
 	}
 
-	public void setItems(List<ItemBean> items)
+	public void setItems(List<ProjectBean> items)
 	{
 		this.items = items;
 	}
