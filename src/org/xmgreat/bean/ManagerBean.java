@@ -4,16 +4,16 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ManagerBean {//管理员信息表
-     private Integer addminId;
+     private Integer addminId;//管理员ID
      private String mangerName;
      private String sex;
      private Integer age;
-     private String birthDate;
-     private Integer cityId;
+     private String birthDate;//出生日期
+     private Integer cityId;//城市ID
      private String address;//地址
      private Long phoneNum;
      private String password;
-     private Integer ruleId;
+     private Integer ruleId;//角色ID
      private Integer officeId;//科室id
      private Integer paramterId;//参数
      public ManagerBean() {

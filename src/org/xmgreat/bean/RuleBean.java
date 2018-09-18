@@ -4,8 +4,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RuleBean {//角色表
-      private Integer ruleId;
-      private String ruleName;
+      private Integer ruleId;//角色ID
+      private String ruleName;//角色名
       public RuleBean() {
 		// TODO Auto-generated constructor stub
 	}

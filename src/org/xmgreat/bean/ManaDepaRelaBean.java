@@ -2,8 +2,10 @@ package org.xmgreat.bean;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+@Repository
 public class ManaDepaRelaBean {//管理员科室关系表
-     private Integer officeId;
+     private Integer officeId;//科室ID
      private List<ManagerBean> mbList;
      public ManaDepaRelaBean() {
 		// TODO Auto-generated constructor stub
