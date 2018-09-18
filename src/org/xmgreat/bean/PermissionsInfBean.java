@@ -1,10 +1,10 @@
 package org.xmgreat.bean;
 
 public class PermissionsInfBean {//权限信息表
-      private Integer permissionsId;
-      private String menuName;
-      private String preMenu;
-      private String urlAddress;
+      private Integer permissionsId;//权限ID
+      private String menuName;//菜单名称
+      private String preMenu;//上级菜单
+      private String urlAddress;//url地址
       private Integer orderNo;//排序号
       public PermissionsInfBean() {
 		// TODO Auto-generated constructor stub
