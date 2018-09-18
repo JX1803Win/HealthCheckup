@@ -12,7 +12,6 @@ import org.xmgreat.biz.UserBiz;
 @Controller
 @RequestMapping("/user")
 @Scope("prototype")
-
 public class LoginAction {
 	
 	@Autowired
@@ -29,5 +28,11 @@ public class LoginAction {
 			return "user/login";
 		}
 	}
-	
+	@RequestMapping(value="/index")
+	public String index(HttpServletRequest request, UserBean user){
+		
+					return "user/index";
+		
+		
+	}
 }

@@ -1,79 +1,123 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>首页</title>
-<link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet" />
-<script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
-<style type="text/css">
-	body,a{
-		color:white;
-	}
-	
-</style>
-<script type="text/javascript">
-	function search(pageNo) {
-		if(pageNo == 0) {
-			return;
-		}
-		var myForm=document.getElementById("myForm");
-		myForm.action="<%=basePath%>jsp/DownloadAction!query?currentPage="+pageNo;
-		myForm.method="post";
-		myForm.submit();
-	}
-</script>
+    <meta charset="utf-8" />
+    <meta name="MobileOptimized" content="240" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <title>携康长荣</title>
+    <script src="../js/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../css/index.css" />
 </head>
-<body background="<%=basePath%>img/bg.jpg">
-<center>
-	<c:choose>
-		<c:when test="${user == null}">
-			<a href="<%=basePath%>jsp/login.jsp"><input type = "button" value = "登陆"/></a>&nbsp;&nbsp;
-			<a href="<%=basePath%>jsp/register.jsp"><input type = "button" value = "注册"/></a>
-			<hr/>
-		</c:when>
-		<c:otherwise>
-			欢迎您：${user.username}&nbsp;&nbsp;
-			当前积分：${user.integral}&nbsp;&nbsp;
-			<a href="<%=basePath%>jsp/userInfo.jsp">个人中心</a>&nbsp;&nbsp;
-			<a href="<%=basePath%>jsp/uploadDoc.jsp">我要上传</a>&nbsp;&nbsp;
-			<a href="<%=basePath%>jsp/">我要下载</a>
-			<hr/>
-		</c:otherwise>
-	</c:choose>
-	<form id="myForm">
-		<input type="text" style="width:400px"/>
-		<input type="button" onclick="search(1)" class="btn btn-info" value="搜索文档"/>
-	</form>
-	<c:if test="${user != null}">
-		<table  class="table table-bordered">
-			<tr>
-				<th>编号</th><th>文档标题</th><th>上传人</th><th>上传时间</th><th>下载积分</th><th>文档类型</th>
-			</tr>
-			<c:forEach items="${docList}" var="doc" varStatus="status">
-			<tr>
-				<td>${(currentPage-1)*5+status.index+1}</td>
-				<td><a href='<%=basePath%>jsp/Download?docId=${doc.db.docId}'>${doc.db.docTopic}</a></td>
-				<td>${doc.username}</td>
-				<td>${doc.uploadTime}</td>
-				<td>${doc.db.docInte}</td>
-				<td>${doc.db.docType}</td>
-			</tr>
-			</c:forEach>
-		</table>
-		<p align = "center">
-			<font color="white">共${totalPage}页&nbsp;&nbsp;当前页数：${currentPage}&nbsp;&nbsp;</font>
-			<button class="btn btn-info" onclick="search(${currentPage==1?0:1})">首页</button>&nbsp;&nbsp;
-			<button class="btn btn-info" onclick="search(${(currentPage-1)>0?currentPage-1:0})">上一页</button>&nbsp;&nbsp;
-			<button class="btn btn-info" onclick="search(${(currentPage+1)<=totalPage?currentPage+1:0})">下一页</button>&nbsp;&nbsp;
-			<button class="btn btn-info" onclick="search(${currentPage==totalPage?0:totalPage})">末页</button>
-		</p>
-	</c:if>
-</center>
+<body aria-atomic="False" style="background: #ededed;">
+    <!--幻灯片 开始-->
+    <script type="text/javascript" src="../js/jquery.flexslider-min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.flexslider').flexslider({
+                controlNav: true,
+                directionNav: false,
+                animation: "slide"
+                //manualControls: ".myflexslider .slidenav"
+            });
+        });
+    </script>
+    <div id="banner" class="flexslider">
+        <ul class="slides">
+            <li>
+                <img src="../img/banner.jpg" /></li>
+            <li>
+                <img src="../img/banner.jpg" /></li>
+            <li>
+                <img src="../img/banner.jpg" /></li>
+        </ul>
+    </div>
+    <!--幻灯片 结束-->
+    <div class="inContent">
+        <dl class="ind_TuBiao">
+            <dd><a href="About.html">
+                <img src="../img/ind_01.png" /><p>公司简介</p>
+            </a></dd>
+            <dd><a href="Service.html">
+                <img src="../img/ind_02.png" /><p>服务项目</p>
+            </a></dd>
+            <dd><a href="News.html">
+                <img src="../img/ind_03.png" /><p>新闻中心</p>
+            </a></dd>
+            <dd><a href="Case.html">
+                <img src="../img/ind_04.png" /><p>案例分享</p>
+            </a></dd>
+            <dd><a href="MyProfile.html">
+                <img src="../img/ind_05.png" /><p>我的资料</p>
+            </a></dd>
+            <dd><a href="MyOrder.html">
+                <img src="../img/ind_06.png" /><p>我的订单</p>
+            </a></dd>
+            <dd><a href="MyBranch.html">
+                <img src="../img/ind_07.png" /><p>我的分销</p>
+            </a></dd>
+            <dd><a href="Extended.html">
+                <img src="../img/ind_08.png" /><p>我的推广码</p>
+            </a></dd>
+        </dl>
+        <div class="indChen">
+            <dl>
+                <dt>
+                    <span>
+                        <img src="../img/ind_09.png" />推荐体检套餐</span></dt>
+                <dd><a href="NavigationShow.html">
+                    <img src="../img/ind_11.jpg" />
+                    <h1>XK早癌筛查</h1>
+                    <h2>致力于最高质量的健康管理提升生命质量严谨科学、规范权威，全心全意、精益求精先进科技驱动中国健康与医疗服...</h2>
+                </a></dd>
+                <dd><a href="NavigationShow.html">
+                    <img src="../img/ind_12.jpg" />
+                    <h1>XK早癌筛查</h1>
+                    <h2>致力于最高质量的健康管理提升生命质量严谨科学、规范权威，全心全意、精益求精先进科技驱动中国健康与医疗服...</h2>
+                </a></dd>
+                <dd><a href="NavigationShow.html">
+                    <img src="../img/ind_11.jpg" />
+                    <h1>XK早癌筛查</h1>
+                    <h2>致力于最高质量的健康管理提升生命质量严谨科学、规范权威，全心全意、精益求精先进科技驱动中国健康与医疗服...</h2>
+                </a></dd>
+                <dd><a href="NavigationShow.html">
+                    <img src="../img/ind_12.jpg" />
+                    <h1>XK早癌筛查</h1>
+                    <h2>致力于最高质量的健康管理提升生命质量严谨科学、规范权威，全心全意、精益求精先进科技驱动中国健康与医疗服...</h2>
+                </a></dd>
+            </dl>
+        </div>
+        <div class="indChen">
+            <dl>
+                <dt>
+                    <span>
+                        <img src="../img/ind_10.png" />热点资讯</span></dt>
+                <dd><a href="NewsShow.html">
+                    <img src="../img/ind_11.jpg" />
+                    <h1>XK早癌筛查</h1>
+                    <h2>致力于最高质量的健康管理提升生命质量严谨科学、规范权威，全心全意、精益求精先进科技驱动中国健康与医疗服...</h2>
+                </a></dd>
+            <li><a href="index.html" class="cur">
+                <img src="../img/foot_01.png" />
+                <p>首页</p>
+            </a></li>
+            <li><a href="Navigation.html">
+                <img src="../img/foot_02.png" />
+                <p>体检套餐</p>
+            </a></li>
+            <li><a href="Order.html">
+                <img src="../img/foot_03.png" />
+                <p>筛查中心网点</p>
+            </a></li>
+            <li><a href="Login.html">
+                <img src="../img/foot_04.png" />
+                <p>会员中心</p>
+            </a></li>
+        </ul>
+    </div>
 </body>
 </html>
