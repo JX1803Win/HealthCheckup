@@ -1,38 +1,27 @@
 package org.xmgreat.action;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.xmgreat.bean.UserBean;
-import org.xmgreat.biz.UserBiz;
+import org.xmgreat.bean.ManagerBean;
+import org.xmgreat.biz.AdminBiz;
 
 @Controller
 @RequestMapping("/user")
-@Scope("prototype")
-public class LoginAction {
-	
+public class LoginAction
+{
 	@Autowired
-    UserBiz userBizImpl;
-	
-	@RequestMapping(value="/login")
-    public String login(HttpServletRequest request, UserBean user){
-		System.out.println(user.toString());
-		UserBean ub = userBizImpl.login(user.getUsername(),user.getPsw());
-		if(ub != null){
-			request.setAttribute("user",user);
-			return "user/index";
-		}else{
-			return "user/login";
-		}
+	private AdminBiz adminBiz;
+
+	@RequestMapping(value = "/login")
+	public String login(HttpServletRequest request, String uname,String psw)
+	{
+		System.out.println(uname);
+		return "backstage/index";
 	}
-	@RequestMapping(value="/index")
-	public String index(HttpServletRequest request, UserBean user){
-		
-					return "user/index";
-		
-		
-	}
+
 }

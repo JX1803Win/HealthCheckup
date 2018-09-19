@@ -2,10 +2,10 @@ package org.xmgreat.bean;
 
 public class ParameterBean
 {
-	private int parameterId; // 参数id
+	private Integer parameterId; // 参数id
 	private String parameterName; // 参数名称
 	private String parameterValues; // 参数值
-	private int parameterType; // 参数类型
+	private Integer parameterType; // 参数类型
 	private String typeName; // 类型名称
 
 	public ParameterBean()
@@ -13,7 +13,7 @@ public class ParameterBean
 		super();
 	}
 
-	public ParameterBean(int parameterId, String parameterName, String parameterValues, int parameterType,
+	public ParameterBean(Integer parameterId, String parameterName, String parameterValues, Integer parameterType,
 			String typeName)
 	{
 		super();
@@ -24,12 +24,12 @@ public class ParameterBean
 		this.typeName = typeName;
 	}
 
-	public int getParameterId()
+	public Integer getParameterId()
 	{
 		return parameterId;
 	}
 
-	public void setParameterId(int parameterId)
+	public void setParameterId(Integer parameterId)
 	{
 		this.parameterId = parameterId;
 	}
@@ -54,12 +54,12 @@ public class ParameterBean
 		this.parameterValues = parameterValues;
 	}
 
-	public int getParameterType()
+	public Integer getParameterType()
 	{
 		return parameterType;
 	}
 
-	public void setParameterType(int parameterType)
+	public void setParameterType(Integer parameterType)
 	{
 		this.parameterType = parameterType;
 	}

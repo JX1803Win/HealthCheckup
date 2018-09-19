@@ -15,11 +15,11 @@ function click1() {
 $(function() {
 	$('#login').click(
 			function() {
-				if ($("#uname").val() == "") {
+				if ($("#mangerName").val() == "") {
 					alert('用户名不能为空');
 					return false;
 				}
-				if ($("#pwd").val() == "") {
+				if ($("#password").val() == "") {
 					alert("密码不能为空");
 					return false;
 				}
@@ -28,11 +28,12 @@ $(function() {
 					return false;
 				}
 				$.ajax({
-					url : "dome/userLogin.action",
+					url : "admin/login.action",
 					data : $("#loginForm").serialize(),
 					type : "POST",
 					dataType : "json",
 					success : function(result) {
+						alert(result);
 						if (result == "用户名或者密码错误" || result == "该用户已被删除"
 								|| result == "账户被锁定" || result == "验证码错误") {
 							alert(result);
