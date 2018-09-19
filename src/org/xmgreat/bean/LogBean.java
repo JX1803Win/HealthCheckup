@@ -1,13 +1,13 @@
 package org.xmgreat.bean;
 
-public class logBean //日志表
+public class LogBean //日志表
 {
 	private Integer logId; //日志ID
 	private ManagerBean managerBean;//管理员bean
 	private String matter; //事项
 	private String operTime; //操作时间
 
-	public logBean() {
+	public LogBean() {
 		
 	}
 
