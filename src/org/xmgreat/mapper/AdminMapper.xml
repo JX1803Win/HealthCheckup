@@ -44,5 +44,99 @@
 			<result property="parameterName" column="parameterName" />
 		</association>
 	</resultMap>
-
+<!-- 展示用户信息 -->
+  <select id="showUser" parameterType="org.xmgreat.bean.UserInfoBean"
+		resultMap="userMap">
+		select * from(select p.parametername,u.* ,rownum rn from tblUserInfo u,tblparameter p 
+		<where>
+		    <if test="name!=null"><if test="name!=''">and userName like concat(concat('%',#{userName}),'%')</if> </if>
+		    <if test="regTimeA!=null"><if test="regTimeA!=''">and PhyCardID &gt;=#{regTimeA}</if> </if>
+			<if test="regTimeA!=null"><if test="regTimeA!=''">and regTime &gt;=#{regTimeA}</if> </if>
+			<if test="regTimeB!=null"><if test="regTimeB!=''">and regTime &lt;=#{regTimeB}</if> </if>
+			and u.parameterID=p.parameterID and u.parameterID!=0  and rownum &lt;#{page}*3+1 ORDER BY userName 
+		</where>
+		) where rn &gt;(#{page} - 1) * 3
+	</select>
+	 <resultMap type="org.xmgreat.bean.UserInfoBean" id="userMap">
+			<id property="userId" column="userId" />
+			<result property="userName" column="userName" />
+			<result property="sex" column="SEX" />
+			<result property="age" column="age" />
+			<result property="birth" column="birth" />
+			<result property="bloodType" column="cityId" />
+			<result property="cityId" column="cityId" />
+			<result property="useradd" column="useradd" />
+			<result property="phone" column="phone" />
+			<result property="pwd" column="pwd" />
+			<result property="regTime" column="regTime" />
+			<result property="phyCardId" column="phyCardId" />
+			<result property="parameterID" column="parameterID" />
+			<association property="parameterBean" column="parameterId" javaType="org.xmgreat.bean.ParameterBean">
+				<id property="parameterId" column="parameterId" />
+			<result property="parameterName" column="parameterName" />
+			</association>
+	</resultMap>
+	<!-- 查询用户总数 -->
+	<select id="showUserCount" parameterType="String" resultType="java.lang.Integer">
+		select * from tblUserInfo where parameterId != 0
+	</select>
+	<!-- 修改用户状态 -->
+	 <update id="updateUserState"  parameterType="org.xmgreat.bean.UserInfoBean">
+	 update tblUserInfo set parameterId = #{parameterId} where userId=#{userId}
+	 </update>
+	 <!-- 修改用户密码 -->
+	 <update id="updateUserPwd"  parameterType="org.xmgreat.bean.UserInfoBean">
+	 update tblUserInfo set pwd = #{pwd} where userId=#{userId}
+	 </update>
+	<!-- 后台用户管理 -->
+	<select id="showAdmin" parameterType="org.xmgreat.bean.ManagerBean"
+		resultMap="AdminMap">
+		select * from(select p.parametername,r.ruleName,o.officename,a.* ,rownum rn from tblManager a,tblparameter p,tblRule r,tbloffice,o 
+		<where>
+		    <if test="name!=null"><if test="name!=''">and managerName like concat(concat('%',#{managerName}),'%')</if> </if>
+			<if test="regTimeA!=null"><if test="regTimeA!=''">and regTime &gt;=#{regTimeA}</if> </if>
+			<if test="regTimeB!=null"><if test="regTimeB!=''">and regTime &lt;=#{regTimeB}</if> </if>
+			and a.parameterID=p.parameterID and a.parameterID!=0 and a.ruleId=r.ruleId and a.officeid=o.officeid and a.ruleId!=1  and rownum &lt;#{page}*3+1 ORDER BY managerName 
+		</where>
+		) where rn &gt;(#{page} - 1) * 3
+	</select>
+	 <resultMap type="org.xmgreat.bean.ManagerBean" id="AdminMap">
+			<id property="adminId" column="adminId" />
+			<result property="mangerName" column="mangerName" />
+			<result property="sex" column="SEX" />
+			<result property="age" column="age" />
+			<result property="birthDate" column="birthDate" />
+			<result property="phoneNum" column="phoneNum" />
+			<result property="cityId" column="cityId" />
+			<result property="address" column="address" />
+			<result property="ruleId" column="ruleId" />
+			<result property="password" column="password" />
+			<result property="officeId" column="officeId" />
+			<result property="phyCardId" column="phyCardId" />
+			<result property="parameterID" column="parameterID" />
+			<association property="parameterBean" column="parameterId" javaType="org.xmgreat.bean.ParameterBean">
+				<id property="parameterId" column="parameterId" />
+			<result property="parameterName" column="parameterName" />
+			</association>
+			<association property="ruleBean" column="ruleId" javaType="org.xmgreat.bean.RuleBean">
+				<id property="ruleId" column="roleId" />
+			<result property="ruleName" column="roleName" />
+			</association>
+			<association property="officeBean" column="officeid" javaType="org.xmgreat.bean.OfficeBean">
+				<id property="officeid" column="officeid" />
+			<result property="ruleName" column="ruleName" />
+			</association>
+	</resultMap>
+	<!-- 查询用后台户总数 -->
+	<select id="showAdminCount" parameterType="String" resultType="java.lang.Integer">
+		select * from tblManager where parameterId != 0
+	</select>
+	<!-- 修改后台用户状态 -->
+	 <update id="updateAdminState"  parameterType="org.xmgreat.bean.ManagerBean">
+	 update tblManager set parameterId = #{parameterId} where userId=#{adminId}
+	 </update>
+	 <!-- 修改后台用户密码 -->
+	 <update id="updateAdminPwd"  parameterType="org.xmgreat.bean.ManagerBean">
+	 update tblManager set password = #{password} where userId=#{adminId}
+	 </update>
 </mapper>

@@ -17,6 +17,7 @@ public class ManagerBean
 	private Integer officeId;// 科室id
 	private Integer cityId; // 城市id
 	private Integer paramterId; // 参数id
+	private Integer page; // 参数id
 	private RuleBean ruleBean; // 角色实体
 	private OfficeBean officeBean; // 科室实体
 	private CityBean cityBean; // 城市实体
@@ -48,6 +49,14 @@ public class ManagerBean
 		this.officeBean = officeBean;
 		this.cityBean = cityBean;
 		this.parameterBean = parameterBean;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 
 	public Integer getAdminId()

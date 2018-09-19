@@ -17,7 +17,7 @@ public class BackstageLoginAction
 	@Autowired
 	private AdminBiz adminBiz;
 
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/login.action")
 	public String login(HttpServletRequest request, ManagerBean managerBean, String verification)
 	{
 		return "backstage/index";

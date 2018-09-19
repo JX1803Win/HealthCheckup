@@ -15,9 +15,25 @@ public class UserInfoBean	 //用户信息
 	private String regTime;  //注册时间
 	private Long phyCardId;  //体检卡ID
 	private Integer parameterID; //参数ID
-	
+	private Integer page;  //页数
 	public UserInfoBean() {
 		
+	}
+
+	public Long getPhyCardId() {
+		return phyCardId;
+	}
+
+	public void setPhyCardId(Long phyCardId) {
+		this.phyCardId = phyCardId;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 
 	public Integer getUserId()
