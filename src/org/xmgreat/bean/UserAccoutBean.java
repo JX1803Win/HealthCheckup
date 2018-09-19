@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserAccoutBean//用户账户表
 {
 	private Integer accoutId;//账户ID

@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserInfoBean	 //用户信息
 {
 	private Integer userId;  // 用户ID
@@ -13,9 +16,12 @@ public class UserInfoBean	 //用户信息
 	private Long phone;		 //手机号
 	private String pwd;		 //密码
 	private String regTime;  //注册时间
+	private String regTimeA;  //注册时间
+	private String regTimeB;  //注册时间
 	private Long phyCardId;  //体检卡ID
 	private Integer parameterID; //参数ID
 	private Integer page;  //页数
+	private ParameterBean parameterBean;
 	public UserInfoBean() {
 		
 	}
@@ -164,6 +170,30 @@ public class UserInfoBean	 //用户信息
 	public void setParameterID(Integer parameterID)
 	{
 		this.parameterID = parameterID;
+	}
+
+	public String getRegTimeA() {
+		return regTimeA;
+	}
+
+	public void setRegTimeA(String regTimeA) {
+		this.regTimeA = regTimeA;
+	}
+
+	public String getRegTimeB() {
+		return regTimeB;
+	}
+
+	public void setRegTimeB(String regTimeB) {
+		this.regTimeB = regTimeB;
+	}
+
+	public ParameterBean getParameterBean() {
+		return parameterBean;
+	}
+
+	public void setParameterBean(ParameterBean parameterBean) {
+		this.parameterBean = parameterBean;
 	}
 
 }

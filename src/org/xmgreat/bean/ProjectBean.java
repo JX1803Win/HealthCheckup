@@ -2,20 +2,22 @@ package org.xmgreat.bean;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+@Component
 public class ProjectBean
 {
 	private Integer projectId; // 项目id
 	private String itemName; // 项目名称
 	private Integer officeId; // 科室id
 	private OfficeBean office; // 科室实体
-	private List<Detail> details; // 细项实体列表
+	private List<DetailBean> details; // 细项实体列表
 
 	public ProjectBean()
 	{
 		super();
 	}
 
-	public ProjectBean(Integer projectId, String itemName, Integer officeId, OfficeBean office, List<Detail> details)
+	public ProjectBean(Integer projectId, String itemName, Integer officeId, OfficeBean office, List<DetailBean> details)
 	{
 		super();
 		this.projectId = projectId;
@@ -65,12 +67,12 @@ public class ProjectBean
 		this.office = office;
 	}
 
-	public List<Detail> getDetails()
+	public List<DetailBean> getDetails()
 	{
 		return details;
 	}
 
-	public void setDetails(List<Detail> details)
+	public void setDetails(List<DetailBean> details)
 	{
 		this.details = details;
 	}

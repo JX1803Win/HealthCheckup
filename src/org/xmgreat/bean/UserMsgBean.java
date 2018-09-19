@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserMsgBean //用戶信息表
 {
 	private Integer msgId; //信息ID

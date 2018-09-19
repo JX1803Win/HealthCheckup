@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class SubentryBean//用户细项结果表
 {
 	private Integer id;//ID
@@ -9,7 +12,7 @@ public class SubentryBean//用户细项结果表
 	private String result;//结果
 	private String hint;//提示
 	private UserPhyRecordBean userPhyRecordBean;//用户体检记录实体
-	private Detail detail;//细项实体
+	private DetailBean detail;//细项实体
 	public SubentryBean() {
 		super();
 	}
@@ -55,10 +58,10 @@ public class SubentryBean//用户细项结果表
 	public void setUserPhyRecordBean(UserPhyRecordBean userPhyRecordBean) {
 		this.userPhyRecordBean = userPhyRecordBean;
 	}
-	public Detail getDetail() {
+	public DetailBean getDetail() {
 		return detail;
 	}
-	public void setDetail(Detail detail) {
+	public void setDetail(DetailBean detail) {
 		this.detail = detail;
 	}
 

@@ -22,7 +22,7 @@
 		<div id="top">
 			<h2>健康散检后台登录</h2>
 		</div>
-		<form action="admin/login.action.action" role="form" id="loginForm"
+		<form action="admin/login.action" role="form" id="loginForm"
 			method="post">
 			<div class="div1" id="d_name">
 				<label>用户名</label> <input name="mangerName" id="mangerName"

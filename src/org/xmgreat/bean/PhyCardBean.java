@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PhyCardBean // 体检卡
 {
 	private Long PhyCardId; // 体检卡ID

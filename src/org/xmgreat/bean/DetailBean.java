@@ -1,6 +1,9 @@
 package org.xmgreat.bean;
 
-public class Detail
+import org.springframework.stereotype.Component;
+
+@Component
+public class DetailBean
 {
 	private Integer detailId; // 细项id
 	private String detailName; // 细项名
@@ -10,12 +13,12 @@ public class Detail
 	private Double lowerLimit; // 下限值
 	private ParameterBean parameterBean; // 参数实体
 
-	public Detail()
+	public DetailBean()
 	{
 		super();
 	}
 
-	public Detail(Integer detailId, String detailName, Double price, Integer parameterId, Double upperLimit,
+	public DetailBean(Integer detailId, String detailName, Double price, Integer parameterId, Double upperLimit,
 			Double lowerLimit, ParameterBean parameterBean)
 	{
 		super();

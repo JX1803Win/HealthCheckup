@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ParameterBean
 {
 	private Integer parameterId; // 参数id

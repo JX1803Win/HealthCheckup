@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>HealthCheckup</display-name>
 	<welcome-file-list>
-		<welcome-file>WEB-INF/backstage/login.jsp</welcome-file>
+		<welcome-file>/WEB-INF/backstage/login.jsp</welcome-file>
 	</welcome-file-list>
 
 	<servlet>

@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserPhyRecordBean //用户体检记录
 {
 	private Integer physicaiId;//体检号
