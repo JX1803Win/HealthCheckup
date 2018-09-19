@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserAppoBean	//用户预约表
 {
 	private Integer appoId; //预约ID

@@ -1,8 +1,9 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Component
 public class ManagerBean
 {// 管理员信息表
 	private Integer adminId; // 管理员id
@@ -13,11 +14,12 @@ public class ManagerBean
 	private String address;// 地址
 	private Long phoneNum; // 电话号码
 	private String password; // 密码
-	private Integer ruleId; // 角色id
+	private Integer roleId; // 角色id
 	private Integer officeId;// 科室id
 	private Integer cityId; // 城市id
 	private Integer paramterId; // 参数id
-	private RuleBean ruleBean; // 角色实体
+	private Integer page; // 参数id
+	private RoleBean roleBean; // 角色实体
 	private OfficeBean officeBean; // 科室实体
 	private CityBean cityBean; // 城市实体
 	private ParameterBean parameterBean; // 参数实体
@@ -28,8 +30,8 @@ public class ManagerBean
 	}
 
 	public ManagerBean(Integer adminId, String mangerName, String sex, Integer age, String birthDate, String address,
-			Long phoneNum, String password, Integer ruleId, Integer officeId, Integer cityId, Integer paramterId,
-			RuleBean ruleBean, OfficeBean officeBean, CityBean cityBean, ParameterBean parameterBean)
+			Long phoneNum, String password, Integer roleId, Integer officeId, Integer cityId, Integer paramterId,
+			RoleBean roleBean, OfficeBean officeBean, CityBean cityBean, ParameterBean parameterBean)
 	{
 		super();
 		this.adminId = adminId;
@@ -40,14 +42,22 @@ public class ManagerBean
 		this.address = address;
 		this.phoneNum = phoneNum;
 		this.password = password;
-		this.ruleId = ruleId;
+		this.roleId = roleId;
 		this.officeId = officeId;
 		this.cityId = cityId;
 		this.paramterId = paramterId;
-		this.ruleBean = ruleBean;
+		this.roleBean = roleBean;
 		this.officeBean = officeBean;
 		this.cityBean = cityBean;
 		this.parameterBean = parameterBean;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 
 	public Integer getAdminId()
@@ -140,14 +150,14 @@ public class ManagerBean
 		this.password = password;
 	}
 
-	public Integer getRuleId()
+	public Integer getRoleId()
 	{
-		return ruleId;
+		return roleId;
 	}
 
-	public void setRuleId(Integer ruleId)
+	public void setRoleId(Integer roleId)
 	{
-		this.ruleId = ruleId;
+		this.roleId = roleId;
 	}
 
 	public Integer getOfficeId()
@@ -170,14 +180,14 @@ public class ManagerBean
 		this.paramterId = paramterId;
 	}
 
-	public RuleBean getRuleBean()
+	public RoleBean getRoleBean()
 	{
-		return ruleBean;
+		return roleBean;
 	}
 
-	public void setRuleBean(RuleBean ruleBean)
+	public void setRoleBean(RoleBean roleBean)
 	{
-		this.ruleBean = ruleBean;
+		this.roleBean = roleBean;
 	}
 
 	public OfficeBean getOfficeBean()

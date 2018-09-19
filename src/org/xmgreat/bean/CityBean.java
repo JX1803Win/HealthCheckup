@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CityBean
 {
 	private Integer cityId; // 城市id

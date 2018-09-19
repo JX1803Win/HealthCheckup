@@ -1,6 +1,9 @@
 package org.xmgreat.bean;
 
-public class LogBean //日志表
+
+import org.springframework.stereotype.Component;
+@Component
+public class LogBean
 {
 	private Integer logId; //日志ID
 	private ManagerBean managerBean;//管理员bean

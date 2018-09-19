@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ProjectResultBean //用户项目结果表 
 {
 	private Integer resultId;//结果ID

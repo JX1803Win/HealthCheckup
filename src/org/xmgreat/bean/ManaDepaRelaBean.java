@@ -2,6 +2,8 @@ package org.xmgreat.bean;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+@Component
 public class ManaDepaRelaBean {//管理员科室关系表
      private Integer officeId;
      private List<ManagerBean> mbList;
