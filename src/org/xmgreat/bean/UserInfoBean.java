@@ -13,7 +13,7 @@ public class UserInfoBean	 //用户信息
 	private Long phone;		 //手机号
 	private String pwd;		 //密码
 	private String regTime;  //注册时间
-	private Long expCardId;  //体检卡ID
+	private Long phyCardId;  //体检卡ID
 	private Integer parameterID; //参数ID
 	
 	public UserInfoBean() {
@@ -130,14 +130,14 @@ public class UserInfoBean	 //用户信息
 		this.regTime = regTime;
 	}
 
-	public Long getExpCardId()
+	public Long getphyCardId()
 	{
-		return expCardId;
+		return phyCardId;
 	}
 
-	public void setExpCardId(Long expCardId)
+	public void setphyCardId(Long phyCardId)
 	{
-		this.expCardId = expCardId;
+		this.phyCardId = phyCardId;
 	}
 
 	public Integer getParameterID()
