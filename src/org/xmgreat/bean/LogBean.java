@@ -1,7 +1,7 @@
 package org.xmgreat.bean;
 
-import org.springframework.stereotype.Component;
 
+import org.springframework.stereotype.Component;
 @Component
 public class LogBean
 {
