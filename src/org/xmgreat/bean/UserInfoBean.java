@@ -9,7 +9,7 @@ public class UserInfoBean	 //用户信息
 	private String birth;	 //出生日期
 	private String bloodType;//血型
 	private Integer cityId;  //城市ID
-	private String add;		 //地址
+	private String useradd;		 //地址
 	private Long phone;		 //手机号
 	private String pwd;		 //密码
 	private String regTime;  //注册时间
@@ -90,14 +90,14 @@ public class UserInfoBean	 //用户信息
 		this.cityId = cityId;
 	}
 
-	public String getAdd()
+	public String getUseradd()
 	{
-		return add;
+		return useradd;
 	}
 
-	public void setAdd(String add)
+	public void setUseradd(String useradd)
 	{
-		this.add = add;
+		this.useradd = useradd;
 	}
 
 	public Long getPhone()
