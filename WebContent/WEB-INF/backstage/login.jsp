@@ -20,9 +20,10 @@
 <body>
 	<div id="center">
 		<div id="top">
-			<h2>健康散检</h2>
+			<h2>健康散检后台登录</h2>
 		</div>
-		<form role="form" id="loginForm" method="post">
+		<form action="admin/login.action" role="form" id="loginForm"
+			method="post">
 			<div class="div1" id="d_name">
 				<label>用户名</label> <input name="mangerName" id="mangerName"
 					type="text" class="inp" placeholder="请输入用户名..." />
@@ -37,7 +38,7 @@
 					id="img" src="user/validateCode.action" /><a href="#"
 					onclick="click1()">看不清换一张</a>
 			</div>
-			<input id="login" type="button" class="btn" value="登录" />
+			<input type="submit" class="btn" value="登录" />
 		</form>
 
 	</div>
