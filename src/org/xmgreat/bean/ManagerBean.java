@@ -13,11 +13,15 @@ public class ManagerBean
 	private String birthDate; // 生日
 	private String address;// 地址
 	private Long phoneNum; // 电话号码
+	private String phoneNum1; // 电话号码
 	private String password; // 密码
 	private Integer roleId; // 角色id
+	private String roleName;//角色名称
+	private String officeName;//科室名称
 	private Integer officeId;// 科室id
 	private Integer cityId; // 城市id
 	private Integer paramterId; // 参数id
+	private String paramterId1; // 参数id
 	private Integer page; // 参数id
 	private RoleBean roleBean; // 角色实体
 	private OfficeBean officeBean; // 科室实体
@@ -50,6 +54,22 @@ public class ManagerBean
 		this.officeBean = officeBean;
 		this.cityBean = cityBean;
 		this.parameterBean = parameterBean;
+	}
+
+	public String getPhoneNum1() {
+		return phoneNum1;
+	}
+
+	public void setPhoneNum1(String phoneNum1) {
+		this.phoneNum1 = phoneNum1;
+	}
+
+	public String getParamterId1() {
+		return paramterId1;
+	}
+
+	public void setParamterId1(String paramterId1) {
+		this.paramterId1 = paramterId1;
 	}
 
 	public Integer getPage() {
@@ -218,6 +238,22 @@ public class ManagerBean
 	public void setParameterBean(ParameterBean parameterBean)
 	{
 		this.parameterBean = parameterBean;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getOfficeName() {
+		return officeName;
+	}
+
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
 	}
 
 }

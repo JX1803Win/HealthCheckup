@@ -24,7 +24,6 @@ public class AdminBizImpl implements AdminBiz
 	ModelAndView mav = new ModelAndView();
 	@Resource
 	private AdminMapper adminMapper;
-
 	@Override
 	public ManagerBean login(String adminName, String psw)
 	{
@@ -43,9 +42,9 @@ public class AdminBizImpl implements AdminBiz
 			}
 			page=userInfoBean.getPage();
 			 if(page<=0) {
-	           	page=pageAll;
+	           	page=allPage;
 	           }
-	           if(page>pageAll) {
+	           if(page>allPage) {
 	           	page=1;
 	           }
 	           System.out.println("页数"+userInfoBean.getPage());
@@ -54,6 +53,11 @@ public class AdminBizImpl implements AdminBiz
 			mav.addObject("list",list);
 			mav.addObject("pageAll",allPage);
 			mav.addObject("page",page);
+			mav.addObject("phyCardId1",userInfoBean.getPhyCardId1());
+			mav.addObject("parameterID1",userInfoBean.getParameterID1());
+			mav.addObject("userName",userInfoBean.getUserName());
+			mav.addObject("regTimeA",userInfoBean.getRegTimeA());
+			mav.addObject("regTimeB",userInfoBean.getRegTimeB());
 		
 		return mav;
 	}
@@ -77,6 +81,7 @@ public class AdminBizImpl implements AdminBiz
 			}
 			return result;
 		}
+		//后台用户展示
 	@Override
 	public ModelAndView showAdmin(ManagerBean managerBean) {
 		pageAll=adminMapper.showAdminCount(managerBean);
@@ -95,7 +100,7 @@ public class AdminBizImpl implements AdminBiz
            }
            System.out.println("页数"+managerBean.getPage());
 		list=adminMapper.showAdmin(managerBean);
-		mav.setViewName("backstage/userInfo");
+		mav.setViewName("backstage/adminInfo");
 		mav.addObject("list",list);
 		mav.addObject("pageAll",allPage);
 		mav.addObject("page",page);
