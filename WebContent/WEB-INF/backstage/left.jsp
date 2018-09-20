@@ -44,20 +44,32 @@
 
 			<dl class="system_log">
 				<dt>
-					<img class="icon1" /> <img class="icon2" />文档管理<img class="icon3"
+					<img class="icon1" /> <img class="icon2" />系统管理<img class="icon3"
 						src="images/coin19.png" /> <img class="icon4"
 						src="images/coin20.png" />
 				</dt>
 				<dd>
 					<img class="coin11" src="images/coin111.png" /> <img
 						class="coin22" src="images/coin222.png" /> <a
-						href="backstage/user!select.action" target="main" class="cks">文档管理</a>
+						href="backstage/.action" target="main" class="cks">细项配置</a>
 					<img class="icon5" src="images/coin21.png" />
 				</dd>
 				<dd>
 					<img class="coin11" src="images/coin111.png" /> <img
 						class="coin22" src="images/coin222.png" /> <a
-						href="backstage/document!type.action" target="main" class="cks">文档配置</a>
+						href="backstage/.action" target="main" class="cks">项目配置</a>
+					<img class="icon5" src="images/coin21.png" />
+				</dd>
+				<dd>
+					<img class="coin11" src="images/coin111.png" /> <img
+						class="coin22" src="images/coin222.png" /> <a
+						href="backstage/document!type.action" target="main" class="cks">套餐配置</a>
+					<img class="icon5" src="images/coin21.png" />
+				</dd>
+				<dd>
+					<img class="coin11" src="images/coin111.png" /> <img
+						class="coin22" src="images/coin222.png" /> <a
+						href="backstage/document!type.action" target="main" class="cks">日志查看</a>
 					<img class="icon5" src="images/coin21.png" />
 				</dd>
 			</dl>
