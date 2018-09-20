@@ -196,4 +196,11 @@ public class UserInfoBean	 //用户信息
 		this.parameterBean = parameterBean;
 	}
 
+	public UserInfoBean(Integer userId, String pwd)
+	{
+		super();
+		this.userId = userId;
+		this.pwd = pwd;
+	}
+
 }

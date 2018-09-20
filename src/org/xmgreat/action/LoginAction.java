@@ -1,27 +1,35 @@
 package org.xmgreat.action;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.xmgreat.bean.ManagerBean;
-import org.xmgreat.biz.AdminBiz;
+import org.xmgreat.bean.UserInfoBean;
+import org.xmgreat.biz.UserBiz;
 
 @Controller
 @RequestMapping("/user")
 public class LoginAction
 {
 	@Autowired
-	private AdminBiz adminBiz;
-
+	private UserBiz userBiz;
+	@Resource
+	private UserInfoBean userInfoBean;
 	@RequestMapping(value = "/login")
-	public String login(HttpServletRequest request, String uname,String psw)
+	public String login(HttpServletRequest request, String phone,String password)
 	{
-		System.out.println(uname);
-		return "backstage/index";
+		List<UserInfoBean> users = userBiz.checkUser(Long.parseLong(phone),password);
+		if (users.size() != 0) {
+			return "backstage/index";
+		}else {
+			System.out.println("登入失败");
+			return "UserLoginAndReg.jsp";
+		}
+		
 	}
 
 }
