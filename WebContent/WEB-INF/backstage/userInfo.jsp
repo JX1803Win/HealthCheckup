@@ -39,27 +39,34 @@
 		<h1>用户管理</h1>
 	</div>
 	<div class="text-center" id="div4">
-		<form action="backstage/user!select.action" class="form-inline"
+		<form action="<%=path%>ManageAction/showUser.action?page=${1}" class="form-inline"
 			role="form" method="post">
 			<div class="form-group">
 				<label for="name" class="m">姓名:</label> <input type="text"
-					class="form-control input-sm  m4" id="name" name="name"
-					placeholder="请输入名称" value="${name}">
+					class="form-control input-sm  m4" id="name" name="userName"
+					placeholder="请输入名称" value="${userName}">
+			</div>
+			<div class="form-group">
+				<label for="name" class="m">体检卡号：</label> <input type="text"
+					class="form-control input-sm  m4" id="phyCardId1" name="phyCardId1"
+					placeholder="请输入卡号" value="${phyCardId1}">
 			</div>
 			<div class="form-group">
 				<label for=stateId class="m2">状态:</label> <select
-					class="selectpicker form-control input-sm m4" id="stateId1"
-					name="stateId1" title="请选择一项" data-size="5">
+					class="selectpicker form-control input-sm m4" id="parameterID1"
+					name="parameterID1" title="请选择一项" data-size="5">
 					<!-- <option class="form-control" value="0">请选择一项</option> -->
+					<option class="form-control" value=""
+						>请选择一项</option>
 					<option class="form-control" value="1"
-						${stateId1==1?"selected='selected'":''}>启用</option>
+						${parameterID1==1?"selected='selected'":''}>启用</option>
 					<option class="form-control" value="2"
-						${stateId1==2?"selected='selected'":''}>禁用</option>
+						${parameterID1==2?"selected='selected'":''}>禁用</option>
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="start" class="m">注册时间:</label> 注册日期：<input type="text"class="inline laydate-icon" name="regTimeA" id="start"value="${regTimeA1}"
-						style="width: 150px" />至<input type="text"class="inline laydate-icon" name="regTimeB" id="end"value="${regTimeB1}"
+				<label for="start" class="m">注册时间:</label> 注册日期：<input type="text"class="inline laydate-icon" name="regTimeA" id="start"value="${regTimeA}"
+						style="width: 150px" />至<input type="text"class="inline laydate-icon" name="regTimeB" id="end"value="${regTimeB}"
 						style="width: 150px" />
 					
 			</div>
@@ -89,42 +96,37 @@
 		<tbody>
 			<c:forEach items="${list}" var="user" varStatus="vs">
 				<tr>
-					<td>user.userId</td>
+					<td>${user.userId}</td>
 					<td>${user.userName}</td>
 					<td>${user.age}</td>
 					<td>${user.phone}</td>
-					<td>${user.address}</td>
+					<td>${user.useradd}</td>
 					<td>${user.phyCardId}</td>
+					<td>${user.regTime}</td>
 					<td>${user.parameterBean.parameterName}</td>
-					<c:if test="${user.parameterId==1}">
-						<td class="td-manage">
-							<button class="sp">禁用</button>
-						</td>
+					<c:if test="${user.parameterID==1}">
 						<td class="td-manage"><a style="text-decoration: none"
-							href="backstage/user!update.action?userId=${user.userId}&&stateId=2"
+							href="<%=path%>ManageAction/updateUserState.action?page=${1}&&userId=${user.userId}&&parameterID=2"
 							title="禁用" onclick="return forbidden()"> <i
 								class="layui-icon">&#xe601;</i>
 						</a> <a style="text-decoration: none"
-							href="backstage/user!select.action?Pwd&&userId=${user.userId}"
+							href="<%=path%>ManageAction/updateUserPwd.action?page=${1}&&userId=${user.userId}&&pwd=${000000}"
 							title="重置密码" onclick="return reset()"> <i class="layui-icon">&#xe631;</i>
 						</a> <a title="删除"
-							href="backstage/user!select.action?userId=${user.userId}&&stateId=0"
+							href="<%=path%>ManageAction/updateUserState.action?page=${1}&&userId=${user.userId}&&parameterID=0"
 							onclick="return del()" style="text-decoration: none"> <i
 								class="layui-icon">&#xe640;</i>
 						</a></td>
 					</c:if>
-					<c:if test="${user.parameterId==2}">
-						<td class="td-manage">
-							<button class="sp3">启用</button>
-						</td>
+					<c:if test="${user.parameterID==2}">
 						<td class="td-manage"><a style="text-decoration: none"
-							href="backstage/user!update.action?action=update&&userId=${user.userId}&&stateId=1"
+							href="<%=path%>ManageAction/updateUserState.action?page=${1}&&userId=${user.userId}&&parameterID=1"
 							title="启用" onclick="return start()"><i class="layui-icon">&#xe62f;</i></a>
 							<a style="text-decoration: none"
-							href="backstage/user!select.action?action=updatePwd&&userId=${user.userId}"
+							href="<%=path%>ManageAction/updateUserPwd.action?page=${1}&&userId=${user.userId}&&pwd=${000000}"
 							title="重置密码" onclick="return reset()"> <i class="layui-icon">&#xe631;</i>
 						</a> <a title="删除"
-							href="backstage/user!select.action?action=update&&userId=${user.userId}&&stateId=0"
+							href="<%=path%>ManageAction/updateUserState.action?page=${1}&&userId=${user.userId}&&parameterID=0"
 							onclick="return del()" style="text-decoration: none"> <i
 								class="layui-icon">&#xe640;</i>
 						</a></td>
@@ -137,25 +139,17 @@
 	</table>
 	<div class="page">
 		<div class="pagelist text-center">
-			<c:choose>
-				<c:when test="${page>1}">
+			
 					<span class="jump"><a
-						href="backstage/user!select.action?page=${page-1}&&name=${name}&&stateId1=${stateId1}&&start=${start}&&end=${end}">上一页</a></span>
-				</c:when>
-				<c:otherwise>
-					<span class="jump">上一页</span>
-				</c:otherwise>
-			</c:choose>
-			<span class="jump">${page}/${totalPage}</span>
-			<c:choose>
-				<c:when test="${page<totalPage}">
+						href="<%=path%>ManageAction/showUser.action?page=${page-1}&&userName=${userName}&&phyCardId1=${phyCardId1}&&parameterID1=${parameterID1}&&regTimeA=${regTimeA}&&regTimeB=${regTimeB}">上一页</a></span>
+			<span class="jump">${page}/${pageAll}</span>
+			
 					<span class="jump"><a
-						href="backstage/user!select.action?page=${page+1}&&name=${name}&&stateId1=${stateId1}&&start=${start}&&end=${end}">下一页</a></span>
-				</c:when>
-				<c:otherwise>
-					<span class="jump">下一页</span>
-				</c:otherwise>
-			</c:choose>
+						href="<%=path%>ManageAction/showUser.action?page=${page+1}&&userName=${userName}&&phyCardId1=${phyCardId1}&&parameterID1=${parameterID1}&&regTimeA=${regTimeA}&&regTimeB=${regTimeB}">下一页</a></span>
+				
+					
+				
+			
 		</div>
 	</div>
 <script>

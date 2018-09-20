@@ -19,11 +19,29 @@ public class UserInfoBean	 //用户信息
 	private String regTimeA;  //注册时间
 	private String regTimeB;  //注册时间
 	private Long phyCardId;  //体检卡ID
+	private String phyCardId1;  //体检卡ID
 	private Integer parameterID; //参数ID
+	private String parameterID1; //参数ID
 	private Integer page;  //页数
 	private ParameterBean parameterBean;
 	public UserInfoBean() {
 		
+	}
+
+	public String getParameterID1() {
+		return parameterID1;
+	}
+
+	public void setParameterID1(String parameterID1) {
+		this.parameterID1 = parameterID1;
+	}
+
+	public String getPhyCardId1() {
+		return phyCardId1;
+	}
+
+	public void setPhyCardId1(String phyCardId1) {
+		this.phyCardId1 = phyCardId1;
 	}
 
 	public Long getPhyCardId() {
@@ -152,16 +170,6 @@ public class UserInfoBean	 //用户信息
 		this.regTime = regTime;
 	}
 
-	public Long getphyCardId()
-	{
-		return phyCardId;
-	}
-
-	public void setphyCardId(Long phyCardId)
-	{
-		this.phyCardId = phyCardId;
-	}
-
 	public Integer getParameterID()
 	{
 		return parameterID;
@@ -194,6 +202,13 @@ public class UserInfoBean	 //用户信息
 
 	public void setParameterBean(ParameterBean parameterBean) {
 		this.parameterBean = parameterBean;
+	}
+
+	public UserInfoBean(Integer userId, String pwd)
+	{
+		super();
+		this.userId = userId;
+		this.pwd = pwd;
 	}
 
 }
