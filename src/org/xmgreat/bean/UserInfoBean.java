@@ -26,14 +26,6 @@ public class UserInfoBean	 //用户信息
 		
 	}
 
-	public Long getPhyCardId() {
-		return phyCardId;
-	}
-
-	public void setPhyCardId(Long phyCardId) {
-		this.phyCardId = phyCardId;
-	}
-
 	public Integer getPage() {
 		return page;
 	}
