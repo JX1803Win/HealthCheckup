@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PermissionsInfBean {//权限信息表
       private Integer permissionsId;
       private String menuName;

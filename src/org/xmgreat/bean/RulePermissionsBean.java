@@ -2,6 +2,8 @@ package org.xmgreat.bean;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+@Component
 public class RulePermissionsBean {
       private Integer ruleId;
       private List<PermissionsInfBean> pibList;//角色权限

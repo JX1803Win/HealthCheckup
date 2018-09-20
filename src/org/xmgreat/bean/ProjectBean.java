@@ -2,6 +2,8 @@ package org.xmgreat.bean;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+@Component
 public class ProjectBean
 {
 	private Integer projectId; // 项目id

@@ -1,5 +1,8 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserAccoutBean//用户账户表
 {
 	private Integer accoutId;//账户ID
@@ -8,7 +11,7 @@ public class UserAccoutBean//用户账户表
 	private String occurTime;//发生时间
 	private String occurMatter;//发生事项
 	private Double money;//金额
-	
+	private UserInfoBean userInfoBean;//用户实体
 	public UserAccoutBean() {
 		super();
 	}
@@ -59,6 +62,14 @@ public class UserAccoutBean//用户账户表
 
 	public void setMoney(Double money) {
 		this.money = money;
+	}
+
+	public UserInfoBean getUserInfoBean() {
+		return userInfoBean;
+	}
+
+	public void setUserInfoBean(UserInfoBean userInfoBean) {
+		this.userInfoBean = userInfoBean;
 	}
 	
 	

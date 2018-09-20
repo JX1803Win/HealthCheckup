@@ -1,41 +1,56 @@
 package org.xmgreat.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DetailBean
 {
-	private Integer detailId; // 细项id
+	private Integer subentryId; // 细项id
 	private String detailName; // 细项名
 	private Double price; // 价格
 	private Integer parameterId; // 单位
 	private Double upperLimit; // 上限值
 	private Double lowerLimit; // 下限值
 	private ParameterBean parameterBean; // 参数实体
+	private Double initValue; // 默认值
 
 	public DetailBean()
 	{
 		super();
 	}
 
-	public DetailBean(Integer detailId, String detailName, Double price, Integer parameterId, Double upperLimit,
-			Double lowerLimit, ParameterBean parameterBean)
+	public DetailBean(Integer subentryId, String detailName, Double price, Integer parameterId, Double upperLimit,
+			Double lowerLimit, ParameterBean parameterBean, Double initValue)
 	{
 		super();
-		this.detailId = detailId;
+		this.subentryId = subentryId;
 		this.detailName = detailName;
 		this.price = price;
 		this.parameterId = parameterId;
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
 		this.parameterBean = parameterBean;
+		this.initValue = initValue;
 	}
 
-	public Integer getDetailId()
+	public Integer getSubentryId()
 	{
-		return detailId;
+		return subentryId;
 	}
 
-	public void setDetailId(Integer detailId)
+	public void setSubentryId(Integer subentryId)
 	{
-		this.detailId = detailId;
+		this.subentryId = subentryId;
+	}
+
+	public Double getInitValue()
+	{
+		return initValue;
+	}
+
+	public void setInitValue(Double initValue)
+	{
+		this.initValue = initValue;
 	}
 
 	public String getDetailName()

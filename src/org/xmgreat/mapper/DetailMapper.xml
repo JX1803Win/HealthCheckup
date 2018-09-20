@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.xmgreat.mapper.DetailMapper">
+	<!-- 查询细项 -->
+	<select id="getDetails" parameterType="java.lang.String"
+		resultMap="detail">
+		select * from tbldetail
+		<if test="detailName!=null">
+			where detailName like #{detailName}
+		</if>
+	</select>
+
+	<resultMap type="org.xmgreat.bean.DetailBean" id="detail"></resultMap>
+
+</mapper>
