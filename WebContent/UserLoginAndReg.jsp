@@ -14,8 +14,9 @@
 #msg {
 	width: 100%;
 	line-height: 40px;
-	font-size: 14px;
+	font-size: 17px;
 	text-align: center;
+	color:#FF0000;
 }
 </style>
 </head>
@@ -28,11 +29,11 @@
 						for="tab-1" class="tab">登录</label> <input id="tab-2" type="radio"
 						name="tab" class="sign-up"><label for="tab-2" class="tab">注册</label>
 					<div class="login-form">
-						<form>
+						<form id="form1" name="form1">
 							<div class="sign-in-htm">
 								<div class="group">
-									<label for="user" class="label">用户名</label> <input
-										id="username" name="username" value="admin" type="text"
+									<label for="user" class="label">手机号</label> <input
+										id="phone" name="phone" type="text"
 										class="input">
 								</div>
 								<div class="group">
@@ -74,7 +75,11 @@
 										type="password" class="input" data-type="password">
 								</div>
 								<div class="group">
-									<label for="pass" class="label">邮箱地址</label> <input id="pass"
+									<label for="pass" class="label">手机号</label> <input id="pass"
+										type="text" class="input">
+								</div>
+								<div class="group">
+									<label for="pass" class="label">验证码</label> <input id="pass"
 										type="text" class="input">
 								</div>
 								<div class="group">
@@ -82,9 +87,6 @@
 										value="注册"></a>
 								</div>
 								<div class="hr"></div>
-								<div class="foot-lnk">
-									<label for="tab-1">已经成员?</a>
-								</div>
 							</div>
 						</form>
 					</div>
@@ -94,7 +96,9 @@
 		<div class="sk-rotating-plane"></div>
 	</div>
 	<script src="js/jigsaw.js"></script>
+	
 	<script>
+	
 		var flag = false;
 		jigsaw.init(document.getElementById('captcha'), function() {
 			flag = true;
@@ -102,16 +106,18 @@
 		})
 
 		function sub() {
-			var name = document.getElementById('username').value;
+			var phone = document.getElementById('phone').value;
 			var pass = document.getElementById('password').value;
 			if (flag == true) {
-				window.location.href = "user/login.action?uname=" + name
+				window.location.href = "user/login.action?phone=" + phone
 						+ "&psw=" + pass;
 			}else{
 				document.getElementById('msg').innerHTML = '请滑动验证码!'
 			}
 		}
 	</script>
+	
+	
 	<script src="js/particles.min.js"></script>
 	<script src="js/app.js"></script>
 </body>
