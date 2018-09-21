@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.biz.UserBiz;
+import org.xmgreat.util.PhoneCode;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/user")
-public class LoginAction
+public class LoginAndRegAction
 {
 	@Autowired
 	private HttpServletRequest request;
@@ -38,7 +40,8 @@ public class LoginAction
 	private UserBiz userBiz;
 	@Resource
 	private UserInfoBean userInfoBean;
-	//验证前台登入
+
+	// 验证前台登入
 	@RequestMapping(value = "/login.action")
 	public String login(HttpServletRequest request, String phone, String password)
 	{
@@ -53,24 +56,37 @@ public class LoginAction
 		}
 
 	}
-	//验证手机号
-	@RequestMapping(value = "/reg.action")
+
+	// 验证手机号是否被注册
+	@RequestMapping(value = "/checkphone.action")
 	@ResponseBody
 	public void reg(HttpServletRequest request, String phone) throws IOException
 	{
 		PrintWriter out = response.getWriter();
 		System.out.println(phone);
 		String tips;
-		userInfoBean =  userBiz.checkPhone(Long.parseLong(phone));
-		if(userInfoBean!=null) {
-			tips="否";
-		}else { 
-			tips="可";
+		userInfoBean = userBiz.checkPhone(Long.parseLong(phone));
+		if (userInfoBean != null)
+		{
+			tips = "否";
+		} else
+		{
+			tips = "可";
 		}
 		Gson gson = new Gson();
 		String str = gson.toJson(tips);
 		out.print(str);
 		out.close();
+	}
+
+	// 注册时的手机验证码
+	@RequestMapping(value = "/regcode.action")
+	@ResponseBody
+	public void regcode(HttpServletRequest request, String phone) throws IOException, ClientException
+	{
+		System.out.println("*********");
+		/*int code = (int) ((Math.random()*9+1)*100000);
+		phoneCode.RegCode(phone, code);*/
 	}
 
 }
