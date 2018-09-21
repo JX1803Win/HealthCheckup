@@ -10,4 +10,5 @@ import org.xmgreat.bean.UserInfoBean;
 public interface UserMapper
 {
 	public List<UserInfoBean> checkUser(@Param("phone") Long phone, @Param("pwd") String pwd);
+	public UserInfoBean checkPhone(@Param("phone") Long phone);
 }

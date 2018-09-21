@@ -1,12 +1,11 @@
 package org.xmgreat.bean;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class RoleBean {//角色表
-      private Integer roleId;
-      private String roleName;
+      private Integer roleId;//角色ID
+      private String roleName;//角色名
       public RoleBean() {
 		// TODO Auto-generated constructor stub
 	}
@@ -27,5 +26,7 @@ public class RoleBean {//角色表
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+	
       
 }
+
