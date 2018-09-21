@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
+import org.xmgreat.bean.CityBean;
 import org.xmgreat.bean.ManagerBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.biz.AdminBiz;
@@ -16,6 +17,8 @@ public class AdminBizImpl implements AdminBiz
 {
 	private List listAll;
 	private List list;
+	private List listRole;
+	private List listOffice;
 	private int page;//页数
 	private int pageAll;//总页数
 	/*@Resource
@@ -41,12 +44,12 @@ public class AdminBizImpl implements AdminBiz
 				allPage = (pageAll / 3);
 			}
 			page=userInfoBean.getPage();
-			 if(page<=0) {
+			/* if(page<=0) {
 	           	page=allPage;
 	           }
 	           if(page>allPage) {
 	           	page=1;
-	           }
+	           }*/
 	           System.out.println("页数"+userInfoBean.getPage());
 			list=adminMapper.showUser(userInfoBean);
 			mav.setViewName("backstage/userInfo");
@@ -67,7 +70,7 @@ public class AdminBizImpl implements AdminBiz
 		boolean bool=adminMapper.updateUserState(userInfoBean);
 		String result=null;
 		if(bool==true) {
-			result="redirect:/ManageAction/showUser.action";
+			result="redirect:/ManageAction/showUser.action?page="+userInfoBean.getPage()+"";
 		}
 		return result;
 	}
@@ -77,7 +80,7 @@ public class AdminBizImpl implements AdminBiz
 			boolean bool=adminMapper.updateUserPwd(userInfoBean);
 			String result=null;
 			if(bool==true) {
-				result="redirect:/ManageAction/showUser.action";
+				result="redirect:/ManageAction/showUser.action?page="+userInfoBean.getPage()+"";
 			}
 			return result;
 		}
@@ -92,29 +95,31 @@ public class AdminBizImpl implements AdminBiz
 			allPage = (pageAll / 3);
 		}
 		page=managerBean.getPage();
-		 if(page<=0) {
-           	page=pageAll;
-           }
-           if(page>pageAll) {
-           	page=1;
-           }
+		listRole=adminMapper.selectRole();
+		listOffice=adminMapper.selectOffice();
            System.out.println("页数"+managerBean.getPage());
 		list=adminMapper.showAdmin(managerBean);
 		mav.setViewName("backstage/adminInfo");
 		mav.addObject("list",list);
 		mav.addObject("pageAll",allPage);
 		mav.addObject("page",page);
-	
+		mav.addObject("listRole",listRole);
+		mav.addObject("listOffice",listOffice);
+		mav.addObject("mangerName",managerBean.getMangerName());
+		mav.addObject("phoneNum1",managerBean.getPhoneNum1());
+		mav.addObject("paramterId1",managerBean.getParamterId1());
+		mav.addObject("roleName",managerBean.getRoleName());
+		mav.addObject("officeName",managerBean.getOfficeName());
 	return mav;
 		
 	}
 	//修改用户状态
 	@Override
 	public String updateAdminState(ManagerBean managerBean) {
-		boolean bool=adminMapper.updateAdminPwd(managerBean);
+		boolean bool=adminMapper.updateAdminState(managerBean);
 		String result=null;
 		if(bool==true) {
-			result="redirect:/ManageAction/showAdmin.action";
+			result="redirect:/ManageAction/showAdmin.action?page="+managerBean.getPage()+"";
 		}
 		return result;
 	}
@@ -124,9 +129,25 @@ public class AdminBizImpl implements AdminBiz
 		boolean bool=adminMapper.updateAdminPwd(managerBean);
 		String result=null;
 		if(bool==true) {
-			result="redirect:/ManageAction/showAdmin.action";
+			result="redirect:/ManageAction/showAdmin.action?page="+managerBean.getPage()+"";
 		}
 		return result;
+	}
+	@Override//查询注册下拉框的值
+	public ModelAndView adminAdd() {
+		listRole=adminMapper.selectRole();
+		listOffice=adminMapper.selectOffice();
+		list=adminMapper.selectProvince();
+		mav.addObject("listRole",listRole);
+		mav.addObject("listOffice",listOffice);
+		mav.addObject("listProvince",list);
+		mav.setViewName("backstage/adminAdd");
+		return mav;
+	}
+	@Override
+	public List<CityBean> selectCity(CityBean cityBean) {
+	
+		return adminMapper.selectCity(cityBean);
 	}
 
 }

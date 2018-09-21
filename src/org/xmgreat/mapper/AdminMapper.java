@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.xmgreat.bean.CityBean;
 import org.xmgreat.bean.ManagerBean;
+import org.xmgreat.bean.OfficeBean;
+import org.xmgreat.bean.Province;
+import org.xmgreat.bean.RoleBean;
 import org.xmgreat.bean.UserInfoBean;
 
 @Repository
@@ -25,4 +29,8 @@ public interface AdminMapper
 	public int showAdminCount(ManagerBean managerBean);//查询总后台用户数量
 	public boolean updateAdminState(ManagerBean managerBean);//修改后台用户状态
 	public boolean updateAdminPwd(ManagerBean managerBean);//修改后台用户密码
+	public List<OfficeBean> selectOffice();//展示后台科室
+	public List<RoleBean> selectRole();//展示后台角色
+	public List<CityBean> selectCity(CityBean cityBean);//展示城市
+	public List<Province> selectProvince();//展示省份
 }

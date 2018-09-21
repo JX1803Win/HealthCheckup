@@ -25,8 +25,8 @@
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" /> <img class="icon2" />用户管理 <img
-						class="icon3" src="images/coin19.png" /> <img class="icon4"
-						src="images/coin20.png" />
+						class="icon3" src="<%=basePath%>images/coin19.png" /> <img class="icon4"
+						src="<%=basePath%>images/coin20.png" />
 				</dt>
 				<dd>
 					<img class="coin11" src="../images/coin111.png" /> <img
@@ -45,8 +45,8 @@
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" /> <img class="icon2" />系统管理<img class="icon3"
-						src="images/coin19.png" /> <img class="icon4"
-						src="images/coin20.png" />
+						src="<%=basePath%>images/coin19.png" /> <img class="icon4"
+						src="<%=basePath%>images/coin20.png" />
 				</dt>
 				<dd>
 					<img class="coin11" src="images/coin111.png" /> <img
