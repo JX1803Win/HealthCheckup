@@ -29,16 +29,16 @@
 						src="images/coin20.png" />
 				</dt>
 				<dd>
-					<img class="coin11" src="../images/coin111.png" /> <img
-						class="coin22" src="../images/coin222.png" /> <a
-						href="<%=basePath%>ManageAction/showUser.action?page=${1}" target="main" class="cks">用户管理</a>
-					<img class="icon5" src="images/coin21.png" />
+					<img class="coin11" src="images/coin111.png" /> <img
+						class="coin22" src="images/coin222.png" /> <a
+						href="ManageAction/showUser.action?page=${1}" target="main"
+						class="cks">用户管理</a> <img class="icon5" src="images/coin21.png" />
 				</dd>
 				<dd>
-					<img class="coin11" src="../images/coin111.png" /> <img
-						class="coin22" src="../images/coin222.png" /> <a
-						href="<%=basePath%>ManageAction/showAdmin.action?page=${1}" target="main" class="cks">工作人员管理</a>
-					<img class="icon5" src="../images/coin21.png" />
+					<img class="coin11" src="images/coin111.png" /> <img
+						class="coin22" src="images/coin222.png" /> <a
+						href="ManageAction/showAdmin.action?page=${1}" target="main"
+						class="cks">工作人员管理</a> <img class="icon5" src="images/coin21.png" />
 				</dd>
 			</dl>
 
@@ -51,14 +51,14 @@
 				<dd>
 					<img class="coin11" src="images/coin111.png" /> <img
 						class="coin22" src="images/coin222.png" /> <a
-						href="backstage/.action" target="main" class="cks">细项配置</a>
-					<img class="icon5" src="images/coin21.png" />
+						href="detail/search.action" target="main" class="cks">细项配置</a> <img
+						class="icon5" src="images/coin21.png" />
 				</dd>
 				<dd>
 					<img class="coin11" src="images/coin111.png" /> <img
 						class="coin22" src="images/coin222.png" /> <a
-						href="backstage/.action" target="main" class="cks">项目配置</a>
-					<img class="icon5" src="images/coin21.png" />
+						href="backstage/.action" target="main" class="cks">项目配置</a> <img
+						class="icon5" src="images/coin21.png" />
 				</dd>
 				<dd>
 					<img class="coin11" src="images/coin111.png" /> <img

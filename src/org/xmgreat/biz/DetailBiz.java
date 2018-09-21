@@ -1,14 +1,19 @@
 package org.xmgreat.biz;
 
-import java.util.List;
+import java.util.Map;
 
-import org.xmgreat.bean.DetailBean;
-import org.xmgreat.bean.ParameterBean;
-
+/**
+ * @author 周鸿谊
+ * @date 2018年9月20日
+ * @description 细项配置业务类
+ */
 public interface DetailBiz
 {
-	public List<DetailBean> getDetails(String detailName);
-
-	public List<ParameterBean> getUnits();
+	/**
+	 * 
+	 * @param 查询条件
+	 * @return 页面显示信息
+	 */
+	public Map<String, Object> search(Map<String, Object> condition);
 
 }
