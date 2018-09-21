@@ -26,5 +26,27 @@ public interface ParamBiz {
 	 */
 	public Integer countOfSearch(String typeName);
 	
+	/**
+	 * @description 根据参数id删除参数信息
+	 * @param parameterId
+	 */
+	public void del(Integer parameterId);
 	
+	/**
+	 * @description 查询所有的参数类型
+	 * @return 所有的参数类型
+	 */
+	public List<ParameterBean> queryAllTypeName();
+	
+	/**
+	 * @description 添加参数
+	 * @param pb 参数信息
+	 */
+	public void addParam(ParameterBean pb);
+	
+	/**
+	 * @description 修改参数
+	 * @param pb 参数信息
+	 */
+	public void alterParam(ParameterBean pb);
 }

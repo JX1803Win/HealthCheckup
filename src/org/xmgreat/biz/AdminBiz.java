@@ -1,7 +1,10 @@
 package org.xmgreat.biz;
 
+import java.util.List;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.xmgreat.bean.ManagerBean;
+import org.xmgreat.bean.PermissionsInfBean;
 import org.xmgreat.bean.UserInfoBean;
 
 public interface AdminBiz
@@ -13,4 +16,6 @@ public interface AdminBiz
 	public  ModelAndView showAdmin(ManagerBean managerBean);//后用户管理
 	public String  updateAdminState (ManagerBean managerBean);//修改后台用户状态
 	public String  updateAdminPwd (ManagerBean managerBean);//修改用户密码
+	//通过角色ID查询权限ID
+    public List<PermissionsInfBean> selectRoleInfo(Integer ruleId);
 }

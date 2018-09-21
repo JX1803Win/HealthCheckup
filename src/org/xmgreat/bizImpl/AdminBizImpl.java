@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.xmgreat.bean.ManagerBean;
+import org.xmgreat.bean.PermissionsInfBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.biz.AdminBiz;
 import org.xmgreat.mapper.AdminMapper;
+import org.xmgreat.mapper.PermissionsMapper;
 
 @Service
 public class AdminBizImpl implements AdminBiz
@@ -18,8 +20,8 @@ public class AdminBizImpl implements AdminBiz
 	private List list;
 	private int page;//页数
 	private int pageAll;//总页数
-	/*@Resource
-	private UserMapper userMapper;*/
+	@Resource
+	private PermissionsMapper permissionsMapper;
 	
 	ModelAndView mav = new ModelAndView();
 	@Resource
@@ -127,6 +129,11 @@ public class AdminBizImpl implements AdminBiz
 			result="redirect:/ManageAction/showAdmin.action";
 		}
 		return result;
+	}
+	@Override
+	public List<PermissionsInfBean> selectRoleInfo(Integer roleId) {
+		// TODO Auto-generated method stub
+		return permissionsMapper.selectRoleInfo(roleId);
 	}
 
 }

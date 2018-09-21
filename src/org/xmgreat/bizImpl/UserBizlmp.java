@@ -22,12 +22,11 @@ public class UserBizlmp implements UserBiz
 		return userMapper.checkUser(phone, pwd);
 	}
 
-	
-	
-
-
-	
-
-	
+	@Override
+	public UserInfoBean checkPhone(Long phone)
+	{
+		// TODO Auto-generated method stub
+		return userMapper.checkPhone(phone);
+	}
 
 }
