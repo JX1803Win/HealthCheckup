@@ -1,57 +1,63 @@
 package org.xmgreat.util;
 
-import java.io.IOException;
-
-import org.apache.log4j.chainsaw.Main;
-import org.json.JSONException;
-
-import com.github.qcloudsms.SmsSingleSender;
-import com.github.qcloudsms.SmsSingleSenderResult;
-import com.github.qcloudsms.httpclient.HTTPException;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.IAcsClient;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.http.MethodType;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.profile.IClientProfile;
 
 public class PhoneCode
+
 {
-	public void Code() {
-		   // 短信应用SDK AppID
-        int appid = 1400144127; // 1400开头
+	final String accessKeyId = "LTAIvhLRLZjyJEzO";// 你的accessKeyId,参考本文档步骤2
+	final String accessKeySecret = "TMI4BcKsZVmp5IsYeF2wDKcCbHC8n5";// 你的accessKeySecret，参考本文档步骤2
 
-        // 短信应用SDK AppKey
-        String appkey = "152658f481f888a1d58999ac1fa55e8b";
-
-        // 需要发送短信的手机号码
-        String[] phoneNumbers = {"15159586062", "12345678902", "12345678903"};
-
-        // 短信模板ID，需要在短信应用中申请
-        // NOTE: 这里的模板ID`7839`只是一个示例，
-        // 真实的模板ID需要在短信控制台中申请
-        int templateId = 7839;
-        String[] params = {"5678"};//数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
-        // 签名
-        // NOTE: 这里的签名"腾讯云"只是一个示例，
-        // 真实的签名需要在短信控制台中申请，另外
-        // 签名参数使用的是`签名内容`，而不是`签名ID`
-        String smsSign = "腾讯云";
-
-        // 单发短信
-        try {
-            SmsSingleSender ssender = new SmsSingleSender(appid, appkey);
-            SmsSingleSenderResult result = ssender.sendWithParam("86", phoneNumbers[0],
-                    templateId, params, smsSign, "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
-            System.out.print(result);
-        } catch (HTTPException e) {
-            // HTTP响应码错误
-            e.printStackTrace();
-        } catch (JSONException e) {
-            // json解析错误
-            e.printStackTrace();
-        } catch (IOException e) {
-            // 网络IO错误
-            e.printStackTrace();
-        }
-}
-	public static void main(String[] args)
+	public void RegCode(String phone, int code) throws ClientException
 	{
-		PhoneCode c = new PhoneCode();
-		c.Code();
+		// 设置超时时间-可自行调整
+		System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
+		System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+		// 初始化ascClient需要的几个参数
+		final String product = "Dysmsapi";// 短信API产品名称（短信产品名固定，无需修改）
+		final String domain = "dysmsapi.aliyuncs.com";// 短信API产品域名（接口地址固定，无需修改）
+		// 替换成你的AK
+		// 初始化ascClient,暂时不支持多region（请勿修改）
+		IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
+		DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
+		IAcsClient acsClient = new DefaultAcsClient(profile);
+		// 组装请求对象
+		SendSmsRequest request = new SendSmsRequest();
+		// 使用post提交
+		request.setMethod(MethodType.POST);
+		// 必填:待发送手机号。支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式；发送国际/港澳台消息时，接收号码格式为00+国际区号+号码，如“0085200000000”
+		request.setPhoneNumbers(phone);
+		// 必填:短信签名-可在短信控制台中找到
+		request.setSignName("健康散检");
+		// 必填:短信模板-可在短信控制台中找到，发送国际/港澳台消息时，请使用国际/港澳台短信模版
+		request.setTemplateCode("SMS_145598037");
+		// 可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
+		// 友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
+		request.setTemplateParam("{\"name\":\"Tom\", \"code\":\"" + code + "\"}");
+		// 可选-上行短信扩展码(扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段)
+		// request.setSmsUpExtendCode("90997");
+		// 可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
+		request.setOutId("yourOutId");
+		// 请求失败这里会抛ClientException异常
+		SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+		if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK"))
+		{
+			// 请求成功
+		}
 	}
+
+	/*
+	 * public static void main(String[] args) throws ClientException { PhoneCode c =
+	 * new PhoneCode(); String phone = "15159586062"; Random rand = new Random();
+	 * double dcode = rand.nextDouble(); System.out.println(dcode); dcode *= 10000;
+	 * int code = (int) dcode; code /= 1; System.out.println(code); c.RegCode(phone,
+	 * code); }
+	 */
 }

@@ -27,6 +27,102 @@
 	color: #FF0000;
 }
 </style>
+
+
+<style type="text/css">
+.checkCode {
+	cursor: pointer;
+	border: 0px solid black;
+	text-align: center;
+	line-height: 26px;
+	border-radius: 25px;
+	background: #1161ee;
+	width: 100px;
+	height: 27px;
+}
+</style>
+<script type="text/javascript">
+    var sleep = 30, interval = null;
+   
+   
+    window.onload = function ()
+    {
+        var btn = document.getElementById ('btn');
+        
+        btn.onclick = function ()
+        {
+        	var phonenb = document.getElementById('phonenb').value;
+        	alert(phonenb);
+        	
+        	if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenb))){
+        		alert(1);
+        		document.getElementById('mag').innerHTML = '请输入正确的手机号'
+        		return
+        	}
+        	
+        	
+        	if((/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenb))){
+        		alert(2);
+				$.ajax({
+					url : "user/checkphone.action",
+					data : "phone=" + phonenb,
+					dataType : "text",
+					type : "post",
+					success : function(redata) {
+						if(redata=="\"否\""){
+						document.getElementById('mag').innerHTML = '手机号已被注册'
+						return
+						}else{
+							alert(code);
+						}
+					}
+				});
+				alert(3);
+				
+				$.ajax({
+					url : "user/regcode.action",
+					data : "phone=" + phonenb,
+					dataType : "text",
+					type : "post",
+					success : function(redata) {
+					}
+				});
+				
+				
+			}
+        
+            if (!interval)
+            {
+            	this.style.backgroundColor = 'rgb(200, 182, 182)';
+                this.disabled = "disabled";
+                this.style.cursor = "wait";
+                this.value = "重新发送 (" + sleep-- + ")";
+                interval = setInterval (function ()
+                {
+                    if (sleep == 0)
+                    {
+                        if (!!interval)
+                        {
+                            clearInterval (interval);
+                            interval = null;
+                            sleep = 30;
+                            btn.style.cursor = "pointer";
+                            btn.removeAttribute ('disabled');
+                            btn.value = "获取验证码";
+                            btn.style.backgroundColor = '';
+                        }
+                        return false;
+                    }
+                    btn.value = "重新发送 (" + sleep-- + ")";
+                }, 1000);
+            }
+        } 
+    }
+</script>
+
+
+
+
 </head>
 <body>
 	<div id="particles-js">
@@ -83,8 +179,9 @@
 										data-type="password">
 								</div>
 								<div class="group">
-									<label for="pass" class="label">手机号</label> <input id="phonenb"
-										name="phonenb" type="text" class="input">
+									<label for="pass" class="label">手机号 <input
+										class="checkCode" type="button" id="btn" value="获取验证码" /></label> <input
+										id="phonenb" name="phonenb" type="text" class="input" />
 								</div>
 								<div class="group">
 									<label for="pass" class="label">验证码</label> <input id="code"
@@ -104,8 +201,8 @@
 		<div class="sk-rotating-plane"></div>
 	</div>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.validate.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
 	<script>
 		function reg() {
 			var flag = false;
@@ -125,32 +222,9 @@
 				document.getElementById('mag').innerHTML = '两次密码不一致'
 				return;
 			}
-			if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenb))) {
-				flag = false;
-				document.getElementById('mag').innerHTML = '请输入正确的手机号'
-				return;
-			}
-			if ((/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenb))) {
-				
-				$.ajax({
-					url : "user/reg.action",
-					data : "phone=" + phonenb,
-					dataType : "text",
-					type : "post",
-					success : function(redata) {
-						if(redata=="\"否\""){
-						flag = false;
-						document.getElementById('mag').innerHTML = '手机号已被注册'
-						return;
-						}
-					}
-				});
-				
-			}
 			
 		}
 	</script>
-
 
 
 	<script src="js/jigsaw.js"></script>
