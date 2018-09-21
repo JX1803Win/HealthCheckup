@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>细项配置</title>
+<title>参数配置</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -25,6 +25,20 @@
 <script type="text/javascript" src="<%=path%>lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path%>js/AdminManagement.js"></script>
 <script type="text/javascript">
+	var typeList;
+	$(function() {
+		$.getJSON("<%=path%>ParamAction/queryAllTypeName.action", 
+		function(data) {
+			console.log(data);
+			typeList = data;
+			//var data = JSON.parse(datas);
+			for (var i = 0; i < data.length; i++) {
+				console.log(data[i].parameterId);
+				$("#typeName2").append("<option value="+ data[i].parameterId +">"+data[i].parameterName+"</option>");
+				$("#typeName").append("<option>"+data[i].parameterName+"</option>");
+			}
+		});
+	})
 	function turn() {
 		var msg = "是否确定修改？";
 		if(confirm(msg) == true) {
@@ -44,7 +58,37 @@
 			return;
 		}
 		var myForm=document.getElementById("myForm");
-		myForm.action="<%=path%>backstage/query.action?currentPage="+pageNo;
+		myForm.action="<%=path%>ParamAction/query.action?currentPage="+pageNo;
+		myForm.method="post";
+		myForm.submit();
+	}
+	function add() {
+		var parameterName = $("#parameterName").val();
+		if(parameterName == "") {
+			alert("参数名称不能为空");
+			return;
+		}
+		var myForm=document.getElementById("myForm2");
+		myForm.action="<%=path%>ParamAction/add.action";
+		myForm.method="post";
+		myForm.submit();
+	}
+	function alter(parameterId, typeName, paramterName, parameterValues) {
+		//alert(parameterId);
+		$("#parameterId1").val(parameterId);
+		$("#typeName1").val(typeName);
+		$("#parameterName1").val(paramterName);
+		$("#parameterValues1").val(parameterValues);
+	}
+	function submitAlter() {
+		console.log($("#parameterId1").val());
+		var parameterName = $("#parameterName1").val();
+		if(parameterName == "") {
+			alert("参数名称不能为空");
+			return;
+		}
+		var myForm=document.getElementById("myForm1");
+		myForm.action="<%=path%>ParamAction/alter.action";
 		myForm.method="post";
 		myForm.submit();
 	}
@@ -60,17 +104,16 @@
 		<h1>参数配置</h1>
 	</div>
 	<div class="text-center" id="div4">
-		<form class="form-inline" role="form" id="myForm" method="post">
+		<form class="form-inline" role="form" id="myForm">
 			<%-- <div class="form-group">
 				<label for="name" class="m">参数名称:</label> <input type="text"
 					class="form-control input-sm  m5" id="name" name="name"
 					placeholder="请输入名称" value="${name}">
 			</div> --%>
 			<div class="form-group">
-				<label for=stateId1 class="m">参数类型:</label> <select
-					class="selectpicker form-control input-sm m5" id="stateId1"
-					name="stateId1" title="请选择一项" data-size="5">
-					<option class="form-control" value="0">--请选择--</option>
+				<label for=stateId1 class="m">参数类型:</label> 
+				<select class="selectpicker form-control input-sm m5" id="typeName" name="typeName">
+					<option class="form-control" value="">请选择</option>
 				</select>
 			</div>
 			<input type="button" class="btn btn-primary" onclick="search(1)" value="查询"/>
@@ -80,9 +123,10 @@
 	<div class="clearfix"></div>
 
 	<div class="tools">
-		<button class="btn btn-primary x-right" data-toggle="modal"
-			data-target="#myModal" id="increased">新增</button>
-            <span>共有数据：${total} 条</span>
+		<button class="btn btn-primary x-right" data-toggle="modal" data-target="#add">新增</button>
+        <span>共有数据：${total} 条&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>共${totalPage}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>当前页数：${currentPage}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	</div>
 	<table class="table table-bordered">
 		<thead>
@@ -101,198 +145,118 @@
 					<td>${parameter.typeName}</td>
 					<td>${parameter.parameterName}</td>
 					<td>${parameter.parameterValues}</td>
-					<td class="text-center"><a
-						href="ParameterServlet?action=update&&parameterId=${parameter.parameterId}"><button
-								type="button" class="btn btn-primary">修改</button></a>&nbsp;&nbsp; <a
-						href="ParameterServlet?action=del&&parameterId=${parameter.parameterId}"
-						onclick="return del()"><button type="button"
-								class="btn btn-primary">删除</button></a></td>
+					<td class="text-center">
+						<button class="btn btn-primary" data-toggle="modal" data-target="#alter" 
+							onclick="alter('${parameter.parameterId}','${parameter.typeName}','${parameter.parameterName}','${parameter.parameterValues}')">修改</button>
+						<a href="<%=path%>ParamAction/del.action?parameterId=${parameter.parameterId}" onclick="return del()">
+							<button type="button" class="btn btn-primary">删除</button>
+						</a>
+					</td>
 				</tr>
 			</c:forEach>
-
 		</tbody>
 	</table>
 	<div class="page">
 		<div class="pagelist text-center">
-			<font color="white">共${totalPage}页&nbsp;&nbsp;当前页数：${currentPage}&nbsp;&nbsp;</font>
-			<button class="btn btn-info" onclick="search(${currentPage==1?0:1})">首页</button>&nbsp;&nbsp;
-			<button class="btn btn-info" onclick="search(${(currentPage-1)>0?currentPage-1:0})">上一页</button>&nbsp;&nbsp;
-			<button class="btn btn-info" onclick="search(${(currentPage+1)<=totalPage?currentPage+1:0})">下一页</button>&nbsp;&nbsp;
-			<button class="btn btn-info" onclick="search(${currentPage==totalPage?0:totalPage})">末页</button>
-	
-			<%-- <c:choose>
-				<c:when test="${page>1}">
-					<span class="jump"><a
-						href="AdminServlet?page=${page-1}&&name=${name}&&stateId1=${stateId1}&&professional=${professional}&&territory=${territory}">上一页</a></span>
-				</c:when>
-				<c:otherwise>
-					<span class="jump">上一页</span>
-				</c:otherwise>
-			</c:choose>
-			<span class="jump">${page}/${totalPage}</span>
-			<c:choose>
-				<c:when test="${page<totalPage}">
-					<span class="jump"><a
-						href="AdminServlet?page=${page+1}&&name=${name}&&stateId1=${stateId1}&&professional=${professional}&&territory=${territory}">下一页</a></span>
-				</c:when>
-				<c:otherwise>
-					<span class="jump">下一页</span>
-				</c:otherwise>
-			</c:choose> --%>
+			<button class="btn btn-primary" onclick="search(${currentPage==1?0:1})">首页</button>&nbsp;&nbsp;
+			<button class="btn btn-primary" onclick="search(${(currentPage-1)>0?currentPage-1:0})">上一页</button>&nbsp;&nbsp;
+			<button class="btn btn-primary" onclick="search(${(currentPage+1)<=totalPage?currentPage+1:0})">下一页</button>&nbsp;&nbsp;
+			<button class="btn btn-primary" onclick="search(${currentPage==totalPage?0:totalPage})">末页</button>
 		</div>
 	</div>
-	<!-- 模态框（Modal） -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	<!-- 新增参数--模态框（Modal） -->
+	<div class="modal fade" id="add" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">新增后台用户</h4>
+					<h4 class="modal-title" id="myModalLabel">新增参数</h4>
 				</div>
 
-
-				<form action="AdminServlet?action=add" id="addAdmin" name="addAdmin"
-					class="form-horizontal" role="form" method="post">
+				<form id="myForm2" class="form-horizontal" role="form">
 					<div class="modal-body">
 
-
 						<div class="form-group">
-							<label for="uName" class="col-sm-2 control-label">用户名</label>
+							<label for="typeName" class="col-sm-2 control-label">参数类型</label>
 							<div class="col-sm-10">
-								<input name="uName" id="uName" type="text" class="form-control"
-									placeholder="请输入用户名">
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="pwd" class="col-sm-2 control-label">密码</label>
-							<div class="col-sm-10">
-								<input name="pwd" id="pwd" type="password" class="form-control"
-									placeholder="请输入参密码">
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="pwd1" class="col-sm-2 control-label">确认密码</label>
-							<div class="col-sm-10">
-								<input name="pwd1" id="pwd1" type="password"
-									class="form-control" placeholder="请输入参确认密码">
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="firstname" class="col-sm-2 control-label">真实姓名</label>
-							<div class="col-sm-10">
-								<input name="firstname" id="firstname" type="text"
-									class="form-control" placeholder="请输入真实姓名">
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="sex" class="col-sm-2 control-label">性别</label>
-							<div class="radio">
-								<label class="radio-inline"> <input type="radio"
-									name="sex" id="optionsRadios1" value="男" checked> 男
-								</label> <label class="radio-inline"> <input type="radio"
-									name="sex" id="optionsRadios2" value="女"> 女
-								</label>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="image" class="col-sm-2 control-label">头像选择</label>
-							<div class="col-sm-10">
-								<input name="image" id="image" type="file">
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="role" class="col-sm-2 control-label">角色</label>
-							<div class="col-sm-10">
-								<select class="selectpicker form-control" name="role" id="role"
-									title="请选择一项" data-size="5">
-									<c:forEach items="${roles}" var="roles">
-										<option class="form-control" value="${roles.roleId}"
-											${roles.roleId==21?"selected='selected'":''}>${roles.roleName}</option>
-									</c:forEach>
+								<select class="selectpicker form-control" name="typeName2" id="typeName2">
 								</select>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="school" class="col-sm-2 control-label">毕业院校</label>
+							<label for="parameterName" class="col-sm-2 control-label">参数名称</label>
 							<div class="col-sm-10">
-								<input id="school" name="school" type="text"
-									class="form-control" placeholder="请输入职称">
+								<input name="parameterName" id="parameterName" type="text" 
+									class="form-control" placeholder="请输入参数名称(必填)">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-2 control-label">擅长领域</label>
-							<div class="col-sm-10 radio">
-								<c:forEach items="${territorys}" var="t">
-									<label class="checkbox-inline"> <input type="checkbox"
-										name="territory" value="${t.territoryId}">
-										${t.territoryName}
-									</label>
-								</c:forEach>
-
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="consultingfee" class="col-sm-2 control-label">咨询费用</label>
+							<label for="parameterValues" class="col-sm-2 control-label">参数值</label>
 							<div class="col-sm-10">
-								<input id="consultingfee" name="consultingfee" type="text"
-									class="form-control" placeholder="请输入咨询费用">
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="bookingfee" class="col-sm-2 control-label">预约费用</label>
-							<div class="col-sm-10">
-								<input id="bookingfee" name="bookingfee" type="text"
-									class="form-control" placeholder="请输入预约费用">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="professional1" class="col-sm-2 control-label">职称</label>
-							<div class="col-sm-10">
-								<input id="professional1" name="professional1" type="text"
-									class="form-control" placeholder="请输入职称">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="specialty" class="col-sm-2 control-label">专业背景</label>
-							<div class="col-sm-10">
-								<textarea id="specialty" name="specialty" class="form-control"
-									rows="3" placeholder="请输入简介"></textarea>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="intro" class="col-sm-2 control-label">简介</label>
-							<div class="col-sm-10">
-								<textarea id="intro" name="intro" class="form-control" rows="3"
-									placeholder="请输入简介"></textarea>
+								<input name="parameterValues" id=parameterValues type="text"
+									class="form-control" placeholder="请输入参数值(选填)">
 							</div>
 						</div>
 
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="submit" class="btn btn-primary">提交</button>
+						<button type="button" class="btn btn-primary" onclick="add()">提交</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
+	<!-- 修改参数--模态框（Modal） -->
+	<div class="modal fade" id="alter" tabindex="-2" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">修改参数</h4>
+				</div>
+
+				<form id="myForm1" class="form-horizontal" role="form">
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="typeName1" class="col-sm-2 control-label">参数类型</label>
+							<div class="col-sm-10">
+								<input name="parameterId1" id="parameterId1" type="hidden" 
+									class="form-control">
+								<input name="typeName1" id="typeName1" type="text" 
+									class="form-control" disabled="disabled">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="parameterName1" class="col-sm-2 control-label">参数名称</label>
+							<div class="col-sm-10">
+								<input name="parameterName1" id="parameterName1" type="text" 
+									class="form-control">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="parameterValues1" class="col-sm-2 control-label">参数值</label>
+							<div class="col-sm-10">
+								<input name="parameterValues1" id="parameterValues1" type="text"
+									class="form-control">
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="submitAlter()">提交</button>
 					</div>
 				</form>
 			</div>
