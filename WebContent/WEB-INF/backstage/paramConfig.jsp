@@ -9,18 +9,15 @@
 <title>参数配置</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
 <link href="<%=path%>css/x-admin.css" rel="stylesheet" type="text/css">
 <link href="<%=path%>css/pag.css" rel="stylesheet" type="text/css">
 <link href="<%=path%>css/AdminManagement.css" rel="stylesheet" type="text/css">
-<link href="<%=path%>lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	type="text/css" />
-<link href="<%=path%>lib/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"
-	type="text/css" />
+<link href="<%=path%>lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=path%>lib/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<%=path%>bgjs/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path%>lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path%>js/AdminManagement.js"></script>
