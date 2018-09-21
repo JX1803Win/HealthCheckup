@@ -30,7 +30,7 @@
 					<img class="icon1" /> <img class="icon2" />${entry.menuName} <img
 						class="icon3" src="images/coin19.png" /> <img class="icon4"
 						src="images/coin20.png" />
-				</dt>			
+				</dt>
 			<c:forEach items="${pibList}" var="entry2">
 			<c:if test="${entry2.preMenu==entry.permissionsId}">
 				<dd>

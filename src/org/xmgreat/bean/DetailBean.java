@@ -12,7 +12,7 @@ public class DetailBean
 	private Double upperLimit; // 上限值
 	private Double lowerLimit; // 下限值
 	private ParameterBean parameterBean; // 参数实体
-	private Double initValue; // 默认值
+	private String initValue; // 默认值
 
 	public DetailBean()
 	{
@@ -20,7 +20,7 @@ public class DetailBean
 	}
 
 	public DetailBean(Integer subentryId, String detailName, Double price, Integer parameterId, Double upperLimit,
-			Double lowerLimit, ParameterBean parameterBean, Double initValue)
+			Double lowerLimit, ParameterBean parameterBean, String initValue)
 	{
 		super();
 		this.subentryId = subentryId;
@@ -43,12 +43,12 @@ public class DetailBean
 		this.subentryId = subentryId;
 	}
 
-	public Double getInitValue()
+	public String getInitValue()
 	{
 		return initValue;
 	}
 
-	public void setInitValue(Double initValue)
+	public void setInitValue(String initValue)
 	{
 		this.initValue = initValue;
 	}

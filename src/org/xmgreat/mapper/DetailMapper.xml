@@ -3,14 +3,42 @@
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="org.xmgreat.mapper.DetailMapper">
 	<!-- 查询细项 -->
-	<select id="getDetails" parameterType="java.lang.String"
+	<select id="getDetails" parameterType="java.util.Map"
 		resultMap="detail">
-		select * from tbldetail
+		select * from (select a.*,rownum rn from (select * from tbldetail
+		<if test="detailName!=null">
+			where detailName like #{detailName}
+		</if>
+		) a where
+		rownum &lt; #{max}) where
+		rn&gt;#{min}
+	</select>
+
+	<!-- 查询单位参数 -->
+	<select id="selectParameter"
+		resultType="org.xmgreat.bean.ParameterBean"
+		parameterType="java.lang.Integer">
+		select * from tblparameter where parameterId =
+		#{parameterId}
+	</select>
+
+	<!-- 条件查询细项总数 -->
+	<select id="count" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from tbldetail
 		<if test="detailName!=null">
 			where detailName like #{detailName}
 		</if>
 	</select>
 
-	<resultMap type="org.xmgreat.bean.DetailBean" id="detail"></resultMap>
+	<!-- 查询嵌套 -->
+	<!-- 连表查单位参数 -->
+	<resultMap type="org.xmgreat.bean.DetailBean" id="detail">
+		<association property="parameterBean" column="parameterId"
+			javaType="org.xmgreat.bean.ParameterBean" select="selectParameter">
+		</association>
+	</resultMap>
+
+
 
 </mapper>
