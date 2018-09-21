@@ -16,9 +16,11 @@ public class ManagerBean
 	private String phoneNum1; // 电话号码
 	private String password; // 密码
 	private Integer roleId; // 角色id
+	private String roleId1; // 角色id
 	private String roleName;//角色名称
 	private String officeName;//科室名称
 	private Integer officeId;// 科室id
+	private String officeId1;// 科室id
 	private Integer cityId; // 城市id
 	private Integer paramterId; // 参数id
 	private String paramterId1; // 参数id
@@ -62,6 +64,22 @@ public class ManagerBean
 
 	public void setPhoneNum1(String phoneNum1) {
 		this.phoneNum1 = phoneNum1;
+	}
+
+	public String getRoleId1() {
+		return roleId1;
+	}
+
+	public void setRoleId1(String roleId1) {
+		this.roleId1 = roleId1;
+	}
+
+	public String getOfficeId1() {
+		return officeId1;
+	}
+
+	public void setOfficeId1(String officeId1) {
+		this.officeId1 = officeId1;
 	}
 
 	public String getParamterId1() {

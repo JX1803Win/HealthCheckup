@@ -1,14 +1,21 @@
 package org.xmgreat.action;
 
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.xmgreat.bean.CityBean;
 import org.xmgreat.bean.ManagerBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.biz.AdminBiz;
+
+import com.google.gson.Gson;
 
 
 //前后端用户管理
@@ -54,4 +61,22 @@ public class ManageAction {
 			
 			return adminBizImpl.updateAdminPwd(managerBean);
 		}
+		//进入后端注册界面
+		@RequestMapping(value="/adminAdd.action")
+		public ModelAndView adminAdd(){
+						return adminBizImpl.adminAdd();
+			
+			
+		}
+		//查询城市
+				@RequestMapping(value="/selectCity.action")
+				public void selectCity(CityBean cityBean,HttpServletResponse response) throws Exception{
+					List list=adminBizImpl.selectCity(cityBean);
+								PrintWriter out =response.getWriter();
+								Gson gson =new Gson();
+								String str=gson.toJson(list);
+								out.print(str);
+								out.close();
+								
+				}
 }
