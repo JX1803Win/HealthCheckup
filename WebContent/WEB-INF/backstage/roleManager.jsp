@@ -68,7 +68,7 @@
 			return;
 		}
 		var myForm=document.getElementById("myForm2");
-		myForm.action="<%=path%>ParamAction/add.action";
+		myForm.action="<%=path%>role/add.action";
 		myForm.method="post";
 		myForm.submit();
 	}
@@ -87,8 +87,8 @@
 		<form class="form-inline" role="form" id="myForm">
 		   <div class="form-group">
 				<label for="name" class="m">角色名称:</label> <input type="text"
-					class="form-control input-sm  m5" id="name" name="name"
-					placeholder="请输入名称" value="${name}">
+					class="form-control input-sm  m5" id="roleName" name="roleName"
+					placeholder="请输入名称" value="">
 			</div> 
 			
 			<input type="button" class="btn btn-primary" onclick="search(1)" value="查询"/>
@@ -99,7 +99,7 @@
 
 	<div class="tools">
 		<button class="btn btn-primary x-right" data-toggle="modal" data-target="#myModal" id="increased">新增</button>
-        <span>共有数据：${total} 条&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>共有数据：${sizeL} 条&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>共${AllPage}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>当前页数：${pageNo}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	</div>
@@ -117,10 +117,8 @@
 					<td>${(pageNo-1)*5+vs.index+1}</td>
 					<td>${role.roleName}</td>
 					<td class="text-center">
-						<a href="ParamAction/del.action?parameterId=${role.roleId}">
-							<button type="button" class="btn btn-primary">修改</button>
-						</a>&nbsp;&nbsp; 
-						<a href="<%=path%>ParamAction/del.action?parameterId=${role.roleId}" onclick="return del()">
+						<button class="btn btn-primary x-right" data-toggle="modal" data-target="#myModal" id="increased">修改</button>&nbsp;&nbsp; 
+						<a href="<%=path%>role/del.action?parameterId=${role.roleId}" onclick="return del()">
 							<button type="button" class="btn btn-primary">删除</button>
 						</a>
 					</td>

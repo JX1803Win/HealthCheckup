@@ -10,6 +10,6 @@ import org.xmgreat.bean.RoleBean;
 public interface PermissionsMapper {
 	
 	public List<PermissionsInfBean> selectRoleInfo(Integer roleId);
-	public List<RoleBean> selectAllRoleInfo(@Param("rolename")String rolename,@Param("pageNo")int pageNo);
-	public int getRoleNum(String roleName);
+	public List<RoleBean> selectAllRoleInfo(@Param("roleName")String roleName,@Param("pageNo")int pageNo);
+	public int getRoleNum(@Param("roleName")String roleName);
 }

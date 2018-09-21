@@ -22,13 +22,14 @@ import org.xmgreat.bizImpl.RoleBizImpl;
 public class RoleAction {
 	@Resource
 	public RoleBizImpl roleBizImpl;
-	
+	/*public int pageNo;*/
 	@RequestMapping(value="/blackuserLogin.action")//为这个方法定义映射子路劲 
 	@ResponseBody
-	public ModelAndView selectAllRole (HttpServletRequest request,HttpServletResponse response,String name)throws Exception {
+	public ModelAndView selectAllRole (HttpServletRequest request,HttpServletResponse response,String roleName ,Integer pageNo)throws Exception {
 		HttpSession session = request.getSession();
-		int pageNo=0;
-		int size=roleBizImpl.getRoleNum(name);
+		
+		int size=roleBizImpl.getRoleNum(roleName);
+		session.setAttribute("sizeL", size);
   	    int AllPage = 0;
 			if (size % 3 != 0) {
 				AllPage = (size / 3) + 1;
@@ -45,7 +46,8 @@ public class RoleAction {
 				}
 			}  
 		session.setAttribute("pageNo", pageNo);
- 	    List<RoleBean> rbList =roleBizImpl.selectAllRoleInfo(name,pageNo);
+		session.setAttribute("AllPage", AllPage);
+ 	    List<RoleBean> rbList =roleBizImpl.selectAllRoleInfo(roleName,pageNo);
   	    session.setAttribute("rbList", rbList); 
   	    ModelAndView mav = new ModelAndView();
   	    mav.setViewName("backstage/roleManager");

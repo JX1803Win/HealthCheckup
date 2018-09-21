@@ -17,16 +17,16 @@ public class RoleBizImpl implements RoleBiz {
 	private PermissionsMapper permissionsMapper;
 
 	@Override
-	public List<RoleBean> selectAllRoleInfo(String rolename,int pageNo) {
+	public List<RoleBean> selectAllRoleInfo(String roleName,int pageNo) {
 		// TODO Auto-generated method stub	
-		List<RoleBean> list=permissionsMapper.selectAllRoleInfo(rolename, pageNo);
+		List<RoleBean> list=permissionsMapper.selectAllRoleInfo(roleName, pageNo);
 		return list;
 	}
 
 	@Override
-	public int getRoleNum(String rolename) {
+	public int getRoleNum(String roleName) {
 		// TODO Auto-generated method stub
-		int size=permissionsMapper.getRoleNum(rolename);
+		int size=permissionsMapper.getRoleNum(roleName);
 		return size;
 	}
 	
