@@ -11,4 +11,5 @@ public interface UserMapper
 {
 	public List<UserInfoBean> checkUser(@Param("phone") Long phone, @Param("pwd") String pwd);
 	public UserInfoBean checkPhone(@Param("phone") Long phone);
+	public void reg(@Param("username") String username,@Param("phone") Long phone, @Param("pwd") String pwd);
 }

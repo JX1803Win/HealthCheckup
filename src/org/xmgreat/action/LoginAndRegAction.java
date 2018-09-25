@@ -40,7 +40,8 @@ public class LoginAndRegAction
 	private UserBiz userBiz;
 	@Resource
 	private UserInfoBean userInfoBean;
-
+	PhoneCode phonecode = new PhoneCode();
+	int racode = (int) ((Math.random()*9+1)*100000);//随机生成的验证码
 	// 验证前台登入
 	@RequestMapping(value = "/login.action")
 	public String login(HttpServletRequest request, String phone, String password)
@@ -60,33 +61,43 @@ public class LoginAndRegAction
 	// 验证手机号是否被注册
 	@RequestMapping(value = "/checkphone.action")
 	@ResponseBody
-	public void reg(HttpServletRequest request, String phone) throws IOException
+	public void checkphone(HttpServletRequest request, String phone) throws IOException, ClientException
 	{
 		PrintWriter out = response.getWriter();
-		System.out.println(phone);
 		String tips;
 		userInfoBean = userBiz.checkPhone(Long.parseLong(phone));
 		if (userInfoBean != null)
 		{
 			tips = "否";
-		} else
-		{
-			tips = "可";
+			Gson gson = new Gson();
+			String str = gson.toJson(tips);
+			out.print(str);
+			out.close();
+		}else {
+			phonecode.RegCode(phone, racode);//发送手机验证码
 		}
-		Gson gson = new Gson();
-		String str = gson.toJson(tips);
-		out.print(str);
-		out.close();
 	}
-
-	// 注册时的手机验证码
-	@RequestMapping(value = "/regcode.action")
-	@ResponseBody
-	public void regcode(HttpServletRequest request, String phone) throws IOException, ClientException
-	{
-		System.out.println("*********");
-		/*int code = (int) ((Math.random()*9+1)*100000);
-		phoneCode.RegCode(phone, code);*/
-	}
-
+	// 验证验证码是否正确,如果正确则当场注册
+		@RequestMapping(value = "/reg.action")
+		@ResponseBody
+		public void reg(HttpServletRequest request, String usersname,String pass,String phone,String code) throws IOException {
+			System.out.println(usersname+pass+phone+code);
+			String tips;
+			PrintWriter out = response.getWriter();
+			int a = Integer.parseInt(code);
+			if(a!=racode) {
+				tips = "验证码错误";
+				Gson gson = new Gson();
+				String str = gson.toJson(tips);
+				out.print(str);
+				out.close();
+			}else {
+				userBiz.reg(usersname, Long.parseLong(phone), pass);
+			}
+			
+		}
+	
+	
+	
+	
 }
