@@ -39,6 +39,7 @@
 	background: #1161ee;
 	width: 100px;
 	height: 27px;
+	color:#fff;
 }
 </style>
 <script type="text/javascript">
@@ -52,8 +53,6 @@
         btn.onclick = function ()
         {
         	var phonenb = document.getElementById('phonenb').value;
-        	alert(phonenb);
-        	
         	if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenb))){
         		alert(1);
         		document.getElementById('mag').innerHTML = '请输入正确的手机号'
@@ -62,7 +61,6 @@
         	
         	
         	if((/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenb))){
-        		alert(2);
 				$.ajax({
 					url : "user/checkphone.action",
 					data : "phone=" + phonenb,
@@ -72,23 +70,9 @@
 						if(redata=="\"否\""){
 						document.getElementById('mag').innerHTML = '手机号已被注册'
 						return
-						}else{
-							alert(code);
 						}
 					}
-				});
-				alert(3);
-				
-				$.ajax({
-					url : "user/regcode.action",
-					data : "phone=" + phonenb,
-					dataType : "text",
-					type : "post",
-					success : function(redata) {
-					}
-				});
-				
-				
+				});	
 			}
         
             if (!interval)
@@ -159,7 +143,7 @@
 								</div>
 								<div class="hr"></div>
 								<div class="foot-lnk">
-									<a href="#forgot">忘记密码?</a>
+									<a href="ForGot1.jsp">忘记密码?</a>
 								</div>
 							</div>
 						</form>
@@ -222,6 +206,21 @@
 				document.getElementById('mag').innerHTML = '两次密码不一致'
 				return;
 			}
+			
+			$.ajax({
+				url : "user/reg.action",
+				data : "usersname="+usersname+"&pass="+pass+"&phone=" + phonenb + "&code="+code,
+				dataType : "text",
+				type : "post",
+				success : function(redata) {
+					if(redata=="\"验证码错误\""){
+					document.getElementById('mag').innerHTML = '验证码错误'
+					return
+					}else{
+					document.getElementById('mag').innerHTML = '注册成功'
+					}
+				}
+			});	
 			
 		}
 	</script>
