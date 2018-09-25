@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper动态代理： namespace 的值要等于 UserDao 接口的地址（包名.接口名） -->
+<mapper namespace="org.xmgreat.mapper.PhyMapper">
+	<!-- 根据体检号查询体检信息 -->
+	<select id="queryByPhyId" parameterType="java.lang.Long" resultType="org.xmgreat.bean.UserPhyRecordBean">
+		select * from TBLUSERPHYRECORD where PHYSICAIID = #{physicaiId}
+	</select>
+</mapper>
