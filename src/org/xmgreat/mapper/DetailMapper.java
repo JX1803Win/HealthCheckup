@@ -3,6 +3,7 @@ package org.xmgreat.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.xmgreat.bean.DetailBean;
 
@@ -16,6 +17,12 @@ import org.xmgreat.bean.DetailBean;
 public interface DetailMapper
 {
 	/**
+	 * @description 查询所有细项
+	 * @return 所有细项列表
+	 */
+	public List<DetailBean> selectAll();
+
+	/**
 	 * @description 条件分页查询细项列表信息
 	 * @param condition 查询条件
 	 * @return 细项列表信息
@@ -27,5 +34,27 @@ public interface DetailMapper
 	 * @param detailName 细项名称
 	 * @return 细项总数
 	 */
-	public Integer count(String detailName);
+	public Integer count(@Param("detailName") String detailName);
+
+	/**
+	 * @description 增加细项
+	 * @param detailBean 细项实体
+	 * @return 插入的条数
+	 */
+	public Integer addDetail(DetailBean detailBean);
+
+	/**
+	 * @description 修改细项
+	 * @param detailBean 细项实体
+	 * @return 修改的条数
+	 */
+	public Integer updateDetail(DetailBean detailBean);
+
+	/**
+	 * @description 删除细项
+	 * @param detailBean 细项实体
+	 * @return 删除的条数
+	 */
+	public Integer delDetail(@Param("subentryId") Integer subentryId);
+
 }

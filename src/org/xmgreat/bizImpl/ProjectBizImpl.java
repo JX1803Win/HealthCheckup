@@ -1,39 +1,39 @@
 package org.xmgreat.bizImpl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.xmgreat.bean.DetailBean;
-import org.xmgreat.biz.DetailBiz;
+import org.xmgreat.bean.ProjectBean;
+import org.xmgreat.biz.ProjectBiz;
 import org.xmgreat.mapper.DetailMapper;
-import org.xmgreat.mapper.ParamMapper;
+import org.xmgreat.mapper.ProjectlMapper;
 import org.xmgreat.util.Data;
 
 @Service
-public class DetailBizImpl implements DetailBiz
+public class ProjectBizImpl implements ProjectBiz
 {
+	@Resource
+	private ProjectlMapper projectlMapper;
 	@Resource
 	private DetailMapper detailMapper;
 
-	@Resource
-	private ParamMapper paramMapper;
-
 	public Integer totalPage;
 	public Integer total;
-	private Map<String, Object> resultMap = new HashMap<String, Object>();
 
 	@Override
 	public Map<String, Object> search(Map<String, Object> condition)
 	{
-		String detailName = null;
-		if (condition.get("detailName") != null)
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String itemName = null;
+		if (condition.get("itemName") != null)
 		{
-			detailName = condition.get("detailName").toString();
+			itemName = condition.get("itemName").toString();
 		}
-		total = detailMapper.count(detailName);
+		total = projectlMapper.count(itemName);
 		resultMap.put("total", total);
 		if (total % Data.NUM == 0)
 		{
@@ -57,30 +57,32 @@ public class DetailBizImpl implements DetailBiz
 		condition.put("max", max);
 		condition.put("min", min);
 		resultMap.put("currentPage", currentPage);
-		resultMap.put("details", detailMapper.getDetails(condition));
-		resultMap.put("parameters", paramMapper.getParameters(24));
+		List<ProjectBean> p = projectlMapper.getProjects(condition);
+		ProjectBean p1 = p.get(0);
+		resultMap.put("projects", projectlMapper.getProjects(condition));
 		return resultMap;
 	}
 
 	@Override
-	public void addDetail(DetailBean detailBean)
+	public ProjectBean getProject(Integer projectId)
 	{
-		detailMapper.addDetail(detailBean);
-
+		return projectlMapper.getProject(projectId);
 	}
 
 	@Override
-	public void updateDetail(DetailBean detailBean)
+	public Map<String, Object> skipAddProject()
 	{
-		detailMapper.updateDetail(detailBean);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 
+		resultMap.put("details", detailMapper.selectAll());
+		return resultMap;
 	}
 
 	@Override
-	public void delDetail(Integer subentryId)
+	public void addProject(ProjectBean projectBean, Integer[] subentryId)
 	{
-		detailMapper.delDetail(subentryId);
-
+		
+		
 	}
 
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.xmgreat.mapper.ProjectlMapper">
+
+	<!-- 增加项目 -->
+	<insert id="addProject"
+		parameterType="org.xmgreat.bean.ProjectBean">
+		insert into tblproject(projectId,itemName,officeId)
+		values(projectid.nextval,#{itemName},#{officeId})
+	</insert>
+
+	<!-- 增加项目关系 -->
+	<insert id="addRelation" parameterType="java.util.Map">
+		insert into tblprojectdetail(projectId,subentryid) values
+		<foreach collection="privIds" index="index" item="item"
+			separator=",">
+			( #{userId}, #{item} )
+		</foreach>
+	</insert>
+
+	<!-- 项目详情 -->
+	<select id="getProject" parameterType="java.lang.Integer"
+		resultMap="project">
+		select p.*,d.*,r.parametervalues FROM tblproject
+		p,tblprojectdetail c,tbldetail d,tblparameter r where d.subentryid =
+		c.subentryid and p.projectid = c.projectid and r.parameterid =
+		d.parameterid and p.projectId = #{projectId}
+	</select>
+
+
+	<resultMap type="org.xmgreat.bean.ProjectBean" id="project">
+		<id property="projectId" column="projectId" />
+		<result property="itemName" column="itemName" />
+		<association property="officeBean" column="officeId"
+			javaType="org.xmgreat.bean.OfficeBean">
+			<id property="officeId" column="officeId" />
+			<result property="officeName" column="officeName" />
+		</association>
+		<association property="parameterBean" column="parameterId"
+			javaType="org.xmgreat.bean.ParameterBean">
+			<id property="parameterId" column="parameterId" />
+			<result property="parameterValues" column="parameterValues" />
+		</association>
+		<collection property="details">
+			<id property="subentryId" column="subentryId" />
+			<result property="detailName" column="detailName" />
+			<result property="price" column="price" />
+			<result property="upperLimit" column="upperLimit" />
+			<result property="lowerLimit" column="lowerLimit" />
+			<result property="initValue" column="initValue" />
+		</collection>
+	</resultMap>
+
+	<!-- 条件查询项目总数 -->
+	<select id="count" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from tblproject
+		<if test="itemName!=null">
+			where detailName like #{itemName}
+		</if>
+	</select>
+
+	<!-- 查询项目 -->
+	<select id="getProjects" parameterType="java.util.Map"
+		resultMap="projects">
+		select * from (select a.*,rownum rn from (select
+		p.*,d.*,b.parametervalues from
+		tblproject p,tblprojectdetail
+		r,tbldetail d,tblparameter b where
+		d.parameterid = b.parameterid and
+		r.projectid = p.projectid and
+		r.subentryid = d.subentryid
+		<if test="itemName!=null">
+			where detailName like #{itemName}
+		</if>
+		) a where
+		rownum &lt; #{max}) where
+		rn&gt;#{min}
+	</select>
+
+	<!-- 查询细项 -->
+	<select id="findDetai" parameterType="java.lang.Integer"
+		resultType="org.xmgreat.bean.DetailBean">
+		select * from tbldetail d,tblprojectdetail p where
+		p.subentryId =
+		d.subentryId
+		and p.projectId = #{projectId}
+	</select>
+
+	<!-- 查询单位参数 -->
+	<select id="selectParameter"
+		resultType="org.xmgreat.bean.ParameterBean"
+		parameterType="java.lang.Integer"> select * from tblparameter where parameterId
+		=
+		#{parameterId}
+	</select>
+
+
+	<!-- 查询科室 -->
+	<select id="selectOffice"
+		resultType="org.xmgreat.bean.OfficeBean"
+		parameterType="java.lang.Integer"> select * from tbloffice where officeId
+		= #{officeId}
+	</select>
+
+	<!-- 查询嵌套 -->
+	<resultMap type="org.xmgreat.bean.ProjectBean" id="projects">
+		<id property="projectId" column="projectId" />
+		<association property="officeBean" column="officeId"
+			javaType="org.xmgreat.bean.OfficeBean" select="selectOffice">
+		</association>
+		<collection property="details" column="projectId"
+			javaType="java.util.ArrayList" select="findDetai"
+			ofType="org.xmgreat.bean.DetailBean">
+		</collection>
+	</resultMap>
+
+</mapper>

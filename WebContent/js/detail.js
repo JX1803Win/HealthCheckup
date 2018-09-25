@@ -49,7 +49,7 @@ $(function() {
 			alert('默认值不能小于下限值');
 			return false;
 		}
-		
+
 	});
 });
 
@@ -61,4 +61,21 @@ function del() {
 	return false;
 }
 
+function update() {
+	question = confirm("是否要修改该细项")
+	if (question != "0") {
+		return true;
+	}
+	return false;
+}
 
+function alter(subentryId, detailName, parameterId, upperLimit, lowerLimit,
+		initValue, price) {
+	$("#subentryId").val(subentryId);
+	$("#dName").val(detailName);
+	$("#pId").val(parameterId);
+	$("#uLimit").val(upperLimit);
+	$("#lLimit").val(lowerLimit);
+	$("#iValue").val(initValue);
+	$("#money").val(price);
+}

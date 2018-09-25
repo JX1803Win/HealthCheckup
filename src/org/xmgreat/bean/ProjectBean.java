@@ -3,13 +3,15 @@ package org.xmgreat.bean;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+
 @Component
 public class ProjectBean
 {
 	private Integer projectId; // 项目id
 	private String itemName; // 项目名称
 	private Integer officeId; // 科室id
-	private OfficeBean office; // 科室实体
+	private OfficeBean officeBean; // 科室实体
+	// 关联属性
 	private List<DetailBean> details; // 细项实体列表
 
 	public ProjectBean()
@@ -17,13 +19,14 @@ public class ProjectBean
 		super();
 	}
 
-	public ProjectBean(Integer projectId, String itemName, Integer officeId, OfficeBean office, List<DetailBean> details)
+	public ProjectBean(Integer projectId, String itemName, Integer officeId, OfficeBean officeBean,
+			List<DetailBean> details)
 	{
 		super();
 		this.projectId = projectId;
 		this.itemName = itemName;
 		this.officeId = officeId;
-		this.office = office;
+		this.officeBean = officeBean;
 		this.details = details;
 	}
 
@@ -57,14 +60,14 @@ public class ProjectBean
 		this.officeId = officeId;
 	}
 
-	public OfficeBean getOffice()
+	public OfficeBean getOfficeBean()
 	{
-		return office;
+		return officeBean;
 	}
 
-	public void setOffice(OfficeBean office)
+	public void setOfficeBean(OfficeBean officeBean)
 	{
-		this.office = office;
+		this.officeBean = officeBean;
 	}
 
 	public List<DetailBean> getDetails()
