@@ -116,6 +116,18 @@ public class RoleBizImpl implements RoleBiz {
 			}
 		}
 	}
+
+	@Override
+	public int getMenuNum(String menuName) {
+		// TODO Auto-generated method stub
+		return permissionsMapper.getMenuNum(menuName);
+	}
+
+	@Override
+	public List<PermissionsInfBean> selectAllMenuInfo(String menuName,int pageNo) {
+		// TODO Auto-generated method stub
+		return permissionsMapper.selectAllMenuInfo(menuName,pageNo);
+	}
 	
 	
 

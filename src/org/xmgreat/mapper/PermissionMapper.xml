@@ -150,6 +150,22 @@
 	   select * from tblRolePermissions where permissionsId=#{permissionsId} and roleId=#{roleId}
 	
 	</select>
-	
+	<!-- 查询菜单数量 -->
+	<select id="getMenuNum" resultType="int">
+	  select count(*) from tblPermissionsInf where 1=1
+	  <if test="menuName!=null and menuName != ''">
+			and menuName like concat(concat('%',#{menuName}),'%')
+		</if>
+	</select>
+		<!-- 查询所有菜单 -->
+	<select id="selectAllMenuInfo"
+		resultType="org.xmgreat.bean.PermissionsInfBean">
+
+		select s.* from (select a.* , rownum rn from tblPermissionsInf a where 1=1
+		<if test="menuName!=null and menuName != ''">
+			and menuName like concat(concat('%',#{menuName}),'%')
+		</if>
+		and rownum &lt; (#{pageNo} * 5 + 1)) s where s.rn &gt;((#{pageNo} - 1)* 5)
+	</select>
 	
 </mapper>

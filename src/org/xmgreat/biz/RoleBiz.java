@@ -23,5 +23,7 @@ public interface RoleBiz {
       public int selectRoleId(String roleName);//查询角色Id
       public void delRolePermissions(int roleId);//删除id权限
       public void addRolePermissions(List<PermissionsInfBean> pbList,int roleId);
+      public int getMenuNum(String menuName);//查询菜单数量
+      public List<PermissionsInfBean> selectAllMenuInfo(String menuName ,int pageNo);//查询菜单
 
 }

@@ -166,7 +166,39 @@ public class RoleAction {
 			
 			return selectAllRoles(request, response, null);	    
 		}
-		
+		@RequestMapping(value="/menuManager.action")//为这个方法定义映射子路劲 
+		@ResponseBody
+		public ModelAndView selectAllMenu (HttpServletRequest request,HttpServletResponse response,String menuName )throws Exception {
+			HttpSession session = request.getSession();
+			String aString=request.getParameter("pageNo");
+			if (aString!=null) {
+				pageNo=Integer.parseInt(aString);
+			}
+			int size=roleBizImpl.getMenuNum(menuName);
+			request.setAttribute("sizeJ", size);
+	  	    int AllPage = 0;
+				if (size % 5 != 0) {
+					AllPage = (size / 5) + 1;
+				} else {
+					AllPage = (size / 5);
+				}			
+				if (0 == pageNo) {
+					pageNo = 1;
+				} else {				
+					if (pageNo < 1) {
+						pageNo = 1;
+					} else if (pageNo > AllPage) {
+						pageNo = AllPage;
+					}
+				}  
+		   request.setAttribute("pageNo", pageNo);
+		   request.setAttribute("AllPage", AllPage);
+	 	   List<PermissionsInfBean> rbList =roleBizImpl.selectAllMenuInfo(menuName,pageNo);
+	 	   request.setAttribute("rbList", rbList); 
+	  	   ModelAndView mav = new ModelAndView();
+	  	   mav.setViewName("backstage/menuManager");
+	  	   return mav;
+		}
 		
 		
 		

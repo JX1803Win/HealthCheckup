@@ -27,4 +27,9 @@ public interface PermissionsMapper {
 	public void delRolePermissions(@Param("roleId")int roleId);//删除id权限
     public void addRolePermissions(@Param("permissionsId")int permissionsId,@Param("roleId")int roleId);
     public RolePermissionsBean selectFPer(@Param("permissionsId")int permissionsId,@Param("roleId")int roleId);
+    public int getMenuNum(@Param("menuName")String menuName);//查询菜单数量
+    public List<PermissionsInfBean> selectAllMenuInfo(@Param("menuName")String menuName,@Param("pageNo")int pageNo);//查询菜单
+    
+    
+    
 }
