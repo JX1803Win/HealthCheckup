@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PhyCardBean // 体检卡
 {
-	private Long PhyCardId; // 体检卡ID
+	private Long phyCardId; // 体检卡ID
 	private Integer parameterId; // 参数ID
 
 	public PhyCardBean() {
@@ -14,12 +14,12 @@ public class PhyCardBean // 体检卡
 
 	public Long getPhyCardId()
 	{
-		return PhyCardId;
+		return phyCardId;
 	}
 
 	public void setPhyCardId(Long phyCardId)
 	{
-		PhyCardId = phyCardId;
+		this.phyCardId = phyCardId;
 	}
 
 	public Integer getParameterId()

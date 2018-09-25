@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.biz.UserBiz;
+import org.xmgreat.util.PhoneCode;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/user")
-public class LoginAction
+public class LoginAndRegAction
 {
 	@Autowired
 	private HttpServletRequest request;
@@ -38,7 +40,9 @@ public class LoginAction
 	private UserBiz userBiz;
 	@Resource
 	private UserInfoBean userInfoBean;
-	//验证前台登入
+	PhoneCode phonecode = new PhoneCode();
+	int racode = (int) ((Math.random()*9+1)*100000);//随机生成的验证码
+	// 验证前台登入
 	@RequestMapping(value = "/login.action")
 	public String login(HttpServletRequest request, String phone, String password)
 	{
@@ -53,24 +57,47 @@ public class LoginAction
 		}
 
 	}
-	//验证手机号
-	@RequestMapping(value = "/reg.action")
+
+	// 验证手机号是否被注册
+	@RequestMapping(value = "/checkphone.action")
 	@ResponseBody
-	public void reg(HttpServletRequest request, String phone) throws IOException
+	public void checkphone(HttpServletRequest request, String phone) throws IOException, ClientException
 	{
 		PrintWriter out = response.getWriter();
-		System.out.println(phone);
 		String tips;
-		userInfoBean =  userBiz.checkPhone(Long.parseLong(phone));
-		if(userInfoBean!=null) {
-			tips="否";
-		}else { 
-			tips="可";
+		userInfoBean = userBiz.checkPhone(Long.parseLong(phone));
+		if (userInfoBean != null)
+		{
+			tips = "否";
+			Gson gson = new Gson();
+			String str = gson.toJson(tips);
+			out.print(str);
+			out.close();
+		}else {
+			phonecode.RegCode(phone, racode);//发送手机验证码
 		}
-		Gson gson = new Gson();
-		String str = gson.toJson(tips);
-		out.print(str);
-		out.close();
 	}
-
+	// 验证验证码是否正确,如果正确则当场注册
+		@RequestMapping(value = "/reg.action")
+		@ResponseBody
+		public void reg(HttpServletRequest request, String usersname,String pass,String phone,String code) throws IOException {
+			System.out.println(usersname+pass+phone+code);
+			String tips;
+			PrintWriter out = response.getWriter();
+			int a = Integer.parseInt(code);
+			if(a!=racode) {
+				tips = "验证码错误";
+				Gson gson = new Gson();
+				String str = gson.toJson(tips);
+				out.print(str);
+				out.close();
+			}else {
+				userBiz.reg(usersname, Long.parseLong(phone), pass);
+			}
+			
+		}
+	
+	
+	
+	
 }
