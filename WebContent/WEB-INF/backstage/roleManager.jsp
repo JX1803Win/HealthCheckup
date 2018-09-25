@@ -57,13 +57,15 @@
 			return;
 		}
 		var myForm=document.getElementById("myForm");
+		
 		myForm.action="<%=path%>role/blackuserLogin.action?pageNo="+pageNo;
 		myForm.method="post";
 		myForm.submit();
 	}
 	function add() {
-		var parameterName = $("#parameterName").val();
-		if(parameterName == "") {
+		var roleName = $("#roleNames").val();
+		alert($("#roleNames").val())
+		if(roleName == "") {
 			alert("角色名称不能为空");
 			return;
 		}
@@ -72,12 +74,30 @@
 		myForm.method="post";
 		myForm.submit();
 	}
+	function alter(roleId, roleName) {
+		//alert(parameterId);
+		$("#uproleId").val(roleId);
+		$("#uproleName").val(roleName);
+		
+	}
+	function adds() {
+		var roleName = $("#uproleName").val();
+		alert($("#uproleName").val())
+		if(roleName == "") {
+			alert("修改角色不能为空");
+			return;
+		}
+		var myForm=document.getElementById("myForm3");
+		myForm.action="<%=path%>role/update.action";
+		myForm.method="post";
+		myForm.submit();
+	}
 </script>
 </head>
 <body>
 <div class="container">
 	<div class="x-nav">
-		<span class="layui-breadcrumb"> <a href="main.jsp"><cite>首页</cite></a> <a><cite>细项配置</cite></a>
+		<span class="layui-breadcrumb"> <a href="main.jsp"><cite>系统管理</cite></a> <a><cite>角色管理</cite></a>
 		</span>
 	</div>
     <div class="page-header text-center">
@@ -88,7 +108,7 @@
 		   <div class="form-group">
 				<label for="name" class="m">角色名称:</label> <input type="text"
 					class="form-control input-sm  m5" id="roleName" name="roleName"
-					placeholder="请输入名称" value="">
+					placeholder="请输入名称" value="${roleName}">
 			</div> 
 			
 			<input type="button" class="btn btn-primary" onclick="search(1)" value="查询"/>
@@ -114,11 +134,12 @@
 		<tbody>
 			<c:forEach items="${rbList}" var="role" varStatus="vs">
 				<tr>
-					<td>${(pageNo-1)*5+vs.index+1}</td>
+					<td>${(pageNo-1)*3+vs.index+1}</td>
 					<td>${role.roleName}</td>
 					<td class="text-center">
-						<button class="btn btn-primary x-right" data-toggle="modal" data-target="#myModal" id="increased">修改</button>&nbsp;&nbsp; 
-						<a href="<%=path%>role/del.action?parameterId=${role.roleId}" onclick="return del()">
+						<button class="btn btn-primary x-right" data-toggle="modal" data-target="#myModal2" 
+							onclick="alter('${role.roleId}','${role.roleName}')">修改</button> 
+						<a href="<%=path%>role/del.action?roleId=${role.roleId}" onclick="return del()">
 							<button type="button" class="btn btn-primary">删除</button>
 						</a>
 					</td>
@@ -131,7 +152,7 @@
 			<button class="btn btn-primary" onclick="search(${pageNo==1?0:1})">首页</button>&nbsp;&nbsp;
 			<button class="btn btn-primary" onclick="search(${(pageNo-1)>0?pageNo-1:0})">上一页</button>&nbsp;&nbsp;
 			<button class="btn btn-primary" onclick="search(${(pageNo+1)<=AllPage?pageNo+1:0})">下一页</button>&nbsp;&nbsp;
-			<button class="btn btn-primary" onclick="search(${pageNo==AllPage?0:totalPage})">末页</button>
+			<button class="btn btn-primary" onclick="search(${pageNo==AllPage?0:AllPage})">末页</button>
 		</div>
 	</div>
 	<!-- 模态框（Modal） -->
@@ -141,7 +162,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
+						aria-hidden="true"></button>
 					<h4 class="modal-title" id="myModalLabel">新增参数</h4>
 				</div>
 
@@ -149,9 +170,9 @@
 					<div class="modal-body">
 
 						<div class="form-group">
-							<label for="parameterName" class="col-sm-2 control-label">角色名称</label>
+							<label for="roleNames" class="col-sm-2 control-label">角色名称</label>
 							<div class="col-sm-10">
-								<input name="parameterName" id="parameterName" type="text" 
+								<input name="roleNames" id="roleNames" type="text" 
 									class="form-control" placeholder="请输入角色名称(必填)">
 							</div>
 						</div>						
@@ -167,6 +188,43 @@
 		</div>
 		<!-- /.modal -->
 	</div>
+	
+	<!-- 修改模态框（Modal） -->
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">修改参数</h4>
+				</div>
+
+				<form id="myForm3" class="form-horizontal" role="form">
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="roleNames" class="col-sm-2 control-label">角色名称</label>
+							<input name="uproleId" id="uproleId" type="hidden" 
+									class="form-control">							
+							<div class="col-sm-10">
+								<input name="uproleName" id="uproleName" type="text" 
+									class="form-control" >
+							</div>
+						</div>	
+											
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="adds()">提交</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>	
     </div>
 	<br />
 	<br />
