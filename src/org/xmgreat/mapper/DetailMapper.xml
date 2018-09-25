@@ -2,6 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="org.xmgreat.mapper.DetailMapper">
+	<!-- 增加细项 -->
+	<insert id="addDetail"
+		parameterType="org.xmgreat.bean.DetailBean">
+		insert into
+		tbldetail(subentryId,detailName,initValue,parameterId,price,upperLimit,lowerLimit)
+		values(subentryid.nextval,#{detailName,jdbcType=VARCHAR},#{initValue,jdbcType=VARCHAR},
+		#{parameterId,jdbcType=INTEGER},#{price,jdbcType=DOUBLE},#{upperLimit,jdbcType=DOUBLE},#{lowerLimit,jdbcType=DOUBLE})
+	</insert>
+
+	<!-- 删除细项 -->
+	<delete id="delDetail" parameterType="java.lang.Integer">
+		delete tbldetail where
+		subentryid = #{subentryId}
+	</delete>
+
+	<!-- 修改细项 -->
+	<update id="updateDetail"
+		parameterType="org.xmgreat.bean.DetailBean">
+		update tbldetail set parameterId =
+		#{parameterId,jdbcType=INTEGER},detailName
+		=#{detailName,jdbcType=VARCHAR},
+		initValue =
+		#{initValue,jdbcType=VARCHAR},lowerLimit =
+		#{lowerLimit,jdbcType=DOUBLE},
+		upperLimit =
+		#{upperLimit,jdbcType=DOUBLE},price = #{price,jdbcType=DOUBLE} where
+		subentryId = #{subentryId}
+	</update>
+
+	<!-- 查询所有细项 -->
+	<select id="selectAll" resultType="org.xmgreat.bean.DetailBean">
+		select * from tbldetail
+	</select>
+
 	<!-- 查询细项 -->
 	<select id="getDetails" parameterType="java.util.Map"
 		resultMap="detail">

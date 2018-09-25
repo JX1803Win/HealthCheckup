@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+#div4 {
+	width: 100%;
+	margin-top: 70px;
+	margin-bottom: 40px;
+}
+
+.m5 {
+	margin-right: 40px;
+}
+
+.m {
+	margin-right: 15px;
+}
+
+body {
+	background-image: url(../images/bg_main.png);
+}
+
+#increased {
+	float: right;
+}
+
+table {
+	table-layout: fixed;
+}
+
+.table tbody tr td {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#increased {
+	float: right;
+}
+
+#div8 {
+	width: 800px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.t2 {
+	margin-top: 20px;
+}
+
+.m2 {
+	margin-top: 10px;
+	margin-right: 30px;
+	margin-bottom: 10px;
+	margin-left: 30px;
+}

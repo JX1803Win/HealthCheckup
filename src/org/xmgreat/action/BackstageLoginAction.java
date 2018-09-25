@@ -30,7 +30,6 @@ public class BackstageLoginAction
 		int roleId=1;
 		HttpSession session = request.getSession();		
 		List<PermissionsInfBean> pibList=adminBiz.selectRoleInfo(roleId);
-		System.out.println("--->"+pibList);
 		session.setAttribute("pibList", pibList);
 		return "backstage/index";
 	}
