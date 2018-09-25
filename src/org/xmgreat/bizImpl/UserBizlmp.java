@@ -29,4 +29,11 @@ public class UserBizlmp implements UserBiz
 		return userMapper.checkPhone(phone);
 	}
 
+	@Override
+	public void reg(String username, Long phone, String pwd)
+	{
+		// TODO Auto-generated method stub
+		userMapper.reg(username, phone, pwd);
+	}
+
 }
