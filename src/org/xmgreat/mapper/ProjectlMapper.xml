@@ -20,7 +20,9 @@
 
 
 	<resultMap type="org.xmgreat.bean.ProjectBean" id="project">
-		
+		<id property="projectId" column="projectId" />
+		<result property="itemName" column="itemName" />
+		<association property="officeBean" column="" javaType=""></association>
 	</resultMap>
 
 	<!-- 条件查询项目总数 -->
