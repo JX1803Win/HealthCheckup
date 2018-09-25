@@ -5,28 +5,32 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserPhyRecordBean //用户体检记录
 {
-	private Integer physicaiId;//体检号
+	private Long physicaiId;//体检号
 	private Long barCode;	   //条码号
 	private Integer userId;	   //用户ID
+	private String userName;   // 用户名字
 	private Integer setmealId; //套餐ID
+	private String setmealName;//套餐名称
 	private Integer projectId; //项目ID
+	private String itemName;//项目名称
 	private String phyTime;    //体检时间
 	private String phyConad;   //体检总结及建议
 	private String guidance;   //生活保健指导
 	private Integer adminId;   //总结医生ID
 	private String sumTime;    //总结时间
+	
 	private UserPhyRecordBean userPhyRecordBean;//用户体检记录实体
 	private ManagerBean managerBean;//管理员实体
 	public UserPhyRecordBean() {
 		
 	}
 
-	public Integer getPhysicaiId()
+	public Long getPhysicaiId()
 	{
 		return physicaiId;
 	}
 
-	public void setPhysicaiId(Integer physicaiId)
+	public void setPhysicaiId(Long physicaiId)
 	{
 		this.physicaiId = physicaiId;
 	}
@@ -135,6 +139,30 @@ public class UserPhyRecordBean //用户体检记录
 
 	public void setManagerBean(ManagerBean managerBean) {
 		this.managerBean = managerBean;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getSetmealName() {
+		return setmealName;
+	}
+
+	public void setSetmealName(String setmealName) {
+		this.setmealName = setmealName;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 	
 }

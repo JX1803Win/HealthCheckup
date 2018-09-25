@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper动态代理： namespace 的值要等于接口的地址（包名.接口名） -->
+<mapper namespace="org.xmgreat.mapper.AppoMapper">
+	<!-- 添加用户体检记录 -->
+	<insert id="addPhyRecord">
+		<!-- <selectKey keyProperty="physicaiId" resultType="int" order="BEFORE">  
+    		select phySeq.NEXTVAL from dual  
+		</selectKey> -->
+
+		insert into TBLUSERPHYRECORD(PHYSICAIID, USERID, SETMEALID, PROJECTID)
+		values(phySeq.NEXTVAL, #{uprb.userId}, #{uprb.setmealId,jdbcType=INTEGER}, #{uprb.projectId,jdbcType=INTEGER})
+	</insert>
+	
+	<!-- 添加用户预约记录 -->
+	<insert id="addAppoRecord">
+		insert into TBLUSERAPPO values(appoSeq.nextval, #{time}, #{physicaiId})
+	</insert>
+</mapper>

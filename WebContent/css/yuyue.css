@@ -1,0 +1,85 @@
+body
+{
+    background: url(../images/YuYue/yuyuebg.jpg);
+    background-size:100% 100%;
+}
+img
+{
+    border:0px;
+}
+.bg {
+	/*background: url(../images/YuYue/yuyuebg.jpg);
+	background-size: cover;*/
+	width: 100%;
+	max-width: 1918px;
+	height: 737px;
+	position: relative;
+    overflow:auto;
+}
+
+.content {
+	position: absolute;
+	right: 10%;
+	width: 750px;
+	height: 60%;
+	padding: 10% 0;
+	text-align: center;
+}
+
+.liucheng {
+	height: 30px;
+	 
+	text-align: center;
+	
+	margin: 40px auto;
+}
+
+.liucheng>div
+{
+    overflow: hidden;
+   display:inline-block;
+    margin:0 auto;
+}
+
+.liucheng>div>.text_div {
+	float: left;
+	border: 1px solid orangered;
+	border-radius: 4px;
+	padding: 3px 10px;
+    font-size:16px;
+}
+
+.liucheng>div>.next {
+	width: 30px;
+	float: left;
+    line-height:30px;
+}
+.liucheng>div>.next>img {
+	vertical-align:middle;
+}
+.check{
+	background: #EA5504;
+	color: white;
+}
+
+.content_title{
+	font-size: 24px;
+	color: #EA5504;
+}
+.content_detail{
+	width: 80%;
+    margin:0 auto;
+    margin-left:220px;
+}
+
+button
+{
+    background:none;
+    border:0px;
+}
+
+select
+{
+    outline-style:none;
+}
+

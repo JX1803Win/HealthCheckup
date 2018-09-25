@@ -23,13 +23,6 @@ public interface ParamMapper
 	 */
 	public List<ParameterBean> search(@Param("typeName") String typeName, @Param("pageNo") Integer pageNo);
 
-	/**
-	 * @description 计算条件分页查询参数总数
-	 * @param typeName 参数类型
-	 * @return 参数总数
-	 */
-
-	public Integer countOfSearch(String typeName);
 
 	/**
 	 * @description 根据参数类型查询参数列表信息
@@ -37,7 +30,12 @@ public interface ParamMapper
 	 * @return 返回参数列表信息
 	 */
 	public List<ParameterBean> getParameters(@Param("parameterType") Integer parameterType);
-
+	
+	/**
+	 * @description 计算条件分页查询参数总数
+	 * @param typeName 参数类型
+	 * @return 参数总数
+	 */
 	public Integer countOfSearch(@Param("typeName")String typeName);
 	
 	/**
