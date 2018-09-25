@@ -20,6 +20,15 @@ public class BackstageLoginAction
 	@RequestMapping(value = "/login.action")
 	public String login(HttpServletRequest request, ManagerBean managerBean, String verification)
 	{
+<<<<<<< HEAD
+=======
+		
+		//通过角色查询动态菜单
+		int roleId=1;
+		HttpSession session = request.getSession();		
+		List<PermissionsInfBean> pibList=adminBiz.selectRoleInfo(roleId);
+		session.setAttribute("pibList", pibList);
+>>>>>>> refs/heads/master
 		return "backstage/index";
 	}
 

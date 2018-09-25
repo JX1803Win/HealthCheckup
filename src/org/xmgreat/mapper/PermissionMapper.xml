@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper动态代理： namespace 的值要等于 UserDao 接口的地址（包名.接口名） -->
+<mapper namespace="org.xmgreat.mapper.PermissionsMapper">
+
+	<!-- 查询登录账户权限 -->
+	<select id="selectRoleInfo" resultMap="PermissionsInf"
+		parameterType="int">
+		select * from tblPermissionsInf tpi,tblRolePermissions
+		trp where
+		trp.permissionsId=tpi.permissionsId and trp.roleId=#{roleId}
+	</select>
+	<resultMap type="org.xmgreat.bean.PermissionsInfBean"
+		id="PermissionsInf">
+		<id property="permissionsId" column="permissionsId" />
+		<result property="menuName" column="menuName" />
+		<result property="preMenu" column="preMenu" />
+		<result property="urlAddress" column="urlAddress" />
+		<result property="orderNo" column="orderNo" />
+
+		<association property="rolePermissionsBean"
+			column="permissionsId"
+			javaType="org.xmgreat.bean.RolePermissionsBean">
+			<id property="permissionsId" column="permissionsId" />
+			<result property="roleId" column="roleId" />
+		</association>
+	</resultMap>
+	<!-- 查询角色的数量 -->
+	<select id="getRoleNum" resultType="int">
+		select count(*) from tblRole where 1=1
+		<if test="roleName!=null and roleName != ''">
+			and roleName like concat(concat('%',#{roleName}),'%')
+		</if>
+	</select>
+	<!-- 查询所有角色 -->
+	<select id="selectAllRoleInfo"
+		resultType="org.xmgreat.bean.RoleBean">
+
+		select z.* from (select a.* , rownum rn from tblRole a where 1=1
+		<if test="roleName!=null and roleName != ''">
+			and roleName like concat(concat('%',#{roleName}),'%')
+		</if>
+		and rownum &lt; (#{pageNo} * 3 + 1)) z where z.rn &gt;((#{pageNo} - 1)
+		* 3)
+	</select>
+
+	<!-- 删除角色 -->
+	<delete id="delManageRole">
+		delete from tblManager where roleId=#{roleId}
+	</delete>
+	<delete id="delRole">
+		delete from tblRole where roleId=#{roleId}
+	</delete>
+	<delete id="deltblRulePermissions">
+		delete from tblRulePermissions where roleId=#{roleId}
+	</delete>
+	<!-- 添加角色 -->
+	<insert id="addRole">
+		<selectKey keyProperty="roleId" resultType="int"
+			order="BEFORE">
+			select SEQ_ROLEID.NEXTVAL from dual
+		</selectKey>
+		insert into tblRole(roleId,roleName) values(#{roleId},#{roleName})
+	</insert>
+	<!-- 修改角色名 -->
+	<update id="updateRole">
+		update tblRole set roleName=#{roleName} where roleId=#{roleId}
+	</update>
+	<!-- 查询所有菜单 -->
+	<select id="selectAllMenu"
+		resultType="org.xmgreat.bean.PermissionsInfBean">
+		select * from TBLPERMISSIONSINF
+	</select>
+	<!--查询所有父类菜单 -->
+	<select id="selectAllFMenu" resultType="org.xmgreat.bean.PermissionsInfBean">
+		select * from TBLPERMISSIONSINF where PREMENU=0
+	</select>
+	<!-- 查询角色下的所有菜单 -->
+	<select id="selectAllMenuRole" resultMap="RoleInf">
+		select t.* from TBLPERMISSIONSINF t ,tblRolePermissions tp,tblRole tr where
+		tr.roleId=tp.roleId and tp.permissionsId=t.permissionsId and
+		tr.roleName=#{roleName}
+	</select>
+	<resultMap id="RoleInf" type="org.xmgreat.bean.RoleBean">
+		<id column="roleId" property="roleId" />
+		<result property="roleName" column="roleName" />
+		<association property="rolePermissionsBean"
+			javaType="org.xmgreat.bean.RolePermissionsBean">
+			<id column="roleId" property="roleId" />
+			<result column="permissionsId" property="permissionsId" />
+			<!-- 一对多 -->
+			<collection property="pibList" ofType="org.xmgreat.bean.PermissionsInfBean" >
+				<id property="permissionsId" column="permissionsId" />
+				<result property="menuName" column="menuName" />
+				<result property="preMenu" column="preMenu" />
+				<result property="urlAddress" column="urlAddress" />
+				<result property="orderNo" column="orderNo" />
+			</collection>
+		</association>
+
+	</resultMap>
+
+	<!-- 查询角色下的所有父类的菜单 -->
+	<select id="selectAllFMenuRole" resultMap="RoleInfs">
+		select t.* from TBLPERMISSIONSINF t ,tblRolePermissions tp,tblRole tr where
+		tr.roleId=tp.roleId and tp.permissionsId=t.permissionsId and
+		tr.roleName=#{roleName}
+		and t.PREMENU=0
+	</select>
+
+	<resultMap id="RoleInfs" type="org.xmgreat.bean.RoleBean">
+		<id column="roleId" property="roleId" />
+		<result property="roleName" column="roleName" />
+		<association property="rolePermissionsBean"
+			javaType="org.xmgreat.bean.RolePermissionsBean">
+			<id column="roleId" property="roleId" />
+			<result column="permissionsId" property="permissionsId" />
+			<!-- 一对多 -->
+			<collection property="pibList" ofType="org.xmgreat.bean.PermissionsInfBean">
+				<id property="permissionsId" column="permissionsId" />
+				<result property="menuName" column="menuName" />
+				<result property="preMenu" column="preMenu" />
+				<result property="urlAddress" column="urlAddress" />
+				<result property="orderNo" column="orderNo" />
+			</collection>
+		</association>
+
+	</resultMap>
+	<!-- 查询选中的权限list -->
+    <select id="selectAllPer" resultType="org.xmgreat.bean.PermissionsInfBean">
+	 select * from tblPermissionsInf where menuName =#{menuName}	
+	</select>
+	<!-- 查询角色Id -->
+	<select id="selectRoleId" resultType="int">
+	 select roleId from tblRole where roleName =#{roleName}
+	</select>
+	<!-- 删除角色下的所有权限 -->
+	<delete id="delRolePermissions">
+	delete from tblRolePermissions where roleId=#{roleId}
+	</delete>
+	<!-- 添加角色权限 -->
+	<insert id="addRolePermissions">
+	 insert into tblRolePermissions (roleId,permissionsId) values (#{roleId},#{permissionsId})
+	</insert>
+	<!-- 查询父类权限是否存在 -->
+	<select id="selectFPer" resultType="org.xmgreat.bean.RolePermissionsBean" >
+	   select * from tblRolePermissions where permissionsId=#{permissionsId} and roleId=#{roleId}
+	
+	</select>
+	<!-- 查询菜单数量 -->
+	<select id="getMenuNum" resultType="int">
+	  select count(*) from tblPermissionsInf where 1=1
+	  <if test="menuName!=null and menuName != ''">
+			and menuName like concat(concat('%',#{menuName}),'%')
+		</if>
+	</select>
+		<!-- 查询所有菜单 -->
+	<select id="selectAllMenuInfo"
+		resultType="org.xmgreat.bean.PermissionsInfBean">
+
+		select s.* from (select a.* , rownum rn from tblPermissionsInf a where 1=1
+		<if test="menuName!=null and menuName != ''">
+			and menuName like concat(concat('%',#{menuName}),'%')
+		</if>
+		and rownum &lt; (#{pageNo} * 5 + 1)) s where s.rn &gt;((#{pageNo} - 1)* 5)
+	</select>
+	
+</mapper>

@@ -4,18 +4,18 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 @Component
-public class SetmealBena
+public class SetmealBean
 {
 	private Integer setmealId; // 套餐id
 	private String setmealName; // 套餐名
 	private List<ProjectBean> items; // 项目列表
 
-	public SetmealBena()
+	public SetmealBean()
 	{
 		super();
 	}
 
-	public SetmealBena(Integer setmealId, String setmealName, List<ProjectBean> items)
+	public SetmealBean(Integer setmealId, String setmealName, List<ProjectBean> items)
 	{
 		super();
 		this.setmealId = setmealId;

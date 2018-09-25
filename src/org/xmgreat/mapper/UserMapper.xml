@@ -3,10 +3,23 @@
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="org.xmgreat.mapper.UserMapper">
 
- 	<select id="checkUser" 
-	 resultType="org.xmgreat.bean.UserInfoBean">
-	 SELECT * FROM TBLUSERINFO WHERE PHONE=#{phone} AND PWD=#{pwd}
-	 </select>
+
 	 
+
+	<select id="checkUser"
+		resultType="org.xmgreat.bean.UserInfoBean">
+		SELECT * FROM TBLUSERINFO WHERE PHONE=#{phone} AND PWD=#{pwd}
+	</select>
+
+	<select id="checkPhone"
+		resultType="org.xmgreat.bean.UserInfoBean">
+		SELECT * FROM TBLUSERINFO WHERE PHONE=#{phone}
+	</select>
+
+	<insert id="reg">
+		INSERT INTO TBLUSERINFO (USERID,USERNAME,PHONE,PWD,REGTIME,PARAMETERID) VALUES (USERREG.NEXTVAL,#{username},#{phone},#{pwd},to_char(sysdate,'yyyy-mm-dd'),1)
+	</insert>
+
+
 </mapper>
 	

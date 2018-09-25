@@ -15,18 +15,30 @@ public class PhyCardBean // 体检卡
 		
 	}
 
+<<<<<<< HEAD
 	
 
 	public PhyCardBean(Long phyCardId, Integer parameterId) {
 		super();
 		this.phyCardId = phyCardId;
 		this.parameterId = parameterId;
+=======
+	public Long getPhyCardId()
+	{
+		return phyCardId;
+>>>>>>> refs/heads/master
 	}
 
+<<<<<<< HEAD
 
 
 	public ParameterBean getParameterBean() {
 		return parameterBean;
+=======
+	public void setPhyCardId(Long phyCardId)
+	{
+		this.phyCardId = phyCardId;
+>>>>>>> refs/heads/master
 	}
 
 
