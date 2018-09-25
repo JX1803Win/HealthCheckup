@@ -6,23 +6,50 @@
 	<!-- 增加项目 -->
 	<insert id="addProject"
 		parameterType="org.xmgreat.bean.ProjectBean">
-		insert into tblproject(projectid,itemname,officeid)
+		insert into tblproject(projectId,itemName,officeId)
 		values(projectid.nextval,#{itemName},#{officeId})
 	</insert>
+
+	<!-- 增加项目关系 -->
+	<insert id="addRelation" parameterType="java.util.Map">
+		insert into tblprojectdetail(projectId,subentryid) values
+		<foreach collection="privIds" index="index" item="item"
+			separator=",">
+			( #{userId}, #{item} )
+		</foreach>
+	</insert>
+
 	<!-- 项目详情 -->
 	<select id="getProject" parameterType="java.lang.Integer"
 		resultMap="project">
 		select p.*,d.*,r.parametervalues FROM tblproject
 		p,tblprojectdetail c,tbldetail d,tblparameter r where d.subentryid =
 		c.subentryid and p.projectid = c.projectid and r.parameterid =
-		d.parameterid and projectId = #{projectId}
+		d.parameterid and p.projectId = #{projectId}
 	</select>
 
 
 	<resultMap type="org.xmgreat.bean.ProjectBean" id="project">
 		<id property="projectId" column="projectId" />
 		<result property="itemName" column="itemName" />
-		<association property="officeBean" column="" javaType=""></association>
+		<association property="officeBean" column="officeId"
+			javaType="org.xmgreat.bean.OfficeBean">
+			<id property="officeId" column="officeId" />
+			<result property="officeName" column="officeName" />
+		</association>
+		<association property="parameterBean" column="parameterId"
+			javaType="org.xmgreat.bean.ParameterBean">
+			<id property="parameterId" column="parameterId" />
+			<result property="parameterValues" column="parameterValues" />
+		</association>
+		<collection property="details">
+			<id property="subentryId" column="subentryId" />
+			<result property="detailName" column="detailName" />
+			<result property="price" column="price" />
+			<result property="upperLimit" column="upperLimit" />
+			<result property="lowerLimit" column="lowerLimit" />
+			<result property="initValue" column="initValue" />
+		</collection>
 	</resultMap>
 
 	<!-- 条件查询项目总数 -->
