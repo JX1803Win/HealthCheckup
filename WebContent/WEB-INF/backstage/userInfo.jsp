@@ -28,6 +28,7 @@
 <script type="text/javascript" src="../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../js/myPublic.js"></script>
 <script src="<%=path %>laydate/laydate.js"></script>
+<script type="text/javascript" src="../js/myVerify.js"></script>
 </head>
 <body>
 	<div class="x-nav">
@@ -43,7 +44,7 @@
 			role="form" method="post">
 			<div class="form-group">
 				<label for="name" class="m">姓名:</label> <input type="text"
-					class="form-control input-sm  m4" id="name" name="userName"
+					class="form-control input-sm  m4" id="name" name="userName"onblur="isChinese(this.value)"
 					placeholder="请输入名称" value="${userName}">
 			</div>
 			<div class="form-group">
@@ -75,10 +76,6 @@
 	</div>
 
 	<div class="clearfix"></div>
-
-	<%-- <div class="tools">
-		<span class="x-right" style="line-height: 25px">共有数据：${1}条</span>
-	</div> --%>
 	<table class="tablelist">
 		<thead>
 			<tr>
@@ -106,28 +103,28 @@
 					<td>${user.parameterBean.parameterName}</td>
 					<c:if test="${user.parameterID==1}">
 						<td class="td-manage"><a style="text-decoration: none"
-							href="<%=path%>ManageAction/updateUserState.action?page=${1}&&userId=${user.userId}&&parameterID=2"
-							title="禁用" onclick="return forbidden()"> <i
+							href="<%=path%>ManageAction/updateUserState.action?page=${page}&&userId=${user.userId}&&parameterID=2"
+							title="禁用" onclick="return myforbidden()"> <i
 								class="layui-icon">&#xe601;</i>
 						</a> <a style="text-decoration: none"
-							href="<%=path%>ManageAction/updateUserPwd.action?page=${1}&&userId=${user.userId}&&pwd=${000000}"
-							title="重置密码" onclick="return reset()"> <i class="layui-icon">&#xe631;</i>
+							href="<%=path%>ManageAction/updateUserPwd.action?page=${page}&&userId=${user.userId}&&pwd=${000000}"
+							title="重置密码" onclick="return myreset()"> <i class="layui-icon">&#xe631;</i>
 						</a> <a title="删除"
-							href="<%=path%>ManageAction/updateUserState.action?page=${1}&&userId=${user.userId}&&parameterID=0"
-							onclick="return del()" style="text-decoration: none"> <i
+							href="<%=path%>ManageAction/updateUserState.action?page=${page}&&userId=${user.userId}&&parameterID=0"
+							onclick="return mydelete()" style="text-decoration: none"> <i
 								class="layui-icon">&#xe640;</i>
 						</a></td>
 					</c:if>
 					<c:if test="${user.parameterID==2}">
 						<td class="td-manage"><a style="text-decoration: none"
-							href="<%=path%>ManageAction/updateUserState.action?page=${1}&&userId=${user.userId}&&parameterID=1"
-							title="启用" onclick="return start()"><i class="layui-icon">&#xe62f;</i></a>
+							href="<%=path%>ManageAction/updateUserState.action?page=${page}&&userId=${user.userId}&&parameterID=1"
+							title="启用" onclick="return mystar()"><i class="layui-icon">&#xe62f;</i></a>
 							<a style="text-decoration: none"
-							href="<%=path%>ManageAction/updateUserPwd.action?page=${1}&&userId=${user.userId}&&pwd=${000000}"
-							title="重置密码" onclick="return reset()"> <i class="layui-icon">&#xe631;</i>
+							href="<%=path%>ManageAction/updateUserPwd.action?page=${page}&&userId=${user.userId}&&pwd=${000000}"
+							title="重置密码" onclick="return myreset()"> <i class="layui-icon">&#xe631;</i>
 						</a> <a title="删除"
-							href="<%=path%>ManageAction/updateUserState.action?page=${1}&&userId=${user.userId}&&parameterID=0"
-							onclick="return del()" style="text-decoration: none"> <i
+							href="<%=path%>ManageAction/updateUserState.action?page=${page}&&userId=${user.userId}&&parameterID=0"
+							onclick="return mydelete()" style="text-decoration: none"> <i
 								class="layui-icon">&#xe640;</i>
 						</a></td>
 					</c:if>
@@ -139,17 +136,29 @@
 	</table>
 	<div class="page">
 		<div class="pagelist text-center">
-			
+		<span class="jump"><a
+					href="<%=path%>ManageAction/showUser.action?page=${1}&&userName=${userName}&&phyCardId1=${phyCardId1}&&parameterID1=${parameterID1}&&regTimeA=${regTimeA}&&regTimeB=${regTimeB}">首页</a></span>
+			<c:choose>
+				<c:when test="${page>1}">
 					<span class="jump"><a
-						href="<%=path%>ManageAction/showUser.action?page=${page-1}&&userName=${userName}&&phyCardId1=${phyCardId1}&&parameterID1=${parameterID1}&&regTimeA=${regTimeA}&&regTimeB=${regTimeB}">上一页</a></span>
+					href="<%=path%>ManageAction/showUser.action?page=${page-1}&&userName=${userName}&&phyCardId1=${phyCardId1}&&parameterID1=${parameterID1}&&regTimeA=${regTimeA}&&regTimeB=${regTimeB}">上一页</a></span>
+				</c:when>
+				<c:otherwise>
+					<span class="jump">上一页</span>
+				</c:otherwise>
+			</c:choose>
 			<span class="jump">${page}/${pageAll}</span>
-			
+			<c:choose>
+				<c:when test="${page<pageAll}">
 					<span class="jump"><a
 						href="<%=path%>ManageAction/showUser.action?page=${page+1}&&userName=${userName}&&phyCardId1=${phyCardId1}&&parameterID1=${parameterID1}&&regTimeA=${regTimeA}&&regTimeB=${regTimeB}">下一页</a></span>
-				
-					
-				
-			
+				</c:when>
+				<c:otherwise>
+					<span class="jump">下一页</span>
+				</c:otherwise>
+			</c:choose>
+			<span class="jump"><a
+					href="<%=path%>ManageAction/showUser.action?page=${pageAll}&&userName=${userName}&&phyCardId1=${phyCardId1}&&parameterID1=${parameterID1}&&regTimeA=${regTimeA}&&regTimeB=${regTimeB}">末页</a></span>
 		</div>
 	</div>
 <script>

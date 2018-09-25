@@ -24,24 +24,5 @@ public class ParamBizImpl implements ParamBiz{
 		return paramMapper.countOfSearch(typeName);
 	}
 
-	@Override
-	public void del(Integer parameterId) {
-		paramMapper.del(parameterId);
-	}
-
-	@Override
-	public List<ParameterBean> queryAllTypeName() {
-		return paramMapper.queryAllTypeName();
-	}
-
-	@Override
-	public void addParam(ParameterBean pb) {
-		paramMapper.addParam(pb);
-	}
-
-	@Override
-	public void alterParam(ParameterBean pb) {
-		paramMapper.alterParam(pb);
-	}
 
 }

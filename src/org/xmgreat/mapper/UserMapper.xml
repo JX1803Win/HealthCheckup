@@ -8,10 +8,5 @@
 	 SELECT * FROM TBLUSERINFO WHERE PHONE=#{phone} AND PWD=#{pwd}
 	 </select>
 	 
-	 <select id="checkPhone" 
-	 resultType="org.xmgreat.bean.UserInfoBean">
-	 SELECT * FROM TBLUSERINFO WHERE PHONE=#{phone}
-	 </select>
-	 
 </mapper>
 	

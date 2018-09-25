@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 public class UserInfoBean	 //用户信息
 {
 	private Integer userId;  // 用户ID
+	private String userId1;  // 用户ID
 	private String userName; //用户名字
 	private String sex;		 //性别
 	private Integer age;	 //年龄
@@ -24,8 +25,18 @@ public class UserInfoBean	 //用户信息
 	private String parameterID1; //参数ID
 	private Integer page;  //页数
 	private ParameterBean parameterBean;
+	private ParameterBean1 parameterBean1;
+	private ParameterBean2 parameterBean2;
 	public UserInfoBean() {
 		
+	}
+
+	public String getUserId1() {
+		return userId1;
+	}
+
+	public void setUserId1(String userId1) {
+		this.userId1 = userId1;
 	}
 
 	public String getParameterID1() {
@@ -210,5 +221,22 @@ public class UserInfoBean	 //用户信息
 		this.userId = userId;
 		this.pwd = pwd;
 	}
+
+	public ParameterBean1 getParameterBean1() {
+		return parameterBean1;
+	}
+
+	public void setParameterBean1(ParameterBean1 parameterBean1) {
+		this.parameterBean1 = parameterBean1;
+	}
+
+	public ParameterBean2 getParameterBean2() {
+		return parameterBean2;
+	}
+
+	public void setParameterBean2(ParameterBean2 parameterBean2) {
+		this.parameterBean2 = parameterBean2;
+	}
+	
 
 }

@@ -15,7 +15,7 @@
 		    <if test="parameterID1!=null"><if test="parameterID1!=''">and u.parameterID = #{parameterID1}</if> </if>
 			<if test="regTimeA!=null"><if test="regTimeA!=''">and regTime &gt;=#{regTimeA}</if> </if>
 			<if test="regTimeB!=null"><if test="regTimeB!=''">and regTime &lt;=#{regTimeB}</if> </if>
-			and u.parameterID=p.parameterID and u.parameterID!=0  and rownum &lt;#{page}*3+1 ORDER BY userName 
+			and u.parameterID=p.parameterID and u.parameterID!=0  and rownum &lt;#{page}*3+1 ORDER BY userId 
 		</where>
 		) where rn &gt;(#{page} - 1) * 3
 	</select>
@@ -61,14 +61,14 @@
 	 <!-- 后台用户管理 -->
 	<select id="showAdmin" parameterType="org.xmgreat.bean.ManagerBean"
 		resultMap="AdminMap">
-		select * from(select p.parametername,r.ruleName,o.officename,a.* ,rownum rn from tblManager a,tblparameter p,tblRole r,tbloffice o
+		select * from(select p.parametername,r.roleName,o.officename,a.* ,rownum rn from tblManager a,tblparameter p,tblRole r,tbloffice o
 		<where>
-		    <if test="mangerName!=null"><if test="mangerName!=''">and managerName like concat(concat('%',#{managerName}),'%')</if> </if>
+		    <if test="mangerName!=null"><if test="mangerName!=''">and managerName like concat(concat('%',#{mangerName}),'%')</if> </if>
 		 <if test="phoneNum1!=null"><if test="phoneNum1!=''">and phoneNum = #{phoneNum1}</if> </if>
-		    <if test="paramterId1!=null"><if test="paramterId1!=''">and parameterID = #{paramterId1}</if> </if>
-			<if test="roleName!=null"><if test="roleName!=''">and r.roleName &gt;=#{roleName}</if> </if>
-			<if test="officeName!=null"><if test="officeName!=''">and o.officeName &lt;=#{officeName}</if> </if>
-			and a.parameterID=p.parameterID and a.parameterID!=0 and a.roleId=r.roleId and a.officeid=o.officeid and a.roleId!=1  and rownum &lt;#{page}*3+1 ORDER BY managerName 
+		    <if test="paramterId1!=null"><if test="paramterId1!=''">and a.parameterID = #{paramterId1}</if> </if>
+			<if test="roleId1!=null"><if test="roleId1!=''">and r.roleId =#{roleId1}</if> </if>
+			<if test="officeId1!=null"><if test="officeId1!=''">and o.officeId =#{officeId1}</if> </if>
+			and a.parameterID=p.parameterID and a.parameterID!=0 and a.roleId=r.roleId and a.officeid=o.officeid and a.roleId!=1  and rownum &lt;#{page}*3+1 ORDER BY adminId 
 		</where>
 		) where rn &gt;(#{page} - 1) * 3
 	</select>
@@ -92,7 +92,7 @@
 			</association>
 			<association property="roleBean" column="roleId" javaType="org.xmgreat.bean.RoleBean">
 				<id property="roleId" column="roleId" />
-			<result property="roleName" column="ruleName" />
+			<result property="roleName" column="roleName" />
 			</association>
 			<association property="officeBean" column="officeId" javaType="org.xmgreat.bean.OfficeBean">
 				<id property="officeId" column="OFFICEID" />
@@ -101,14 +101,128 @@
 	</resultMap>
 	<!-- 查询用后台户总数 -->
 	<select id="showAdminCount" parameterType="org.xmgreat.bean.ManagerBean" resultType="java.lang.Integer">
-		select count(*) from tblManager where parameterId != 0
+		select count(*) from tblManager 
+		<where>
+		    <if test="mangerName!=null"><if test="mangerName!=''">and managerName like concat(concat('%',#{mangerName}),'%')</if> </if>
+		 <if test="phoneNum1!=null"><if test="phoneNum1!=''">and phoneNum = #{phoneNum1}</if> </if>
+		    <if test="paramterId1!=null"><if test="paramterId1!=''">and parameterID = #{paramterId1}</if> </if>
+			<if test="roleId1!=null"><if test="roleId1!=''">and roleId =#{roleId1}</if> </if>
+			<if test="officeId1!=null"><if test="officeId1!=''">and officeId =#{officeId1}</if> </if>
+			and parameterId != 0
+		
+		</where>
 	</select>
 	<!-- 修改后台用户状态 -->
 	 <update id="updateAdminState"  parameterType="org.xmgreat.bean.ManagerBean">
-	 update tblManager set parameterId = #{parameterId} where adminId=#{adminId}
+	 update tblManager set parameterId = #{paramterId} where adminId=#{adminId}
 	 </update>
 	 <!-- 修改后台用户密码 -->
 	 <update id="updateAdminPwd"  parameterType="org.xmgreat.bean.ManagerBean">
 	 update tblManager set password = #{password} where adminId=#{adminId}
 	 </update>
+	<!--  查询后台角色 -->
+	<select id="selectRole" parameterType="org.xmgreat.bean.RoleBean" resultType="org.xmgreat.bean.RoleBean">
+	select * from TBLROLE where ROLEID !=1
+	</select>
+	<!-- 查询科室 -->
+	<select id="selectOffice" parameterType="org.xmgreat.bean.OfficeBean" resultType="org.xmgreat.bean.OfficeBean">
+	select * from TBLOFFICE
+	</select>
+	<!-- 查询城市 -->
+	<select id="selectCity" parameterType="org.xmgreat.bean.CityBean" resultType="org.xmgreat.bean.CityBean">
+	select * from TBLCITY where PROVINCEID=#{provinceId}
+	</select>
+	<!-- 查询省份 -->
+	<select id="selectProvince" parameterType="org.xmgreat.bean.Province" resultType="org.xmgreat.bean.Province">
+	select * from TBLPROVINCE
+	</select>
+	<!-- 查询用户知否以注册 -->
+	<select id="selectAdmin" parameterType="org.xmgreat.bean.ManagerBean" resultType="java.lang.Integer">
+	select count(*) from tblManager where adminID=#{adminId}
+	</select>
+	<!-- 增加后台用户 -->
+	<insert id="adminAdd" parameterType="org.xmgreat.bean.ManagerBean">
+	INSERT INTO TBLMANAGER (ADMINID, MANAGERNAME, SEX, AGE, BIRTHDATE, CITYID, ADDRESS, PHONENUM, PASSWORD, ROLEID, OFFICEID, PARAMETERID) VALUES (#{adminId}, #{mangerName}, #{sex}, #{age}, #{birthDate}, #{cityId}, #{address}, #{phoneNum}, #{password}, #{roleId}, #{officeId}, #{paramterId})
+	</insert>
+	<!-- 查询体检卡信息 -->
+	<select id="showPhyCardInfo" parameterType="org.xmgreat.bean.PhyCardBean"
+		resultMap="PhyCard">
+		select * from(select p.parametername,h.* ,rownum rn from TBLPHYCARD h,tblparameter p
+		<where>
+		 <if test="phyCardId1!=null"><if test="phyCardId1!=''">and PHYCARDID = #{phyCardId1}</if> </if>
+		    <if test="parameterId1!=null"><if test="parameterId1!=''">and h.parameterID = #{parameterId1}</if> </if>
+			and h.parameterID=p.parameterID and h.parameterID!=16 and h.parameterID!=0 and rownum &lt;#{page}*3+1 ORDER BY phyCardId 
+		</where>
+		) where rn &gt;(#{page} - 1) * 3
+	</select>
+	 <resultMap type="org.xmgreat.bean.PhyCardBean" id="PhyCard">
+			<id property="phyCardId" column="PHYCARDID" />
+			<result property="parameterId" column="parameterId" />
+			<association property="parameterBean" column="parameterId" javaType="org.xmgreat.bean.ParameterBean">
+				<id property="parameterId" column="parameterId" />
+			<result property="parameterName" column="parameterName" />
+			</association>
+	</resultMap>
+	<!-- 查询体检卡总数 -->
+	<select id="showPhyCardCount" parameterType="org.xmgreat.bean.PhyCardBean" resultType="java.lang.Integer">
+		select count(*) from TBLPHYCARD 
+		<where>
+		    <if test="phyCardId1!=null"><if test="phyCardId1!=''">and PHYCARDID = #{phyCardId1}</if> </if>
+		    <if test="parameterId1!=null"><if test="parameterId1!=''">and parameterID = #{parameterId1}</if> </if>
+			and parameterId != 16 and parameterId != 0
+		</where>
+	</select>
+	<!-- 修改后台用户密码 -->
+	 <update id="updatePhyCardState"  parameterType="org.xmgreat.bean.PhyCardBean">
+	 update TBLPHYCARD set parameterId = #{parameterId} where PHYCARDID=#{phyCardId}
+	 </update>
+	
+	 <!-- 用户体检卡管理 -->
+	 <select id="phyCardManagement" parameterType="org.xmgreat.bean.UserInfoBean"
+		resultMap="phyCardManagementMap">
+		select * from(
+        select * from(
+        select rownum rn, line.* from(
+        select u.userid, u.username, u.phycardid, p1.parameterid paramId1,
+        p1.parametername paramname1,p2.parameterid paramId2, p2.parametername paramname2
+        from tbluserinfo u, tblparameter p1, tblparameter p2, tblphycard p  
+		<where>
+		    <if test="userId1!=null"><if test="userId1!=''">and u.userId = #{userId1}</if> </if>
+	        <if test="userName!=null"><if test="userName!=''">and userName like concat(concat('%',#{userName}),'%')</if> </if>
+		    <if test="phyCardId1!=null"><if test="phyCardId1!=''">and p.phyCardId = #{phyCardId1}</if> </if>
+			and u.parameterid = p1.parameterid and u.phycardid = p.phycardid(+) and p.parameterid = p2.parameterid(+) ORDER BY u.USERID
+		</where>
+)line)line1 where line1.rn &lt;#{page}*3+1)line2 where line2.rn &gt;(#{page} - 1) * 3
+	</select>
+	 <resultMap type="org.xmgreat.bean.UserInfoBean" id="phyCardManagementMap">
+			<id property="userId" column="userId" />
+			<result property="userName" column="userName" />
+			<result property="phyCardId" column="PHYCARDID" />
+			<result property="parameterID" column="parameterID" />
+			<association property="parameterBean" column="parameterId" javaType="org.xmgreat.bean.ParameterBean">
+				<id property="parameterId" column="parameterId" />
+			<result property="parameterName" column="parameterName" />
+			</association>
+			<association property="parameterBean1" column="paramId1" javaType="org.xmgreat.bean.ParameterBean1">
+				<id property="paramId1" column="paramId1" />
+			<result property="paramName1" column="paramName1" />
+			</association>
+			<association property="parameterBean2" column="paramId2" javaType="org.xmgreat.bean.ParameterBean2">
+				<id property="paramId2" column="paramId2" />
+			<result property="paramName2" column="paramName2" />
+			</association>
+	</resultMap> 
+	<!-- 查询已激活未用体检卡号 -->
+	<select id="selectPhyCard" parameterType="org.xmgreat.bean.PhyCardBean" resultType="org.xmgreat.bean.PhyCardBean"
+		resultMap="PhyCard">
+		select h.* from TBLPHYCARD h where PARAMETERID =19  and rownum &lt;4
+	</select>
+	<!-- 提交办卡 -->
+	 <update id="applyCard"  parameterType="org.xmgreat.bean.UserInfoBean">
+	 update TBLUSERINFO set PHYCARDID = #{phyCardId} where USERID=#{userId}
+	 </update>
+	<!-- 增加体检卡号 -->
+	<insert id="phyCardAdd" parameterType="org.xmgreat.bean.PhyCardBean">
+	INSERT INTO TBLPHYCARD (phyCardId, parameterId ) VALUES (#{phyCardId}, #{parameterId } )
+	</insert>
 </mapper>

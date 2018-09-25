@@ -10,7 +10,7 @@ public class ParameterBean
 	private String parameterValues; // 参数值
 	private Integer parameterType; // 参数类型
 	private String typeName; // 类型名称
-
+	
 	public ParameterBean()
 	{
 		super();

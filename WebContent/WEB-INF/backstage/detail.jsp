@@ -40,12 +40,12 @@
 			<h1>细项配置</h1>
 		</div>
 		<div class="text-center" id="div4">
-			<form action="detail/search.action" class="form-inline" role="form"
+			<form action="AdminServlet" class="form-inline" role="form"
 				method="post">
 				<div class="form-group">
 					<label for="name" class="m">细项名称：</label> <input type="text"
 						class="form-control input-sm  m5" id="name" name="name"
-						placeholder="请输入名称" value="${resultMap['name']}">
+						placeholder="请输入名称" value="${name}">
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">查询</button>
@@ -60,7 +60,7 @@
 			<div class="clearfix"></div>
 		</div>
 		<table class="table table-bordered">
-			<caption>共有数据：${resultMap['total']} 条</caption>
+			<caption>共有数据：${total} 条</caption>
 			<thead>
 				<tr>
 					<th>序号</th>
@@ -73,19 +73,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${resultMap['details']}" var="detail"
-					varStatus="vs">
+				<c:forEach items="${parameters}" var="parameter" varStatus="vs">
 					<tr>
-						<td>${(resultMap['currentPage']-1)*5+vs.index+1}</td>
-						<td>${detail.detailName}</td>
-						<td>${detail.parameterBean.parameterValues}</td>
-						<td>${detail.initValue}</td>
-						<td>${detail.upperLimit}</td>
-						<td>${detail.lowerLimit}</td>
+						<td>${(page-1)*5+vs.index+1}</td>
+						<td>${parameter.parameterName}</td>
+						<td>${parameter.typeName}</td>
+						<td></td>
+						<td>${parameter.val}</td>
+						<td></td>
 						<td class="text-center"><a
-							href="detail/update.action?parameterId=${detail.subentryId}"><button
+							href="ParameterServlet?action=update&&parameterId=${parameter.parameterId}"><button
 									type="button" class="btn btn-primary">修改</button></a>&nbsp;&nbsp; <a
-							href="detail/del.action?parameterId=${detail.subentryId}"
+							href="ParameterServlet?action=del&&parameterId=${parameter.parameterId}"
 							onclick="return del()"><button type="button"
 									class="btn btn-primary">删除</button></a></td>
 					</tr>
@@ -96,19 +95,19 @@
 		<div class="page">
 			<div class="pagelist text-center">
 				<c:choose>
-					<c:when test="${resultMap['currentPage']>1}">
+					<c:when test="${page>1}">
 						<span class="jump"><a
-							href="detail/search.action?currentPage=${resultMap['currentPage']-1}&&name=${name}">上一页</a></span>
+							href="AdminServlet?page=${page-1}&&name=${name}&&stateId1=${stateId1}&&professional=${professional}&&territory=${territory}">上一页</a></span>
 					</c:when>
 					<c:otherwise>
 						<span class="jump">上一页</span>
 					</c:otherwise>
 				</c:choose>
-				<span class="jump">${resultMap['currentPage']}/${resultMap['totalPage']}</span>
+				<span class="jump">${page}/${totalPage}</span>
 				<c:choose>
-					<c:when test="${resultMap['currentPage']<resultMap['totalPage']}">
+					<c:when test="${page<totalPage}">
 						<span class="jump"><a
-							href="detail/search.action?currentPage=${resultMap['currentPage']+1}&&name=${name}">下一页</a></span>
+							href="AdminServlet?page=${page+1}&&name=${name}&&stateId1=${stateId1}&&professional=${professional}&&territory=${territory}">下一页</a></span>
 					</c:when>
 					<c:otherwise>
 						<span class="jump">下一页</span>
@@ -128,7 +127,7 @@
 					</div>
 
 
-					<form action="detail/add.action?" id="addDetail" name="addDetail"
+					<form action="" id="addDetail" name="addDetail"
 						class="form-horizontal" role="form" method="post">
 						<div class="modal-body">
 
@@ -146,8 +145,8 @@
 									<select class="selectpicker form-control" name="parameterId"
 										id="parameterId" title="请选择一项" data-size="5">
 										<option class="form-control" value="0">请选择一项</option>
-										<c:forEach items="${resultMap['parameters']}" var="parameter">
-											<option class="form-control" value="${parameter.parameterId}">${parameter.parameterValues}</option>
+										<c:forEach items="${roles}" var="roles">
+											<option class="form-control" value="${roles.roleId}">${roles.roleName}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -194,6 +193,7 @@
 			<!-- /.modal -->
 		</div>
 	</div>
+
 	<script src="lib/layui/layui.js" charset="utf-8"></script>
 	<script type="text/jscript" src="js/myPublic.js"></script>
 </body>

@@ -2,9 +2,11 @@ package org.xmgreat.biz;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.xmgreat.bean.CityBean;
 import org.xmgreat.bean.ManagerBean;
-import org.xmgreat.bean.PermissionsInfBean;
+import org.xmgreat.bean.PhyCardBean;
 import org.xmgreat.bean.UserInfoBean;
 
 public interface AdminBiz
@@ -16,6 +18,16 @@ public interface AdminBiz
 	public  ModelAndView showAdmin(ManagerBean managerBean);//后用户管理
 	public String  updateAdminState (ManagerBean managerBean);//修改后台用户状态
 	public String  updateAdminPwd (ManagerBean managerBean);//修改用户密码
-	//通过角色ID查询权限ID
-    public List<PermissionsInfBean> selectRoleInfo(Integer ruleId);
+	public  ModelAndView adminAdd();//查询注册下拉框的值
+	public  List<CityBean> selectCity(CityBean cityBean);//查询注册下拉框的值
+	public  String selectAdmin(ManagerBean managerBean);//查询用户知否以注册
+	public String  addAdmin (ManagerBean managerBean);//增加用户
+	public  ModelAndView showPhyCardInfo(PhyCardBean phyCardBean);//体检卡管理
+	public String  updatePhyCardState (PhyCardBean phyCardBean);//修改体检卡状态
+	public  ModelAndView phyCardManagement(UserInfoBean userInfoBean);//用户管理
+	public  List<PhyCardBean> selectPhyCard();//查询已激活未用体检卡号
+	public String  applyCard (UserInfoBean userInfoBean,PhyCardBean phyCardBean);//提交办卡
+	public String  reportTheLossOf (UserInfoBean userInfoBean,PhyCardBean phyCardBean);//挂失
+	public String  changeCard (UserInfoBean userInfoBean,PhyCardBean phyCardBean);//换卡
+	public String  upFile (MultipartFile file);//增加卡
 }
