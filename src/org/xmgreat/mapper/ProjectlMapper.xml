@@ -11,68 +11,67 @@
 	</insert>
 
 	<!-- 增加项目关系 -->
-	<insert id="addRelation" parameterType="java.util.Map">
-		insert into tblprojectdetail(projectId,subentryid) values
-		<foreach collection="privIds" index="index" item="item"
-			separator=",">
-			( #{userId}, #{item} )
-		</foreach>
+	<insert id="addRelation" parameterType="java.lang.Integer">
+		insert into
+		tblprojectdetail(projectId,subentryid)
+		values (#{projectId},
+		#{subentryId})
 	</insert>
+
+	<!-- 删除项目关系 -->
+	<delete id="delRelation" parameterType="java.lang.Integer">
+		delete tblprojectdetail
+		where projectId = #{projectId}
+	</delete>
+
+	<!-- 删除项目 -->
+	<delete id="delProject" parameterType="java.lang.Integer">
+		delete tblproject where
+		projectId = #{projectId}
+	</delete>
+
+	<!-- 修改项目信息 -->
+	<update id="updateProject"
+		parameterType="org.xmgreat.bean.ProjectBean">
+		update tblproject set parameterId = #{parameterId},
+		charge = #{charge}, itemName = #{itemName},officeId = #{officeId}
+		where projectId = #{projectId}
+	</update>
+
+	<!-- 查询所有项目 -->
+	<select id="selectAll" resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblproject
+	</select>
+
+	<select id="selectProject"
+		resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblproject where itemName = #{itemName}
+	</select>
 
 	<!-- 项目详情 -->
 	<select id="getProject" parameterType="java.lang.Integer"
 		resultMap="project">
-		select p.*,d.*,r.parametervalues FROM tblproject
-		p,tblprojectdetail c,tbldetail d,tblparameter r where d.subentryid =
-		c.subentryid and p.projectid = c.projectid and r.parameterid =
-		d.parameterid and p.projectId = #{projectId}
+		select * from tblproject where projectId = #{projectId}
 	</select>
 
 
-	<resultMap type="org.xmgreat.bean.ProjectBean" id="project">
-		<id property="projectId" column="projectId" />
-		<result property="itemName" column="itemName" />
-		<association property="officeBean" column="officeId"
-			javaType="org.xmgreat.bean.OfficeBean">
-			<id property="officeId" column="officeId" />
-			<result property="officeName" column="officeName" />
-		</association>
-		<association property="parameterBean" column="parameterId"
-			javaType="org.xmgreat.bean.ParameterBean">
-			<id property="parameterId" column="parameterId" />
-			<result property="parameterValues" column="parameterValues" />
-		</association>
-		<collection property="details">
-			<id property="subentryId" column="subentryId" />
-			<result property="detailName" column="detailName" />
-			<result property="price" column="price" />
-			<result property="upperLimit" column="upperLimit" />
-			<result property="lowerLimit" column="lowerLimit" />
-			<result property="initValue" column="initValue" />
-		</collection>
-	</resultMap>
 
 	<!-- 条件查询项目总数 -->
 	<select id="count" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		select count(*) from tblproject
 		<if test="itemName!=null">
-			where detailName like #{itemName}
+			where itemName like #{itemName}
 		</if>
 	</select>
 
 	<!-- 查询项目 -->
 	<select id="getProjects" parameterType="java.util.Map"
-		resultMap="projects">
+		resultMap="project">
 		select * from (select a.*,rownum rn from (select
-		p.*,d.*,b.parametervalues from
-		tblproject p,tblprojectdetail
-		r,tbldetail d,tblparameter b where
-		d.parameterid = b.parameterid and
-		r.projectid = p.projectid and
-		r.subentryid = d.subentryid
+		* from tblproject
 		<if test="itemName!=null">
-			where detailName like #{itemName}
+			where itemName like #{itemName}
 		</if>
 		) a where
 		rownum &lt; #{max}) where
@@ -88,14 +87,6 @@
 		and p.projectId = #{projectId}
 	</select>
 
-	<!-- 查询单位参数 -->
-	<select id="selectParameter"
-		resultType="org.xmgreat.bean.ParameterBean"
-		parameterType="java.lang.Integer"> select * from tblparameter where parameterId
-		=
-		#{parameterId}
-	</select>
-
 
 	<!-- 查询科室 -->
 	<select id="selectOffice"
@@ -104,9 +95,22 @@
 		= #{officeId}
 	</select>
 
+	<!-- 查询参数 -->
+	<select id="selectParameter"
+		resultType="org.xmgreat.bean.ParameterBean"
+		parameterType="java.lang.Integer"> select * from tblparameter where parameterId
+		=
+		#{parameterId}
+	</select>
+
 	<!-- 查询嵌套 -->
-	<resultMap type="org.xmgreat.bean.ProjectBean" id="projects">
+	<resultMap type="org.xmgreat.bean.ProjectBean" id="project">
 		<id property="projectId" column="projectId" />
+		<result property="parameterId" column="parameterId" />
+		<result property="officeId" column="officeId" />
+		<association property="parameterBean" column="parameterId"
+			javaType="org.xmgreat.bean.ParameterBean" select="selectParameter">
+		</association>
 		<association property="officeBean" column="officeId"
 			javaType="org.xmgreat.bean.OfficeBean" select="selectOffice">
 		</association>

@@ -9,9 +9,13 @@ public class ProjectBean
 {
 	private Integer projectId; // 项目id
 	private String itemName; // 项目名称
+	private Double charge; // 费用
+	private Integer parameterId; // 小结类型
 	private Integer officeId; // 科室id
-	private OfficeBean officeBean; // 科室实体
+
 	// 关联属性
+	private ParameterBean parameterBean; // 参数实体
+	private OfficeBean officeBean; // 科室实体
 	private List<DetailBean> details; // 细项实体列表
 
 	public ProjectBean()
@@ -19,14 +23,17 @@ public class ProjectBean
 		super();
 	}
 
-	public ProjectBean(Integer projectId, String itemName, Integer officeId, OfficeBean officeBean,
-			List<DetailBean> details)
+	public ProjectBean(Integer projectId, String itemName, Integer officeId, OfficeBean officeBean, Integer parameterId,
+			Double charge, ParameterBean parameterBean, List<DetailBean> details)
 	{
 		super();
 		this.projectId = projectId;
 		this.itemName = itemName;
 		this.officeId = officeId;
 		this.officeBean = officeBean;
+		this.parameterId = parameterId;
+		this.charge = charge;
+		this.parameterBean = parameterBean;
 		this.details = details;
 	}
 
@@ -68,6 +75,36 @@ public class ProjectBean
 	public void setOfficeBean(OfficeBean officeBean)
 	{
 		this.officeBean = officeBean;
+	}
+
+	public Integer getParameterId()
+	{
+		return parameterId;
+	}
+
+	public void setParameterId(Integer parameterId)
+	{
+		this.parameterId = parameterId;
+	}
+
+	public Double getCharge()
+	{
+		return charge;
+	}
+
+	public void setCharge(Double charge)
+	{
+		this.charge = charge;
+	}
+
+	public ParameterBean getParameterBean()
+	{
+		return parameterBean;
+	}
+
+	public void setParameterBean(ParameterBean parameterBean)
+	{
+		this.parameterBean = parameterBean;
 	}
 
 	public List<DetailBean> getDetails()

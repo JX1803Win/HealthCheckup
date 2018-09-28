@@ -21,3 +21,18 @@ body {
 #increased {
 	float: right;
 }
+
+#div8 {
+	width: 800px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+hr {
+	border-top-color: #000;
+	border-right-color: #000;
+	border-bottom-color: #000;
+	border-left-color: #000;
+	margin: 0px;
+	padding: 0px;
+}

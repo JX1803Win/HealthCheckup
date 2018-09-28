@@ -38,7 +38,6 @@
 					<th>默认值</th>
 					<th>上限值</th>
 					<th>下限值</th>
-					<th>单价</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -50,7 +49,6 @@
 						<td>${detail.initValue}</td>
 						<td>${detail.upperLimit}</td>
 						<td>${detail.lowerLimit}</td>
-						<td>${detail.price}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

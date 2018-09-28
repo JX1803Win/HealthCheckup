@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8">
-<title>增加项目</title>
+<title>修改项目</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -28,22 +28,26 @@
 <body>
 	<div class="container">
 		<div class="page-header text-center">
-			<h1>增加项目</h1>
+			<h1>修改项目</h1>
 		</div>
 		<div id="div8">
 
-			<form role="form" action="backstage/affirmAdd.action" method="post">
-				<input type="hidden" name="currentPage" value="${currentPage}">
-				<input type="hidden" name="name" value="${name}">
+			<form role="form" action="backstage/affirmUpdate.action"
+				method="post">
+				<input type="hidden" name="projectId"
+					value="${resultMap['project'].projectId}"> <input
+					type="hidden" name="currentPage" value="${currentPage}"> <input
+					type="hidden" name="name" value="${name}">
 				<div class="form-group">
 					<label for="itemName">项目名称：</label> <input type="text"
 						class="form-control" name="itemName" id="itemName"
-						placeholder="请输入项目名称" />
+						placeholder="请输入项目名称" value="${resultMap['project'].itemName}" />
 				</div>
 
 				<div class="form-group">
 					<label for="charge">金额：</label> <input name="charge" id="charge"
-						type="text" class="form-control" placeholder="请输入单价">
+						type="text" class="form-control" placeholder="请输入单价"
+						value="${resultMap['project'].charge}">
 				</div>
 
 				<div class="form-group">
@@ -51,7 +55,8 @@
 						name="officeId" id="officeId" title="请选择一项" data-size="5">
 						<option class="form-control" value="0">请选择一项</option>
 						<c:forEach items="${resultMap['offices']}" var="office">
-							<option class="form-control" value="${office.officeId}">${office.officeName}</option>
+							<option class="form-control" value="${office.officeId}"
+								${office.officeId==resultMap['project'].officeId?"selected='selected'":''}>${office.officeName}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -62,14 +67,27 @@
 						title="请选择一项" data-size="5">
 						<option class="form-control" value="0">请选择一项</option>
 						<c:forEach items="${resultMap['parameters']}" var="parameter">
-							<option class="form-control" value="${parameter.parameterId}">${parameter.parameterName}</option>
+							<option class="form-control" value="${parameter.parameterId}"
+								${parameter.parameterId==resultMap['project'].parameterId?"selected='selected'":''}>${parameter.parameterName}</option>
 						</c:forEach>
 					</select>
 				</div>
 
-
 				<div class="text-center">
-					<label for="parameterId">请选择细项：</label> <br />
+					<label for="subentryId">已选细项：</label>
+					<c:forEach items="${resultMap['project'].details}" var="detail"
+						varStatus="vs">
+						<c:if test="${vs.index%4==0}">
+							<br />
+						</c:if>
+						<label class="checkbox-inline m2"> <input type="checkbox"
+							name="subentryId" value="${detail.subentryId}" checked="checked">
+							${detail.detailName}
+						</label>
+					</c:forEach>
+				</div>
+				<div class="text-center t2">
+					<label for="subentryId">未选细项：</label>
 					<c:forEach items="${resultMap['details']}" var="detail"
 						varStatus="vs">
 						<c:if test="${vs.index%4==0}">

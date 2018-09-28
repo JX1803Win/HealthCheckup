@@ -69,17 +69,29 @@ public class ProjectAction
 		projectBiz.addProject(projectBean, subentryId);
 		return queryProject(request, name, currentPage);
 	}
-//
-//	@RequestMapping(value = "/updateDetail")
-//	public String updateProject(HttpServletRequest request, DetailBean detailBean, String name, Integer currentPage)
-//	{
-//		
-//	}
-//
-//	@RequestMapping(value = "/delDetail")
-//	public String delProject(HttpServletRequest request, Integer subentryId, String name, Integer currentPage)
-//	{
-//		
-//	}
+
+	@RequestMapping(value = "/updateProject")
+	public String updateProject(HttpServletRequest request, Integer projectId, String name, Integer currentPage)
+	{
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("name", name);
+		request.setAttribute("resultMap", projectBiz.skipUpdateProject(projectId));
+		return "backstage/updateProject";
+	}
+
+	@RequestMapping(value = "/affirmUpdate")
+	public String affirmUpdate(HttpServletRequest request, ProjectBean projectBean, Integer[] subentryId, String name,
+			Integer currentPage)
+	{
+		projectBiz.updateProject(projectBean, subentryId);
+		return queryProject(request, name, currentPage);
+	}
+
+	@RequestMapping(value = "/delProject")
+	public String delProject(HttpServletRequest request, Integer projectId, String name, Integer currentPage)
+	{
+		projectBiz.delProject(projectId);
+		return queryProject(request, name, currentPage);
+	}
 
 }

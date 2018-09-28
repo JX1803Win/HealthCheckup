@@ -62,7 +62,6 @@
 					<th>默认值</th>
 					<th>上限值</th>
 					<th>下限值</th>
-					<th>单价</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -76,11 +75,10 @@
 						<td>${detail.initValue}</td>
 						<td>${detail.upperLimit}</td>
 						<td>${detail.lowerLimit}</td>
-						<td>${detail.price}</td>
 						<td class="text-center">
 							<button class="btn btn-primary" data-toggle="modal"
 								data-target="#update"
-								onclick="alter('${detail.subentryId}','${detail.detailName}','${detail.parameterBean.parameterId}','${detail.upperLimit}','${detail.lowerLimit}','${detail.initValue}','${detail.price}')">修改</button>&nbsp;&nbsp;
+								onclick="alter('${detail.subentryId}','${detail.detailName}','${detail.parameterBean.parameterId}','${detail.upperLimit}','${detail.lowerLimit}','${detail.initValue}')">修改</button>&nbsp;&nbsp;
 							<a
 							href="backstage/delDetail.action?subentryId=${detail.subentryId}&&currentPage=${resultMap['currentPage']+1}&&name=${resultMap['name']}"
 							onclick="return del()"><button type="button"
@@ -178,14 +176,6 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="price" class="col-sm-2 control-label">单价：</label>
-								<div class="col-sm-10">
-									<input name="price" id="price" type="text" class="form-control"
-										placeholder="请输入单价">
-								</div>
-							</div>
-
 
 						</div>
 						<div class="modal-footer">
@@ -268,13 +258,6 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="price" class="col-sm-2 control-label">单价：</label>
-								<div class="col-sm-10">
-									<input name="price" id="money" type="text" class="form-control"
-										placeholder="请输入单价">
-								</div>
-							</div>
 
 						</div>
 						<div class="modal-footer">

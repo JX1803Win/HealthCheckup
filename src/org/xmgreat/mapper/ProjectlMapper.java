@@ -17,11 +17,24 @@ import org.xmgreat.bean.ProjectBean;
 public interface ProjectlMapper
 {
 	/**
+	 * @description 查询所有项目列表信息
+	 * @return 项目列表信息
+	 */
+	public List<ProjectBean> selectAll();
+
+	/**
 	 * @description 条件分页查询项目列表信息
 	 * @param condition 查询条件
-	 * @return 细项列表信息
+	 * @return 项目列表信息
 	 */
 	public List<ProjectBean> getProjects(Map<String, Object> condition);
+
+	/**
+	 * @description 根据项目名称获取项目
+	 * @param itemName 项目名称
+	 * @return 项目信息
+	 */
+	public ProjectBean selectProject(@Param("itemName") String itemName);
 
 	/**
 	 * @description 获取项目详情
@@ -33,7 +46,7 @@ public interface ProjectlMapper
 	/**
 	 * @description 计算条件查询项目总数
 	 * @param itemName 项目名称
-	 * @return 细项总数
+	 * @return 项目总数
 	 */
 	public Integer count(@Param("itemName") String itemName);
 
@@ -46,25 +59,30 @@ public interface ProjectlMapper
 
 	/**
 	 * @description 批量插入项目和细项关系数据
-	 * @param map 关系参数
+	 * @param projectId  项目id
+	 * @param subentryId 细项id
 	 * @return 插入的条数
 	 */
-	public Integer addRelation(Map<String, Object> map);
-	
-	
-//
-//	/**
-//	 * @description 修改细项
-//	 * @param detailBean 细项实体
-//	 * @return 修改的条数
-//	 */
-//	public Integer updateDetail(DetailBean detailBean);
-//
-//	/**
-//	 * @description 删除细项
-//	 * @param detailBean 细项实体
-//	 * @return 删除的条数
-//	 */
-//	public Integer delDetail(@Param("subentryId") Integer subentryId);
+	public Integer addRelation(@Param("projectId") Integer projectId, @Param("subentryId") Integer subentryId);
 
+	/**
+	 * @description 根据项目id删除项目
+	 * @param projectId 项目id
+	 * @return 删除的条数
+	 */
+	public Integer delProject(@Param("projectId") Integer projectId);
+
+	/**
+	 * @description 根据项目id删除项目关系
+	 * @param detailBean 项目id
+	 * @return 删除的条数
+	 */
+	public Integer delRelation(@Param("projectId") Integer projectId);
+
+	/**
+	 * @description 根据修改项目信息
+	 * @param projectBean 项目实体
+	 * @return 修改的条数
+	 */
+	public Integer updateProject(ProjectBean projectBean);
 }

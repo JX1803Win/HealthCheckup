@@ -6,9 +6,9 @@
 	<insert id="addDetail"
 		parameterType="org.xmgreat.bean.DetailBean">
 		insert into
-		tbldetail(subentryId,detailName,initValue,parameterId,price,upperLimit,lowerLimit)
+		tbldetail(subentryId,detailName,initValue,parameterId,upperLimit,lowerLimit)
 		values(subentryid.nextval,#{detailName,jdbcType=VARCHAR},#{initValue,jdbcType=VARCHAR},
-		#{parameterId,jdbcType=INTEGER},#{price,jdbcType=DOUBLE},#{upperLimit,jdbcType=DOUBLE},#{lowerLimit,jdbcType=DOUBLE})
+		#{parameterId,jdbcType=INTEGER},#{upperLimit,jdbcType=DOUBLE},#{lowerLimit,jdbcType=DOUBLE})
 	</insert>
 
 	<!-- 删除细项 -->
@@ -27,7 +27,7 @@
 		#{initValue,jdbcType=VARCHAR},lowerLimit =
 		#{lowerLimit,jdbcType=DOUBLE},
 		upperLimit =
-		#{upperLimit,jdbcType=DOUBLE},price = #{price,jdbcType=DOUBLE} where
+		#{upperLimit,jdbcType=DOUBLE} where
 		subentryId = #{subentryId}
 	</update>
 

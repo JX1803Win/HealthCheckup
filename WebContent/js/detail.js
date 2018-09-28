@@ -70,12 +70,11 @@ function update() {
 }
 
 function alter(subentryId, detailName, parameterId, upperLimit, lowerLimit,
-		initValue, price) {
+		initValue) {
 	$("#subentryId").val(subentryId);
 	$("#dName").val(detailName);
 	$("#pId").val(parameterId);
 	$("#uLimit").val(upperLimit);
 	$("#lLimit").val(lowerLimit);
 	$("#iValue").val(initValue);
-	$("#money").val(price);
 }
