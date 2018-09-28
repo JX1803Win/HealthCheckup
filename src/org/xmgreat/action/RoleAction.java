@@ -169,13 +169,14 @@ public class RoleAction {
 		@RequestMapping(value="/menuManager.action")//为这个方法定义映射子路劲 
 		@ResponseBody
 		public ModelAndView selectAllMenu (HttpServletRequest request,HttpServletResponse response,String menuName )throws Exception {
+			//一级菜单显示页面
 			HttpSession session = request.getSession();
 			String aString=request.getParameter("pageNo");
 			if (aString!=null) {
 				pageNo=Integer.parseInt(aString);
 			}
 			int size=roleBizImpl.getMenuNum(menuName);
-			request.setAttribute("sizeJ", size);
+			request.setAttribute("sizeF", size);
 	  	    int AllPage = 0;
 				if (size % 5 != 0) {
 					AllPage = (size / 5) + 1;
@@ -191,18 +192,98 @@ public class RoleAction {
 						pageNo = AllPage;
 					}
 				}  
-		   request.setAttribute("pageNo", pageNo);
-		   request.setAttribute("AllPage", AllPage);
-	 	   List<PermissionsInfBean> rbList =roleBizImpl.selectAllMenuInfo(menuName,pageNo);
-	 	   request.setAttribute("rbList", rbList); 
+				request.setAttribute("pageNoF", pageNo);
+				request.setAttribute("AllPageF", AllPage);
+	 	   List<PermissionsInfBean> rbList =roleBizImpl.selectAllMenuInfo(menuName,pageNo);	 	  
+	 	   request.setAttribute("rbListF", rbList); 
 	  	   ModelAndView mav = new ModelAndView();
 	  	   mav.setViewName("backstage/menuManager");
 	  	   return mav;
 		}
-		
-		
-		
-		
-		
-		
+		//删除父类菜单
+		@RequestMapping(value="/delMenu.action")//为这个方法定义映射子路劲 
+		@ResponseBody
+		public ModelAndView  delMenu (HttpServletRequest request,HttpServletResponse response,Integer permissionsId)throws Exception {			   
+			roleBizImpl.deltblRolePer(permissionsId);
+			roleBizImpl.delPerInfMenu(permissionsId);
+			roleBizImpl.delPerInfAllMenu(permissionsId);
+			return selectAllMenu(request, response, null);	    
+		}
+		//添加父类菜单
+		@RequestMapping(value="/addFMenu.action")//为这个方法定义映射子路劲 
+		@ResponseBody
+		public ModelAndView  addFMenu (HttpServletRequest request,HttpServletResponse response,String menuNames)throws Exception {			   		
+			roleBizImpl.addFMenu(menuNames);
+			return selectAllMenu(request, response, null);	    
+		}
+		//修改父类菜单
+		@RequestMapping(value="/updateFMenu.action")//为这个方法定义映射子路劲 
+		@ResponseBody
+		public ModelAndView  updateFMenu (HttpServletRequest request,HttpServletResponse response,Integer upmenuId,String upmenuName)throws Exception {			   			
+					roleBizImpl.updateFMenu(upmenuId,upmenuName);
+					return selectAllMenu(request, response, null);	    
+		}
+		@RequestMapping(value="/sonMenu.action")//为这个方法定义映射子路劲 
+		@ResponseBody
+		public ModelAndView selectAllSonMenu (HttpServletRequest request,HttpServletResponse response,Integer permissionsId,String menuName )throws Exception {
+			//二级菜单显示页面
+			HttpSession session = request.getSession();
+			String aString=request.getParameter("pageNo");
+			if (aString!=null) {
+				pageNo=Integer.parseInt(aString);
+			}
+			int size=roleBizImpl.getSonMenuNum(permissionsId,menuName);
+			request.setAttribute("sizeS", size);
+	  	    int AllPage = 0;
+				if (size % 5 != 0) {
+					AllPage = (size / 5) + 1;
+				} else {
+					AllPage = (size / 5);
+				}			
+				if (0 == pageNo) {
+					pageNo = 1;
+				} else {				
+					if (pageNo < 1) {
+						pageNo = 1;
+					} else if (pageNo > AllPage) {
+						pageNo = AllPage;
+					}
+				}  
+				request.setAttribute("pageNoS", pageNo);
+				request.setAttribute("AllPageS", AllPage);
+	 	   List<PermissionsInfBean> rbList =roleBizImpl.selectAllSonMenuInfo(permissionsId,pageNo,menuName);	 	  
+	 	   request.setAttribute("rbListS", rbList); 
+	  	   ModelAndView mav = new ModelAndView();
+	  	   mav.setViewName("backstage/sonMenuManager");
+	  	   return mav;
+		}
+		//删除子类菜单
+		@RequestMapping(value="/delSonMenu.action")//为这个方法定义映射子路劲 
+		@ResponseBody
+		public ModelAndView  delSonMenu (HttpServletRequest request,HttpServletResponse response,Integer permissionsId)throws Exception {			   
+			roleBizImpl.deltblRolePer(permissionsId);
+			roleBizImpl.delPerInfMenu(permissionsId);
+			return selectAllSonMenu(request, response,permissionsId, null);	    
+		}
+		//添加子类菜单
+				@RequestMapping(value="/addSMenu.action")//为这个方法定义映射子路劲 
+				@ResponseBody
+				public ModelAndView  addSMenu (HttpServletRequest request,HttpServletResponse response,Integer upperMenu,String menuNames,String url)throws Exception {			   		
+					roleBizImpl.addSMenu(upperMenu,menuNames,url);
+					return selectAllSonMenu(request, response, upperMenu,null);	    
+				}
+				
+				//修改子类菜单
+				@RequestMapping(value="/updateSMenu.action")//为这个方法定义映射子路劲 
+				@ResponseBody
+				public ModelAndView  updateSMenu (HttpServletRequest request,HttpServletResponse response,Integer upmenuId,String upmenuName,String upurlAddress,Integer uppreMenu)throws Exception {			   			
+							roleBizImpl.updateSMenu(upmenuId,upmenuName,upurlAddress);
+							return selectAllSonMenu(request, response,uppreMenu, null);	    
+				}		
+				
+				
+				
+				
+				
+				
 }

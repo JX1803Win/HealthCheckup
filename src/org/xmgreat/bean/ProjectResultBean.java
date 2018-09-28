@@ -11,11 +11,41 @@ public class ProjectResultBean //用户项目结果表
 	private Integer adminId;//管理员ID
 	private String projectResult;//项目结果
 	private Integer parameterId;//参数ID
-	
-	
+	private String userName;//用户名
+	private String projectName;//项目名
+	private String parameterName;//参数名
 	public ProjectResultBean() {
 		super();
 	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getParameterName() {
+		return parameterName;
+	}
+
+	public void setParameterName(String parameterName) {
+		this.parameterName = parameterName;
+	}
+
+	public void setResultId(Integer resultId) {
+		this.resultId = resultId;
+	}
+
 	public Integer getResultId() {
 		return resultId;
 	}

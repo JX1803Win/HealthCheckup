@@ -18,12 +18,34 @@ public class UserPhyRecordBean //用户体检记录
 	private String guidance;   //生活保健指导
 	private Integer adminId;   //总结医生ID
 	private String sumTime;    //总结时间
-	
+	private int parameterId;  //小结参数ID
+	private String parameter;//小结参数
 	private UserPhyRecordBean userPhyRecordBean;//用户体检记录实体
 	private ManagerBean managerBean;//管理员实体
 	public UserPhyRecordBean() {
 		
 	}
+
+	
+	public int getParameterId() {
+		return parameterId;
+	}
+
+
+	public void setParameterId(int parameterId) {
+		this.parameterId = parameterId;
+	}
+
+
+	public String getParameter() {
+		return parameter;
+	}
+
+
+	public void setParameter(String parameter) {
+		this.parameter = parameter;
+	}
+
 
 	public Long getPhysicaiId()
 	{

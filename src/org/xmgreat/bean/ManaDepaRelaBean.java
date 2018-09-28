@@ -6,10 +6,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class ManaDepaRelaBean {//管理员科室关系表
      private Integer officeId;
+     private Integer adminId;
      private List<ManagerBean> mbList;
      public ManaDepaRelaBean() {
 		// TODO Auto-generated constructor stub
 	}
+     
+	public Integer getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
+	}
+
 	public Integer getOfficeId() {
 		return officeId;
 	}

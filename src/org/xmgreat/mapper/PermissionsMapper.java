@@ -29,7 +29,14 @@ public interface PermissionsMapper {
     public RolePermissionsBean selectFPer(@Param("permissionsId")int permissionsId,@Param("roleId")int roleId);
     public int getMenuNum(@Param("menuName")String menuName);//查询菜单数量
     public List<PermissionsInfBean> selectAllMenuInfo(@Param("menuName")String menuName,@Param("pageNo")int pageNo);//查询菜单
-    
-    
-    
+    public void addFMenu(@Param("menuName")String menuName);//添加父类菜单
+    public void updateFMenu(@Param("permissionsId")int permissionsId,@Param("menuName")String menuName);//修改父类菜单
+    public void deltblRolePer(@Param("permissionsId")int permissionsId);//删除父类菜单
+    public void delPerInfMenu(@Param("permissionsId")int permissionsId);//删除父类菜单
+    public void delPerInfAllMenu(@Param("permissionsId")int permissionsId);//删除父类下的所有子类菜单
+    public int getSonMenuNum(@Param("permissionsId")int permissionsId,@Param("menuName")String menuName);//查找子菜单总数
+    public List<PermissionsInfBean> selectAllSonMenuInfo(@Param("permissionsId")int permissionsId ,@Param("pageNo")int pageNo,@Param("menuName")String menuName);//查询子菜单
+    public List<RolePermissionsBean> selectPermissionsMapper(@Param("permissionsId")int permissionsId);//查询权限关系表中是否有数据
+    public void addSMenu(@Param("preMenu")Integer preMenu,@Param("menuName")String menuName,@Param("urlAddress")String urlAddress);//添加子类菜单
+    public void updateSMenu(@Param("permissionsId")Integer permissionsId,@Param("menuName")String menuName,@Param("urlAddress")String urlAddress);//修改子菜单
 }

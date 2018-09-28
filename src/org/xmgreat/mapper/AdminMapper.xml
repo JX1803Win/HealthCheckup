@@ -61,7 +61,7 @@
 	 <!-- 后台用户管理 -->
 	<select id="showAdmin" parameterType="org.xmgreat.bean.ManagerBean"
 		resultMap="AdminMap">
-		select * from(select p.parametername,r.ruleName,o.officename,a.* ,rownum rn from tblManager a,tblparameter p,tblRole r,tbloffice o
+		select * from(select p.parametername,r.roleName,o.officename,a.* ,rownum rn from tblManager a,tblparameter p,tblRole r,tbloffice o
 		<where>
 		    <if test="mangerName!=null"><if test="mangerName!=''">and managerName like concat(concat('%',#{managerName}),'%')</if> </if>
 		 <if test="phoneNum1!=null"><if test="phoneNum1!=''">and phoneNum = #{phoneNum1}</if> </if>

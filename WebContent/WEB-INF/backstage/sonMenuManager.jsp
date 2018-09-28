@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>菜单管理</title>
+<title>二级菜单管理</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -46,12 +46,12 @@
 		}
 		return false;
 	}
-	function search(pageNo) {
+	function search(pageNo,permissionsId) {
 		if(pageNo == 0) {
 			return;
 		}
 		var myForm=document.getElementById("myForm");		
-		myForm.action="<%=path%>role/menuManager.action?pageNo="+pageNo;
+		myForm.action="<%=path%>role/sonMenu.action?pageNo="+pageNo+"&permissionsId="+permissionsId;
 		myForm.method="post";
 		myForm.submit();
 	}
@@ -61,15 +61,26 @@
 			alert("菜单名称不能为空");
 			return;
 		}
+		var url = $("#url").val();
+		if(url == "") {
+			alert("url地址不能为空");
+			return;
+		}
 		var myForm=document.getElementById("myForm2");
-		myForm.action="<%=path%>role/addFMenu.action";
+		myForm.action="<%=path%>role/addSMenu.action";
 		myForm.method="post";
 		myForm.submit();
 	}
-	function alter(upmenuId, upmenuName) {
+	function alter(upmenuId, upmenuName,upurlAddress,uppreMenu) {
 		//alert(parameterId);
 		$("#upmenuId").val(upmenuId);
 		$("#upmenuName").val(upmenuName);
+		$("#upurlAddress").val(upurlAddress);
+		$("#uppreMenu").val(uppreMenu);
+	}
+	function alters(upperMenu) {
+		//alert(parameterId);
+		$("#upperMenu").val(upperMenu);
 		
 	}
 	function adds() {
@@ -79,7 +90,7 @@
 			return;
 		}
 		var myForm=document.getElementById("myForm3");
-		myForm.action="<%=path%>role/updateFMenu.action";
+		myForm.action="<%=path%>role/updateSMenu.action";
 		myForm.method="post";
 		myForm.submit();
 	}
@@ -89,11 +100,11 @@
 	<div class="container">
 		<div class="x-nav">
 			<span class="layui-breadcrumb"> <a href="main.jsp"><cite>系统管理</cite></a>
-				<a><cite>菜单管理</cite></a>
+				<a><cite>菜单管理</cite></a><a><cite>二级菜单管理</cite></a>
 			</span>
 		</div>
 		<div class="page-header text-center">
-			<h1>菜单管理</h1><span>一级菜单</span>
+			<h1>菜单管理</h1><span>二级菜单</span>
 		</div>
 		<div class="text-center" id="div4">
 			<form class="form-inline" role="form" id="myForm">
@@ -103,7 +114,7 @@
 						placeholder="请输入名称" value="${menuName}">
 				</div>
 
-				<input type="button" class="btn btn-primary" onclick="search(1)" value="查询" />
+				<input type="button" class="btn btn-primary" onclick="search(1,'${rbListS[0].preMenu}')" value="查询" />
 			</form>
 		</div>
 
@@ -111,9 +122,9 @@
 
 		<div class="tools">
 			<button class="btn btn-primary x-right" data-toggle="modal"
-				data-target="#myModal" id="increased">新增</button>
-			<br><span>共有数据：${sizeF} 条&nbsp;&nbsp;&nbsp;&nbsp;</span> <span>共${AllPageF}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
-			<span>当前页数：${pageNoF}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				data-target="#myModal" id="increased" onclick="alters('${rbListS[0].preMenu}')">新增</button>
+			<br><span>共有数据：${sizeS} 条&nbsp;&nbsp;&nbsp;&nbsp;</span> <span>共${AllPageS}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span>当前页数：${pageNoS}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 		</div>
 		<table class="table table-bordered">
 			<thead>
@@ -124,16 +135,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${rbListF}" var="menu" varStatus="vs">
+				<c:forEach items="${rbListS}" var="menu" varStatus="vs">
 					<tr>
-						<td>${(pageNoF-1)*5+vs.index+1}</td>
+						<td>${(pageNoS-1)*5+vs.index+1}</td>
 						<td>${menu.menuName}</td>
-						<td class="text-center">
-							<a href="<%=path%>role/sonMenu.action?permissionsId=${menu.permissionsId}"
-							     ><button type="button" class="btn btn-primary">子级菜单</button></a>
+						<td class="text-center">							
 								<button class="btn btn-primary " data-toggle="modal" data-target="#myModal2"
-								onclick="alter('${menu.permissionsId}','${menu.menuName}')">修改</button>
-							<a href="<%=path%>role/delMenu.action?permissionsId=${menu.permissionsId}"
+								onclick="alter('${menu.permissionsId}','${menu.menuName}','${menu.urlAddress}','${menu.preMenu}')">修改</button>
+							<a href="<%=path%>role/delSonMenu.action?permissionsId=${menu.permissionsId}"
 							     onclick="return del()"><button type="button" class="btn btn-primary">删除</button></a>
 						</td>
 
@@ -145,16 +154,16 @@
 		</table>
 		<div class="page">
 			<div class="pagelist text-center">
-				<button class="btn btn-primary" onclick="search(${pageNoF==1?0:1})">首页</button>
+				<button class="btn btn-primary" onclick="search('${pageNoS==1?0:1}','${rbListS[0].preMenu}')">首页</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-primary"
-					onclick="search(${(pageNoF-1)>0?pageNoF-1:0})">上一页</button>
+					onclick="search('${(pageNoS-1)>0?pageNoS-1:0}','${rbListS[0].preMenu}')">上一页</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-primary"
-					onclick="search(${(pageNoF+1)<=AllPageF?pageNoF+1:0})">下一页</button>
+					onclick="search('${(pageNoS+1)<=AllPageS?pageNoS+1:0}','${rbListS[0].preMenu}')">下一页</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-primary"
-					onclick="search(${pageNoF==AllPageF?0:AllPageF})">末页</button>
+					onclick="search('${pageNoS==AllPageS?0:AllPageS}','${rbListS[0].preMenu}')">末页</button>
 			</div>
 		</div>
 		<!-- 模态框（Modal） -->
@@ -173,9 +182,21 @@
 
 							<div class="form-group">
 								<label for="roleNames" class="col-sm-2 control-label">菜单名称</label>
+								<input name="upperMenu" id="upperMenu" type="hidden"
+									class="form-control">
 								<div class="col-sm-10">
 									<input name="menuNames" id="menuNames" type="text"
 										class="form-control" placeholder="请输入菜单名称(必填)">
+								</div>
+							</div>
+							
+						
+							
+							<div class="form-group">
+								<label for="roleNames" class="col-sm-2 control-label">url地址</label>
+								<div class="col-sm-10">
+									<input name="url" id="url" type="text"
+										class="form-control" placeholder="请输入url地址(必填)">
 								</div>
 							</div>
 
@@ -207,8 +228,10 @@
 						<div class="modal-body">
 
 							<div class="form-group">
-								<label for="roleNames" class="col-sm-2 control-label">角色名称</label>
+								<label for="roleNames" class="col-sm-2 control-label">菜单名称</label>
 								<input name="upmenuId" id="upmenuId" type="hidden"
+									class="form-control">
+								<input name="uppreMenu" id="uppreMenu" type="hidden"
 									class="form-control">
 								<div class="col-sm-10">
 									<input name="upmenuName" id="upmenuName" type="text"
@@ -216,6 +239,15 @@
 								</div>
 							</div>
 
+                         <div class="form-group">
+							<label for="parameterName1" class="col-sm-2 control-label">url地址</label>
+							<div class="col-sm-10">
+								<input name=upurlAddress id="upurlAddress" type="text" 
+									class="form-control">
+							</div>
+						</div>
+						
+						
 
 						</div>
 						<div class="modal-footer">

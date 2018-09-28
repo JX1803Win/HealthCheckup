@@ -85,8 +85,8 @@ $(function () {
         	        			if(AllFofRole[k].rolePermissionsBean.pibList[0].preMenu==AllSofRole[m].rolePermissionsBean.pibList[0].permissionsId){//这里可以获得全部角色下的菜单
         	        				if(AllF[i].permissionsId==AllFofRole[k].rolePermissionsBean.pibList[0].permissionsId){//这里就是显示所有勾选的菜单
         	        					fag=true;       	        				
-         	    					    html+="<option  value='"+AllF[i].permissionsId+"'data-section= " +
-         	    					    		"='"+AllS[j].menuName+"' selected>"+" "+AllF[i].menuName+" "+"</option>";     	        						
+         	    					    html+="<option  value='"+AllF[i].permissionsId+"'data-section= '" +
+         	    					    		AllS[j].menuName+"' selected>"+" "+AllF[i].menuName+" "+"</option>";     	        						
         	        						
         	        				}
         	        				

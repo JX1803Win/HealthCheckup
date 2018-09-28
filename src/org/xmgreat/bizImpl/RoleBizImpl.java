@@ -128,6 +128,66 @@ public class RoleBizImpl implements RoleBiz {
 		// TODO Auto-generated method stub
 		return permissionsMapper.selectAllMenuInfo(menuName,pageNo);
 	}
+
+	@Override
+	public void addFMenu(String menuName) {
+		// TODO Auto-generated method stub
+		permissionsMapper.addFMenu(menuName);
+	}
+
+	@Override
+	public void updateFMenu(int permissionsId, String menuName) {
+		// TODO Auto-generated method stub
+		permissionsMapper.updateFMenu(permissionsId, menuName);
+	}
+
+
+
+	@Override
+	public void delPerInfMenu(int permissionsId) {
+		// TODO Auto-generated method stub
+		permissionsMapper.delPerInfMenu(permissionsId);
+	}
+
+	@Override
+	public void deltblRolePer(int permissionsId) {
+		// TODO Auto-generated method stub
+		List<RolePermissionsBean> list=permissionsMapper.selectPermissionsMapper(permissionsId);
+		if (list!=null) {
+			permissionsMapper.deltblRolePer(permissionsId);
+		}
+		
+	}
+
+	@Override
+	public void delPerInfAllMenu(int permissionsId) {
+		// TODO Auto-generated method stub
+		permissionsMapper.delPerInfAllMenu(permissionsId);
+	}
+
+	@Override
+	public int getSonMenuNum(int permissionsId,String menuName) {
+		// TODO Auto-generated method stub
+		return permissionsMapper.getSonMenuNum(permissionsId,menuName);
+	}
+
+	@Override
+	public List<PermissionsInfBean> selectAllSonMenuInfo(int permissionsId, int pageNo,String menuName) {
+		// TODO Auto-generated method stub
+		return permissionsMapper.selectAllSonMenuInfo(permissionsId, pageNo,menuName);
+	}
+
+	@Override
+	public void addSMenu(Integer preMenu,String menuName, String url) {
+		// TODO Auto-generated method stub
+		permissionsMapper.addSMenu(preMenu,menuName, url);
+	}
+
+	@Override
+	public void updateSMenu(Integer upmenuId, String upmenuName, String upurlAddress) {
+		// TODO Auto-generated method stub
+		permissionsMapper.updateSMenu(upmenuId, upmenuName, upurlAddress);
+	}
 	
 	
 

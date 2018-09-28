@@ -25,5 +25,18 @@ public interface RoleBiz {
       public void addRolePermissions(List<PermissionsInfBean> pbList,int roleId);
       public int getMenuNum(String menuName);//查询菜单数量
       public List<PermissionsInfBean> selectAllMenuInfo(String menuName ,int pageNo);//查询菜单
+      public void addFMenu(String menuName);//添加父类菜单
+      public void updateFMenu(int permissionsId,String menuName);//修改父类菜单
+      public void deltblRolePer(int permissionsId);//删除父类菜单
+      public void delPerInfMenu(int permissionsId);//删除父类菜单
+      public void delPerInfAllMenu(int permissionsId);//删除父类下的所有子类菜单
+      public int getSonMenuNum(int permissionsId,String menuName);//查找子菜单总数
+      public List<PermissionsInfBean> selectAllSonMenuInfo(int permissionsId ,int pageNo,String menuName);//查询子菜单
+      public void addSMenu(Integer preMenu,String menuName,String url);//添加子类菜单
+      public void updateSMenu(Integer upmenuId,String upmenuName,String upurlAddress);//修改子菜单
+
+
+
+
 
 }

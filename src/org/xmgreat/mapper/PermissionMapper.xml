@@ -150,22 +150,76 @@
 	   select * from tblRolePermissions where permissionsId=#{permissionsId} and roleId=#{roleId}
 	
 	</select>
-	<!-- 查询菜单数量 -->
+	<!-- 查询父级菜单数量 -->
 	<select id="getMenuNum" resultType="int">
-	  select count(*) from tblPermissionsInf where 1=1
+	  select count(*) from tblPermissionsInf where 1=1 and preMenu=0
 	  <if test="menuName!=null and menuName != ''">
 			and menuName like concat(concat('%',#{menuName}),'%')
 		</if>
 	</select>
-		<!-- 查询所有菜单 -->
+		<!-- 查询所有父级菜单 -->
 	<select id="selectAllMenuInfo"
 		resultType="org.xmgreat.bean.PermissionsInfBean">
 
-		select s.* from (select a.* , rownum rn from tblPermissionsInf a where 1=1
+		select s.* from (select a.* , rownum rn from (select * from tblPermissionsInf  order by premenu) a where 1=1 and preMenu=0
 		<if test="menuName!=null and menuName != ''">
 			and menuName like concat(concat('%',#{menuName}),'%')
 		</if>
 		and rownum &lt; (#{pageNo} * 5 + 1)) s where s.rn &gt;((#{pageNo} - 1)* 5)
 	</select>
+	<!-- 删除父类菜单 deltblRolePer-->
+	<delete id="deltblRolePer">
+		delete from tblRolePermissions where permissionsId=#{permissionsId}
+	</delete>
+	<delete id="delPerInfMenu">
+		delete from tblPermissionsInf where permissionsId=#{permissionsId}
+	</delete>
+	<delete id="delPerInfAllMenu">
+		delete from tblPermissionsInf where preMenu=#{permissionsId}
+	</delete>
+	<select id="selectPermissionsMapper" resultType="org.xmgreat.bean.RolePermissionsBean">
+	   select * from tblRolePermissions where permissionsId=#{permissionsId}	
+	</select>
+	<!-- 添加父类菜单 -->
+		<insert id="addFMenu">
+		<selectKey keyProperty="permissionsId" resultType="int"
+			order="BEFORE">
+			select SEQ_PERMISSIONSID.NEXTVAL from dual
+		</selectKey>
+		insert into tblPermissionsInf(permissionsId,menuName,preMenu) values(#{permissionsId},#{menuName},0)
+	</insert>
+	<!-- 修改菜单名 -->
+	<update id="updateFMenu">
+		update tblPermissionsInf set menuName=#{menuName} where permissionsId=#{permissionsId}
+	</update>
+	<!-- 查询子级菜单数量 -->
+	<select id="getSonMenuNum" resultType="int">
+	  select count(*) from tblPermissionsInf where 1=1 and preMenu=#{permissionsId}
+	  <if test="menuName!=null and menuName != ''">
+			and menuName like concat(concat('%',#{menuName}),'%')
+		</if>
+	</select>
+		<!-- 查询所有子级菜单 -->
+	<select id="selectAllSonMenuInfo"
+		resultType="org.xmgreat.bean.PermissionsInfBean">
+
+		select s.* from (select a.* , rownum rn from (select * from tblPermissionsInf  order by premenu) a where 1=1 and preMenu=#{permissionsId}
+		<if test="menuName!=null and menuName != ''">
+			and menuName like concat(concat('%',#{menuName}),'%')
+		</if>
+		and rownum &lt; (#{pageNo} * 5 + 1)) s where s.rn &gt;((#{pageNo} - 1)* 5)
+	</select>
+	<!-- 添加子类菜单 -->
 	
+		<insert id="addSMenu">
+		<selectKey keyProperty="permissionsId" resultType="int"
+			order="BEFORE">
+			select SEQ_PERMISSIONSID.NEXTVAL from dual
+		</selectKey>
+		insert into tblPermissionsInf(permissionsId,menuName,preMenu,urlAddress) values(#{permissionsId},#{menuName},#{preMenu},#{urlAddress})
+	</insert> 
+	<!-- 修改子类菜单名 -->
+	<update id="updateSMenu">
+		update tblPermissionsInf set menuName=#{menuName},urlAddress=#{urlAddress} where permissionsId=#{permissionsId}
+	</update>
 </mapper>

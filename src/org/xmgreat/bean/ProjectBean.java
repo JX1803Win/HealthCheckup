@@ -13,7 +13,7 @@ public class ProjectBean
 	private OfficeBean officeBean; // 科室实体
 	// 关联属性
 	private List<DetailBean> details; // 细项实体列表
-
+	private ManaDepaRelaBean manaDepaRelaBean;//管理员科室关系表
 	public ProjectBean()
 	{
 		super();
@@ -28,6 +28,14 @@ public class ProjectBean
 		this.officeId = officeId;
 		this.officeBean = officeBean;
 		this.details = details;
+	}
+
+	public ManaDepaRelaBean getManaDepaRelaBean() {
+		return manaDepaRelaBean;
+	}
+
+	public void setManaDepaRelaBean(ManaDepaRelaBean manaDepaRelaBean) {
+		this.manaDepaRelaBean = manaDepaRelaBean;
 	}
 
 	public Integer getProjectId()

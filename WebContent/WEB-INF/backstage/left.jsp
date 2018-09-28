@@ -32,6 +32,7 @@
 								src="images/coin20.png" />
 						</dt>
 						<c:forEach items="${pibList}" var="entry2">
+						
 							<c:if test="${entry2.preMenu==entry.permissionsId}">
 								<dd>
 									<img class="coin11" src="images/coin111.png" /> <img
