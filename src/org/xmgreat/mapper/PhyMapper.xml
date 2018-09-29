@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper动态代理： namespace 的值要等于 UserDao 接口的地址（包名.接口名） -->
+<mapper namespace="org.xmgreat.mapper.PhyMapper">
+	<!-- 根据体检号查询体检信息 -->
+	<select id="queryByPhyId" parameterType="java.lang.Long" resultType="org.xmgreat.bean.UserPhyRecordBean">
+		select tupr.*, tbi.username, tp.itemname, ts.setmealname
+		from TBLUSERPHYRECORD tupr, tbluserinfo tbi, tblproject tp, tblsetmeal ts
+		where tupr.userid = tbi.userid 
+		and tupr.projectid = tp.projectid(+) and tupr.setmealid = ts.setmealid(+)
+		and tupr.PHYSICAIID = #{physicaiId}
+	</select>
+	<!-- 查询所有套餐 -->
+	<select id="queryAllSetmeal" resultType="org.xmgreat.bean.SetmealBean">
+		select * from tblsetmeal
+	</select>
+	<!-- 查询所有项目 -->
+	<select id="queryAllProject" resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblproject
+	</select>
+	<!-- 添加用户预约体检记录 -->
+	<insert id="addPhyRecord">
+		insert into TBLUSERPHYRECORD(physicaiId, userId, setmealId, projectId, appoTime,parameterId)
+		values(phySeq.NEXTVAL, #{uprb.userId}, #{uprb.setmealId,jdbcType=INTEGER}, 
+			#{uprb.projectId,jdbcType=INTEGER}, #{uprb.appoTime},10)
+	</insert>
+	<!-- 添加用户体检开单记录 -->
+	<insert id="billing">
+		insert into TBLUSERPHYRECORD(physicaiId, userId, setmealId, projectId, phyTime, parameterId)
+		values(phySeq.NEXTVAL, #{uprb.userId}, #{uprb.setmealId,jdbcType=INTEGER}, 
+			#{uprb.projectId,jdbcType=INTEGER}, to_char(sysdate, 'yyyy-mm-dd'), 22)
+	</insert>
+	<!-- 根据用户id查询用户信息 -->
+	<select id="queryUserByUserId" parameterType="java.lang.Integer" resultType="org.xmgreat.bean.UserInfoBean">
+		select * from tbluserinfo u where u.userId = #{userId}
+	</select>
+	<!-- 查询用户余额信息 -->
+	<select id="queryUserAcc" parameterType="java.lang.Integer" resultType="org.xmgreat.bean.UserAccoutBean">
+		select * from TBLUSERACCOUT 
+		where occurtime = (select max(occurtime) from  TBLUSERACCOUT where userid = #{userId}) 
+		and userid = #{userId}
+	</select>
+	<!-- 查询指定套餐总费用 -->
+	<select id="querySetmealCost" parameterType="java.lang.Integer" resultType="java.lang.Double">
+		select sum(charge) from  tblsetmealitme s, tblproject p
+		where s.projectid = p.projectid and s.setmealid = #{setmealId}
+	</select>
+	<!-- 查询指定项目总费用 -->
+	<select id="queryProjectCost" parameterType="java.lang.Integer" resultType="java.lang.Double">
+		select sum(charge) from tblproject p where p.projectid = #{projectId}
+	</select>
+	<!-- 分页查询用户预约体检记录 -->
+	<select id="queryUserAppo" resultType="org.xmgreat.bean.UserPhyRecordBean">
+		select * from (
+	    	select * from (
+		        select rownum rn, r.* from (
+		          select tupr.*,tp.itemname, ts.setmealname, p.parametername
+		          from tbluserphyrecord tupr, tblsetmeal ts, tblproject tp, tblparameter p
+		          where tupr.projectid = tp.projectid(+) and tupr.setmealid = ts.setmealid(+) 
+		          and tupr.appotime is not null and tupr.parameterid = p.parameterid 
+					and tupr.userId = #{userId} order by tupr.appotime desc ) r ) r1 
+					where r1.rn &lt;= #{pageNo}*5 ) r2 where r2.rn &gt; (#{pageNo}-1)*5
+	</select>
+	<!-- 用户预约体检记录总数 -->
+	<select id="queryUserAppoCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from tbluserphyrecord tupr where tupr.appotime is not null 
+		and tupr.userid = #{userId} 
+	</select>
+	<!-- 取消指定预约体检 -->
+	<update id="cancel" parameterType="java.lang.Long">
+		update tbluserphyrecord set parameterId = 11 where physicaiId = #{physicaiId}
+	</update>
+	<!-- 添加用户账单记录 -->
+	<insert id="addAccRecord">
+		insert into tbluseraccout 
+		values(accseq.nextval, #{uab.userId}, #{uab.balance}, 
+			 to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'), #{uab.occurMatter}, #{uab.money})
+	</insert>
+	<resultMap type="org.xmgreat.bean.OfficeBean" id="officeMap">
+		<id property="officeId" column="officeId"/>
+		<result property="officeName" column="officeName"/>
+	</resultMap>
+	<resultMap type="org.xmgreat.bean.ProjectBean" id="projectMap">
+		<id property="projectId" column="projectId"/>
+		<result property="itemName" column="itemName"/>
+		<association property="officeBean" resultMap="officeMap"/>
+	</resultMap>
+	<!-- 查询指定套餐包含的项目 -->
+	<select id="queryProjectBySetmeal" parameterType="java.lang.Integer" resultMap="projectMap">
+		select tp.projectid, tp.itemname, o.* 
+		from tblsetmealitme ts, tblproject tp, tbloffice o
+		where ts.PROJECTID = tp.projectid and tp.officeid = o.officeid and ts.setmealid = #{setmealId}
+	</select>
+	<!-- 查询指定项目信息 -->
+	<select id="queryProject" parameterType="java.lang.Integer" resultMap="projectMap">
+		select tp.projectid, tp.itemname, o.* 
+		from tblproject tp, tbloffice o 
+		where tp.projectid = #{projectId} and tp.officeid = o.officeid
+	</select>
+</mapper>

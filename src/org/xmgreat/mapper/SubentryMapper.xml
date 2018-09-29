@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.xmgreat.mapper.SubentryMapper">
+
+	<!-- 增加小结结果 -->
+	<insert id="addSubentry"
+		parameterType="org.xmgreat.bean.SubentryBean">
+		insert into
+		tblSubentry(resultId,result,subentryId,proresId,hint)
+		values(resultid.nextval,#{result,jdbcType=VARCHAR},#{subentryId,jdbcType=INTEGER},#{proresId},#{hint,jdbcType=VARCHAR})
+	</insert>
+
+</mapper>

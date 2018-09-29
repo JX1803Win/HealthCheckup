@@ -1,0 +1,53 @@
+﻿@charset "utf-8";
+/* CSS Document */
+@import "global.css";
+/*===FlexSlider幻灯片  开始===*/
+
+/*幻灯片标题*/
+.flex-caption { width:100%; padding:3px 0px; position: absolute; bottom: 3px;color: #fff;text-align: right;font-size: 14px;line-height: 22px;height:22px;}
+.flexslider {position: relative; clear:both;background: #fff;margin: 0; padding: 0 0 0;}
+.flexslider .slides > li {display: none; -webkit-backface-visibility: hidden;}
+.flexslider .slides img {width: 100%; display: block;}
+.flex-pauseplay span {text-transform: capitalize;}
+
+/* Pause/Play */
+.flex-pauseplay a { display: block; width: 20px; height: 20px; position: absolute; bottom: 5px; left: 10px; opacity: 0.8; z-index: 10; overflow: hidden; cursor: pointer; color: #000; }
+.flex-pauseplay a:before  { font-family: "flexslider-icon"; font-size: 20px; display: inline-block; content: '\f004'; }
+.flex-pauseplay a:hover  { opacity: 1; }
+.flex-pauseplay a.flex-play:before { content: '\f003'; }
+
+/* Control Nav */
+.flex-control-nav{ width: 100%;position:absolute; bottom:0;  margin:0px; text-align: center; border:0px dashed red}
+.flex-control-nav li {margin: 0 2px; display: inline-block; zoom: 1; *display: inline;}
+.flex-control-paging li a {width: 6px; height: 6px; display: block; background: #868686; cursor: pointer; text-indent: -9999px; -webkit-border-radius: 20px; -moz-border-radius: 20px; -o-border-radius: 20px; border-radius: 20px; -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3); -moz-box-shadow: inset 0 0 3px rgba(0,0,0,0.3); -o-box-shadow: inset 0 0 3px rgba(0,0,0,0.3); box-shadow: inset 0 0 3px rgba(0,0,0,0.3); }
+.flex-control-paging li a:hover { background: #868686; }
+.flex-control-paging li a.flex-active { background: #29449b; cursor: default; }
+.flex-control-thumbs {margin: 5px 0 0; position: static; overflow: hidden;}
+.flex-control-thumbs li {width: 25%; float: left; margin: 0;}
+.flex-control-thumbs img {width: 100%; display: block; opacity: .7; cursor: pointer;}
+.flex-control-thumbs img:hover {opacity: 1;}
+.flex-control-thumbs .flex-active {opacity: 1; cursor: default;}
+/*===FlexSlider幻灯片  结束===*/
+
+
+/*-------首页--------*/
+.indheader{ width: 96%;padding: 0 2%;display: inline-block;height: 42px;background: #313131;float: left;}
+.indheader .indheadL{float: left;margin-top: 2px;}
+.indheader .indheadL img{height: 36px;margin-left: 8px;}
+.indheader .indheadR{float: left;margin-top: 8px;}
+.indheader .indheadR img{ height: 26px; }
+.indheader .indheadZ{float: left;margin: 5px 3% 0;width: 68%;background: #777777;border-radius: 4px;height: 32px;}
+.indheader .indheadZ img{float: left;height: 20px;margin: 6px 10px 0}
+.indheader .indheadZ input{float: left;height: 20px;margin: 6px 0 0;border: none;background: none;width: 76%;}
+
+
+
+.indChen{ width: 96%;background: #fff;padding: 0 2% 10px;display: inline-block;float: left;margin-top: 10px;}
+.indChen dl{ margin-top: 5px;}
+.indChen dl dt{ width: 100%;float: left;display: inline-block;font-size: 18px;height: 40px;line-height:40px;}
+.indChen dl dt img{ width: 26px;float: left;margin: 8px 5px 0;}
+.indChen dl dd{ float: left;width: 100%;text-align: left;}
+.indChen dl dd a{ float: left;width: 98%;text-align: left;padding: 10px 1%;border-bottom: 1px dotted #a8f6c7;display: inline-block;}
+.indChen dl dd img{ width: 26%;float: left;height: 78px;margin-right: 6px;}
+.indChen dl dd h1{color: #333333;font-size: 14px;height: 20px;line-height: 20px;overflow: hidden;margin-top: 4px;}
+.indChen dl dd h2{color: #787878;font-size: 12px;height: 36px;line-height: 20px;overflow: hidden;margin-top: 4px;}

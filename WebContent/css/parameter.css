@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+#re {
+	margin-left: 60px;
+}
+#inquire {
+	margin-left: 30px;
+
+}
+.container #div1 {
+	margin-bottom: 50px;
+	margin-top: 30px;
+}
+#span1 {
+	margin-right: 50px;
+	margin-left: 50px;
+}
+#increased {
+	margin-bottom: 20px;
+	float: right;
+}
+#body {
+	background-image: url(../images/bg_main.png);
+}
+.m {
+	margin-right: 10px;
+}
+.m5 {
+	margin-right: 50px;
+}

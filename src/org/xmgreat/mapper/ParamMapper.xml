@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper动态代理： namespace 的值要等于接口的地址（包名.接口名） -->
+<mapper namespace="org.xmgreat.mapper.ParamMapper">
+	<!-- 条件分页查询参数列表信息 -->
+	<select id="search" resultType="org.xmgreat.bean.ParameterBean">
+		select * from (
+		select * from (
+		select rownum rn, r.* from (
+		select p1.*, p2.parametername typeName
+		from tblparameter p1, tblparameter p2
+		where p1.parametertype >0
+		and p1.parametertype = p2.parameterid
+		<if test="null != typeName and '' != typeName">
+			and p2.parametername = #{typeName}
+		</if>
+		order by p2.parametername ) r ) r1
+		where r1.rn &lt;= #{pageNo}*5 ) r2 where r2.rn &gt; (#{pageNo}-1)*5
+	</select>
+	<!-- 计算条件分页查询参数总数 -->
+
+	<select id="countOfSearch" resultType="java.lang.Integer">
+  		select count(*) 
+  		from tblparameter p1, tblparameter p2 
+  		where p1.parametertype >0 and p1.parametertype = p2.parameterid
+		<if test="null != typeName and '' != typeName">
+			and p2.parametername = #{typeName}
+		</if>
+	</select>
+
+
+	<!-- 根据参数类型查询参数列表信息 -->
+	<select id="getParameters"
+		resultType="org.xmgreat.bean.ParameterBean">
+		select * from tblparameter where parametertype = #{parameterType}
+	</select>
+
+	<!-- 根据id查询参数 -->
+	<select id="getParameter"
+		resultType="org.xmgreat.bean.ParameterBean">
+		select * from tblparameter where parameterId = #{parameterId}
+	</select>
+
+	<!-- 根据参数id删除参数信息 -->
+	<delete id="del" parameterType="Integer" >
+		delete from TBLPARAMETER where PARAMETERID = #{parameterId}
+	</delete>
+	<!-- 查询所有的参数类型 -->
+	<select id="queryAllTypeName" resultType="org.xmgreat.bean.ParameterBean">
+		select p1.*
+		from tblparameter p1
+		minus
+		select p1.*
+		from tblparameter p1
+		where p1.parametertype > 0
+	</select>
+	<!-- 添加参数 -->
+	<insert id="addParam"  parameterType="org.xmgreat.bean.ParameterBean">
+		<choose>
+	        <when test="null != parameterValues and '' != parameterValues">
+	            insert into tblparameter 
+				values(paramSeq.nextval, #{parameterName}, #{parameterValues}, #{parameterType})
+	        </when>
+	        <otherwise>
+	            insert into tblparameter(parameterId, parameterName, parameterType)
+	            values(paramSeq.nextval, #{parameterName}, #{parameterType})
+	        </otherwise>
+		</choose>
+	</insert>
+	<update id="alterParam"  parameterType="org.xmgreat.bean.ParameterBean">
+		<choose>
+	        <when test="null != parameterValues and '' != parameterValues">
+	            
+	            update tblparameter set parameterName = #{parameterName}, parameterValues = #{parameterValues}
+	            where parameterId = #{parameterId}
+	        </when>
+	        <otherwise>
+	            update tblparameter set parameterName = #{parameterName}
+	            where parameterId = #{parameterId}
+	        </otherwise>
+		</choose>
+	</update>
+</mapper>

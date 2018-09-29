@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper动态代理： namespace 的值要等于 UserDao 接口的地址（包名.接口名） -->
+<mapper namespace="org.xmgreat.mapper.DoctorMapper">
+	<!-- 查询科室下项目信息 -->
+	<select id="selectProjectId"
+		resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblProject where officeId=#{officeId}
+	</select>
+<!-- 查询项目下的套餐信息 -->
+<!-- 	
+	<select id="selectSetmeal" resultMap="SetmealInf">
+		select t.*,tp.itemName from tblsetmeal t,tblsetmealitme tm ,tblProject tp where
+		t.setmealId=tm.setmealId and tm.projectId=tp.projectId and
+		tp.officeId=#{officeId}
+	</select>
+	<resultMap type="org.xmgreat.bean.SetmealBean"
+		id="SetmealInf">
+		<id property="setmealId" column="setmealId" />
+		<result property="setmealName" column="setmealName" />
+		<association property="setmealitmeBean" column="setmealId"
+				javaType="org.xmgreat.bean.SetmealitmeBean">
+				<id property="setmealId" column="setmealId" />
+				<result property="projectId" column="projectId" />
+				一对多
+		    <collection property="pbList"
+			      ofType="org.xmgreat.bean.ProjectBean">
+			      <id property="projectId" column="projectId" />
+			      <result property="departmentId" column="departmentId" />	
+			      <result property="itemName" column="itemName" />			
+		   </collection>
+		</association>
+	</resultMap> -->
+
+
+	<!-- 通过项目ID、套餐ID查询所有的体检记录表（再放上输入体检卡号） -->
+	<select id="selectUserPhyRecordNum" resultType="int">
+		select count(*) from tbrProjectResult where projectId=#{projectId} 
+		<if test="physicaiId!=0 and physicaiId != ''">
+			and physicaiId=#{physicaiId}
+		</if>
+	</select>
+	<!-- 通过项目ID、套餐ID查询所有的体检记录表（再放上输入体检卡号） -->
+	<select id="selectUserPhyRecord"
+		resultType="org.xmgreat.bean.ProjectResultBean">
+		select * from(select t.* , rownum rn from tbrProjectResult t where projectId=#{projectId} 
+		<if test="physicaiId!=0 and physicaiId != ''">
+			and physicaiId=#{physicaiId}
+		</if>
+		and rownum &lt; (#{pageNo} * 5 + 1)) where rn &gt;((#{pageNo} - 1)* 5)
+	</select>
+	<!-- 查询用户名 -->
+	<select id="selectUserName"
+		resultType="org.xmgreat.bean.UserInfoBean">
+		select uf.* from tblUserInfo uf,tblUserPhyRecord upr  where uf.userId=upr.userId and upr.physicaiId=#{physicaiId}
+	</select>
+	<!-- 查询套餐名 -->
+	 <select id="selectSetmealName"
+		resultType="org.xmgreat.bean.SetmealBean">
+		select * from tblsetmeal where setmealId=#{setmealId}
+	</select> 
+	<!-- 查询项目名 -->
+	<select id="selectitemName"
+		resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblProject where projectId=#{projectId}
+	</select>	
+	<!-- 查询小结状态 -->
+	<select id="selectParameterName" 
+	resultType="org.xmgreat.bean.ParameterBean">
+	    select * from tblparameter  where
+	   parameterId=#{parameterId}
+	</select>
+	
+	  <!-- 查询用户报告信息数量 -->
+	<select id="selectUserPhyNum" resultType="int">
+	   select count(*) from tblUserPhyRecord tpr,tblUserInfo tui where tpr.userId=tui.userId
+	      <if test="userName!=null and userName != ''">
+			and tui.userName like concat(concat('%',#{userName}),'%')
+		</if>
+		<if test="phone!=0 and phone != ''">
+			and tui.phone like concat(concat('%',#{phone}),'%')
+		</if>
+		<if test="barCode!=0 and barCode != ''">
+			and tpr.barCode like concat(concat('%',#{barCode}),'%')
+		</if>
+		<if test="phyTime!=null and phyTime != ''">
+			and tpr.phyTime like concat(concat('%',#{phyTime}),'%')
+		</if>	
+	</select>	   	
+	
+		<!-- 查询体检报告信息 -->
+	   <select id="selectUserPhy" resultMap="UserPhyRecordInf">
+	      select * from (select tpr.*,tui.userName,rownum rn from tblUserPhyRecord tpr,tblUserInfo tui where tpr.userId=tui.userId
+	      <if test="userName!=null and userName != ''">
+			and tui.userName like concat(concat('%',#{userName}),'%')
+		</if>
+		<if test="phone!=0 and phone != ''">
+			and tui.phone like concat(concat('%',#{phone}),'%')
+		</if>
+		<if test="barCode!=0 and barCode != ''">
+			and tpr.barCode like concat(concat('%',#{barCode}),'%')
+		</if>
+		<if test="phyTime!=null and phyTime != ''">
+			and tpr.phyTime like concat(concat('%',#{phyTime}),'%')
+		</if>
+		and rownum &lt; (#{pageNo} * 5 + 1)) where rn &gt;((#{pageNo} - 1)* 5)
+	   </select> 
+	   <resultMap type="org.xmgreat.bean.UserPhyRecordBean"
+		id="UserPhyRecordInf">
+		<id property="physicaiId" column="physicaiId" />
+		<result property="barCode" column="barCode" />
+		<result property="userId" column="userId" />
+		<result property="setmealId" column="setmealId" />
+		<result property="projectId" column="projectId" />
+        <result property="phyTime" column="phyTime" />
+        <result property="phyConad" column="phyConad" />
+        <result property="guidance" column="guidance" />
+        <result property="adminId" column="adminId" />
+        <result property="sumTime" column="sumTime" />
+		<association property="userInfoBean"
+				column="userId"	
+			javaType="org.xmgreat.bean.UserInfoBean">
+			<id property="userId" column="userId" />
+			<result property="userName" column="userName" />
+			<result property="phone" column="phone" />
+		</association>
+	</resultMap>
+	<!-- 查询项目下的套餐 -->
+	<select id="selectProject" resultType="org.xmgreat.bean.SetmealitmeBean">
+	   select * from tblsetmealitme where setmealId=#{setmealId}
+	
+	</select>
+	
+	
+	
+	
+</mapper>

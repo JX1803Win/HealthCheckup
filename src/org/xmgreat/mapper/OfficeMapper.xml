@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.xmgreat.mapper.OfficeMapper">
+	<!-- 获取科室信息 -->
+	<select id="getOffice" resultType="org.xmgreat.bean.OfficeBean">
+		SELECT ROWNUM
+		NUM,OFFICEID,OFFICENAME FROM (SELECT E.*,ROWNUM RN FROM
+		TBLOFFICE E
+		WHERE ROWNUM&lt;=#{page}*5)WHERE RN&gt;=#{page}*5-4
+	</select>
+
+	<!-- 删除科室前的操作 -->
+	<update id="updOffice">
+		UPDATE TBLMANAGER SET OFFICEID=null WHERE
+		OFFICEID=#{officeid}
+	</update>
+
+
+	<!-- 删除科室 -->
+	<delete id="delOffice">
+		DELETE FROM TBLOFFICE WHERE OFFICEID=#{officeid}
+	</delete>
+
+	<!-- 查询所有科室 -->
+	<select id="selectAll" resultType="org.xmgreat.bean.OfficeBean">
+		select * from tbloffice
+	</select>
+
+	<!-- 修改科室名 -->
+	<update id="changeOfficeName">
+		UPDATE TBLOFFICE SET OFFICENAME=#{name} WHERE
+		OFFICEID=#{id}
+	</update>
+
+	<!-- 新增科室 -->
+	<insert id="addOffice">
+		INSERT INTO TBLOFFICE (OFFICEID,OFFICENAME) VALUES
+		(ADDOFFICE.NEXTVAL,#{officename})
+	</insert>
+
+
+	<!-- 模糊查询科室 -->
+	<select id="selectOffice"
+		resultType="org.xmgreat.bean.OfficeBean">
+		SELECT ROWNUM NUM,OFFICEID,OFFICENAME FROM(SELECT
+		E.*,ROWNUM RN FROM TBLOFFICE E WHERE OFFICENAME LIKE '%${name}%' AND
+		ROWNUM&lt;=#{page}*5)WHERE RN&gt;=#{page}*5-4
+	</select>
+
+</mapper>
+	

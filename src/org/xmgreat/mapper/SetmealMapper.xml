@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.xmgreat.mapper.SetmealMapper">
+
+	<!-- 增加套餐 -->
+	<insert id="addSetmeal"
+		parameterType="org.xmgreat.bean.SetmealBean">
+		insert into tblsetmeal(setmealId,setmealName)
+		values(setmealid.nextval,#{setmealName})
+	</insert>
+
+	<!-- 增加套餐关系 -->
+	<insert id="addRelation" parameterType="java.lang.Integer">
+		insert into
+		tblsetmealitme(setmealId,projectId) values(#{setmealId},#{projectId})
+	</insert>
+
+	<!-- 删除套餐关系 -->
+	<delete id="delRelation" parameterType="java.lang.Integer">
+		delete tblsetmealitme
+		where setmealId = #{setmealId}
+	</delete>
+
+	<!-- 删除套餐 -->
+	<delete id="delSetmeal" parameterType="java.lang.Integer">
+		delete tblsetmeal where
+		setmealId = #{setmealId}
+	</delete>
+
+	<!-- 修改套餐 -->
+	<update id="updateSetmeal"
+		parameterType="org.xmgreat.bean.SetmealBean">
+		update tblsetmeal set setmealName = #{setmealName} where
+		setmealId = #{setmealId}
+	</update>
+
+
+
+	<select id="selectSetmeal"
+		resultType="org.xmgreat.bean.SetmealBean">
+		select * from tblsetmeal where setmealName = #{setmealName}
+	</select>
+
+	<!-- 套餐详情 -->
+	<select id="getSetmeal" parameterType="java.lang.Integer"
+		resultMap="setmeal">
+		select * from tblsetmeal where setmealId = #{setmealId}
+	</select>
+
+
+
+	<!-- 条件查询项目总数 -->
+	<select id="count" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from tblsetmeal
+		<if test="setmealName!=null">
+			where setmealName like #{setmealName}
+		</if>
+	</select>
+
+	<!-- 查询套餐 -->
+	<select id="getSetmeals" parameterType="java.util.Map"
+		resultMap="setmeal">
+		select * from (select a.*,rownum rn from (select
+		* from tblsetmeal
+		<if test="setmealName!=null">
+			where setmealName like #{setmealName}
+		</if>
+		) a where
+		rownum &lt; #{max}) where
+		rn&gt;#{min}
+	</select>
+
+	<!-- 查询项目 -->
+	<select id="findItems" parameterType="java.lang.Integer"
+		resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblsetmealitme s,tblproject p where
+		s.projectId = p.projectId and s.setmealId = #{setmealId}
+	</select>
+
+	<!-- 查询嵌套 -->
+	<resultMap type="org.xmgreat.bean.SetmealBean" id="setmeal">
+		<id property="setmealId" column="setmealId" />
+		<collection property="items" column="setmealId"
+			javaType="java.util.ArrayList" select="findItems"
+			ofType="org.xmgreat.bean.ProjectBean">
+		</collection>
+	</resultMap>
+
+</mapper>

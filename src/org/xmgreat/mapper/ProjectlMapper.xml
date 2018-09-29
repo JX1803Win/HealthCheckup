@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.xmgreat.mapper.ProjectlMapper">
+
+	<!-- 增加项目 -->
+	<insert id="addProject"
+		parameterType="org.xmgreat.bean.ProjectBean">
+		insert into tblproject(projectId,itemName,officeId)
+		values(projectid.nextval,#{itemName},#{officeId})
+	</insert>
+
+	<!-- 增加项目关系 -->
+	<insert id="addRelation" parameterType="java.lang.Integer">
+		insert into
+		tblprojectdetail(projectId,subentryid)
+		values (#{projectId},
+		#{subentryId})
+	</insert>
+
+	<!-- 删除项目关系 -->
+	<delete id="delRelation" parameterType="java.lang.Integer">
+		delete tblprojectdetail
+		where projectId = #{projectId}
+	</delete>
+
+	<!-- 删除项目 -->
+	<delete id="delProject" parameterType="java.lang.Integer">
+		delete tblproject where
+		projectId = #{projectId}
+	</delete>
+
+	<!-- 修改项目信息 -->
+	<update id="updateProject"
+		parameterType="org.xmgreat.bean.ProjectBean">
+		update tblproject set parameterId = #{parameterId},
+		charge = #{charge}, itemName = #{itemName},officeId = #{officeId}
+		where projectId = #{projectId}
+	</update>
+
+	<!-- 查询所有项目 -->
+	<select id="selectAll" resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblproject
+	</select>
+
+	<select id="selectProject"
+		resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblproject where itemName = #{itemName}
+	</select>
+
+	<!-- 项目详情 -->
+	<select id="getProject" parameterType="java.lang.Integer"
+		resultMap="project">
+		select * from tblproject where projectId = #{projectId}
+	</select>
+
+
+
+	<!-- 条件查询项目总数 -->
+	<select id="count" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from tblproject
+		<if test="itemName!=null">
+			where itemName like #{itemName}
+		</if>
+	</select>
+
+	<!-- 查询项目 -->
+	<select id="getProjects" parameterType="java.util.Map"
+		resultMap="project">
+		select * from (select a.*,rownum rn from (select
+		* from tblproject
+		<if test="itemName!=null">
+			where itemName like #{itemName}
+		</if>
+		) a where
+		rownum &lt; #{max}) where
+		rn&gt;#{min}
+	</select>
+
+	<!-- 查询细项 -->
+	<select id="findDetai" parameterType="java.lang.Integer"
+		resultType="org.xmgreat.bean.DetailBean">
+		select * from tbldetail d,tblprojectdetail p where
+		p.subentryId =
+		d.subentryId
+		and p.projectId = #{projectId}
+	</select>
+
+
+	<!-- 查询科室 -->
+	<select id="selectOffice"
+		resultType="org.xmgreat.bean.OfficeBean"
+		parameterType="java.lang.Integer"> select * from tbloffice where officeId
+		= #{officeId}
+	</select>
+
+	<!-- 查询参数 -->
+	<select id="selectParameter"
+		resultType="org.xmgreat.bean.ParameterBean"
+		parameterType="java.lang.Integer"> select * from tblparameter where parameterId
+		=
+		#{parameterId}
+	</select>
+
+	<!-- 查询嵌套 -->
+	<resultMap type="org.xmgreat.bean.ProjectBean" id="project">
+		<id property="projectId" column="projectId" />
+		<result property="parameterId" column="parameterId" />
+		<result property="officeId" column="officeId" />
+		<association property="parameterBean" column="parameterId"
+			javaType="org.xmgreat.bean.ParameterBean" select="selectParameter">
+		</association>
+		<association property="officeBean" column="officeId"
+			javaType="org.xmgreat.bean.OfficeBean" select="selectOffice">
+		</association>
+		<collection property="details" column="projectId"
+			javaType="java.util.ArrayList" select="findDetai"
+			ofType="org.xmgreat.bean.DetailBean">
+		</collection>
+	</resultMap>
+
+</mapper>
