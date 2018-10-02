@@ -39,4 +39,5 @@ public interface PermissionsMapper {
     public List<RolePermissionsBean> selectPermissionsMapper(@Param("permissionsId")int permissionsId);//查询权限关系表中是否有数据
     public void addSMenu(@Param("preMenu")Integer preMenu,@Param("menuName")String menuName,@Param("urlAddress")String urlAddress);//添加子类菜单
     public void updateSMenu(@Param("permissionsId")Integer permissionsId,@Param("menuName")String menuName,@Param("urlAddress")String urlAddress);//修改子菜单
+    public int  selectAllFMenus(@Param("permissionsId")Integer permissionsId);
 }

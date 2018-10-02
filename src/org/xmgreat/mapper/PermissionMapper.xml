@@ -222,4 +222,10 @@
 	<update id="updateSMenu">
 		update tblPermissionsInf set menuName=#{menuName},urlAddress=#{urlAddress} where permissionsId=#{permissionsId}
 	</update>
+	
+	<select id="selectAllFMenus" resultType="int">
+	  select preMenu from tblPermissionsInf where permissionsId=#{permissionsId}
+	</select>
+	
+	
 </mapper>

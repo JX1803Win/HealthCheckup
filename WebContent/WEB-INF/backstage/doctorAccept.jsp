@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>二级菜单管理</title>
+<title>医生工作</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -74,7 +74,7 @@
 		<div class="text-center" id="div4">
 			<form class="form-inline" role="form" id="myForm">
 				<div class="form-group">
-					<label for="name" class="m">菜单名称:</label> <input type="text"
+					<label for="name" class="m">体检号:</label> <input type="text"
 						class="form-control input-sm  m5" id="physicaiId" name="physicaiId"
 						placeholder="请输入名称" value="${physicaiId}">
 				</div>

@@ -262,7 +262,8 @@ public class RoleAction {
 		public ModelAndView  delSonMenu (HttpServletRequest request,HttpServletResponse response,Integer permissionsId)throws Exception {			   
 			roleBizImpl.deltblRolePer(permissionsId);
 			roleBizImpl.delPerInfMenu(permissionsId);
-			return selectAllSonMenu(request, response,permissionsId, null);	    
+			Integer menuId=roleBizImpl.selectAllFMenus(permissionsId);
+			return selectAllSonMenu(request, response,menuId, null);	    
 		}
 		//添加子类菜单
 				@RequestMapping(value="/addSMenu.action")//为这个方法定义映射子路劲 
