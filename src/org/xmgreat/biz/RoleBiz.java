@@ -34,7 +34,7 @@ public interface RoleBiz {
       public List<PermissionsInfBean> selectAllSonMenuInfo(int permissionsId ,int pageNo,String menuName);//查询子菜单
       public void addSMenu(Integer preMenu,String menuName,String url);//添加子类菜单
       public void updateSMenu(Integer upmenuId,String upmenuName,String upurlAddress);//修改子菜单
-
+      public int  selectAllFMenus(Integer permissionsId);
 
 
 

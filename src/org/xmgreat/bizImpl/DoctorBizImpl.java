@@ -118,4 +118,53 @@ public class DoctorBizImpl implements DoctorBiz {
 		return list2;
 	}
 
+	@Override
+	public List<ProjectResultBean> selectProjectResults(Integer projectId, Integer physicaiId) {
+		// TODO Auto-generated method stub
+		List<ProjectResultBean> prb=doctorMapper.selectProjectResult(physicaiId,projectId);
+		return prb;
+	}
+
+	@Override
+	public int selectMedicalManNum(String userName, Long phone, Long barCode, String starDay, String end) {
+		// TODO Auto-generated method stub
+		return doctorMapper.selectMedicalManNum(userName, phone, barCode, starDay, end);
+	}
+
+	@Override
+	public List<UserInfoBean> selectMedicalMan(String userName, Long phone, Long barCode, String starDay, String end,
+			Integer pageNo) {
+		// TODO Auto-generated method stub		
+		return doctorMapper.selectMedicalMan(userName, phone, barCode, starDay, end, pageNo);
+	}
+
+	@Override
+	public String selectAppoTime(Long physicaiId) {
+		// TODO Auto-generated method stub
+		return doctorMapper.selectAppoTime(physicaiId);
+	}
+
+	@Override
+	public List<UserInfoBean> selectMedicalManS(String userName, Long phone, Long barCode, String starDay, String end) {
+		// TODO Auto-generated method stub
+		return doctorMapper.selectMedicalManS(userName, phone, barCode, starDay, end);
+	}
+
+	@Override
+	public int selectPhyTimeNum(String PhyTime) {
+		// TODO Auto-generated method stub
+		//查询所有的预约时间和诊断时间
+		int a1=doctorMapper.selectPhyTimeNum(PhyTime);
+		int a2=doctorMapper.selectAppointTimeNum(PhyTime);
+		return a1+a2;
+	}
+
+	@Override
+	public int selectPhyTimeWeekNum(String StarTime, String EndTime) {
+		// TODO Auto-generated method stub
+		int a1=doctorMapper.selectPhyTimeWeekNum(StarTime,EndTime);
+		int a2=doctorMapper.selectAppointTimeWeekNum(StarTime,EndTime);
+		return a1+a2;
+	}
+
 }

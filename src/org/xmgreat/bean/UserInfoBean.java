@@ -27,8 +27,17 @@ public class UserInfoBean	 //用户信息
 	private ParameterBean parameterBean;
 	private ParameterBean1 parameterBean1;
 	private ParameterBean2 parameterBean2;
+	private UserPhyRecordBean userPhyRecordBean;
 	public UserInfoBean() {
 		
+	}
+
+	public UserPhyRecordBean getUserPhyRecordBean() {
+		return userPhyRecordBean;
+	}
+
+	public void setUserPhyRecordBean(UserPhyRecordBean userPhyRecordBean) {
+		this.userPhyRecordBean = userPhyRecordBean;
 	}
 
 	public String getUserId1() {
