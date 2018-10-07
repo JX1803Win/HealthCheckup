@@ -39,7 +39,9 @@ public class ExcellAction {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String nowdate = df.format(now);
         // 打开文件
-        WritableWorkbook book = Workbook.createWorkbook(new File(nowdate + ".xls"));
+        File file=new File(nowdate + ".xls");
+        WritableWorkbook book = Workbook.createWorkbook(file);
+        
         // 生成名为"第一页"的工作表，参数0表示这是第一
         WritableSheet sheet = book.createSheet("第一页", 0);
 
@@ -54,8 +56,8 @@ public class ExcellAction {
         Label labelB = new Label(1, 0, "姓名", format1);
         Label labelC = new Label(2, 0, "性别", format1);
         Label labelD = new Label(3, 0, "年龄", format1);
-        Label labelE = new Label(4, 0, "身份证号", format1);
-        Label labelF = new Label(5, 0, "联系电话", format1);
+        Label labelE = new Label(4, 0, "联系电话", format1);
+        Label labelF = new Label(5, 0, "体检时间", format1);
 
         // 将定义好的单元格添加到工作表中
         sheet.addCell(labelA);
@@ -73,7 +75,7 @@ public class ExcellAction {
 		}
         List<UserInfoBean> uprbList=doctorBizImpl.selectMedicalManS(userName, phone, barCode, starDay,end); 
         for (int i = 0; i < uprbList.size(); i++) {
-            Label labelAi = new Label(0, i + 1, String.valueOf(uprbList.get(i).getUserId()));
+            Label labelAi = new Label(0, i + 1, String.valueOf(i+1));
             Label labelBi = new Label(1, i + 1, uprbList.get(i).getUserName());
             Label labelCi = new Label(2, i + 1, uprbList.get(i).getSex());
             Label labelDi = new Label(3, i + 1, String.valueOf(uprbList.get(i).getAge()));
