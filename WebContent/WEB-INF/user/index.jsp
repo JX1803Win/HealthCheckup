@@ -42,11 +42,11 @@
             <dd><a href="About.html">
                 <img src="../img/ind_01.png" /><p>公司简介</p>
             </a></dd>
-            <dd><a href="Service.html">
+            <dd><a href="gosetmeal.action">
                 <img src="../img/ind_02.png" /><p>服务项目</p>
             </a></dd>
             <dd><a href="News.html">
-                <img src="../img/ind_03.png" /><p>新闻中心</p>
+                <img src="../img/ind_03.png" /><p>我的预约</p>
             </a></dd>
             <dd><a href="Case.html">
                 <img src="../img/ind_04.png" /><p>案例分享</p>

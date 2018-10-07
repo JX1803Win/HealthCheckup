@@ -256,8 +256,20 @@
 				document.getElementById('msg').innerHTML = '请滑动验证码!'
 				return;
 			}
-			window.location.href = "user/login.action?phone=" + phone + "&psw="
-					+ pass;
+			$.ajax({
+				url : "user/login.action",
+				data : "phone="+phone+"&psw="+pass,
+				dataType : "text",
+				type : "post",
+				success : function(redata) {
+					if(redata=="\"否\""){
+					document.getElementById('msg').innerHTML = '登入失败'
+					return
+					}else{
+	    				window.location.href = "user/loginsuccess.action"
+	    			}
+				}
+			});
 		}
 	</script>
 	<script src="js/particles.min.js"></script>
