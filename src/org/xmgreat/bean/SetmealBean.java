@@ -10,9 +10,20 @@ public class SetmealBean
 	private String setmealName; // 套餐名
 	private List<ProjectBean> items; // 项目列表
     private SetmealitmeBean setmealitmeBean;
+    private Integer num;	//序号
 	public SetmealBean()
 	{
 		super();
+	}
+
+	public Integer getNum()
+	{
+		return num;
+	}
+
+	public void setNum(Integer num)
+	{
+		this.num = num;
 	}
 
 	public SetmealBean(Integer setmealId, String setmealName, List<ProjectBean> items)

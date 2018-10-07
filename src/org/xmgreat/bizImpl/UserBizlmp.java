@@ -5,6 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.xmgreat.bean.ProjectBean;
+import org.xmgreat.bean.SetmealBean;
+import org.xmgreat.bean.UserAccoutBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.biz.UserBiz;
 import org.xmgreat.mapper.UserMapper;
@@ -48,6 +51,27 @@ public class UserBizlmp implements UserBiz
 	{
 		// TODO Auto-generated method stub
 		userMapper.changeInfo(sex, age, birth, blood, add, phone);
+	}
+
+	@Override
+	public List<UserAccoutBean> getAccout(int userid, int page)
+	{
+		// TODO Auto-generated method stub
+		return userMapper.getAccout(userid, page);
+	}
+
+	@Override
+	public List<SetmealBean> getSetmeal(int page)
+	{
+		// TODO Auto-generated method stub
+		return userMapper.getSetmeal(page);
+	}
+
+	@Override
+	public List<ProjectBean> getxi(int mid)
+	{
+		// TODO Auto-generated method stub
+		return userMapper.getxi(mid);
 	}
 
 }

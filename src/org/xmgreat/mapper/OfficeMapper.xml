@@ -22,10 +22,6 @@
 		DELETE FROM TBLOFFICE WHERE OFFICEID=#{officeid}
 	</delete>
 
-	<!-- 查询所有科室 -->
-	<select id="selectAll" resultType="org.xmgreat.bean.OfficeBean">
-		select * from tbloffice
-	</select>
 
 	<!-- 修改科室名 -->
 	<update id="changeOfficeName">
