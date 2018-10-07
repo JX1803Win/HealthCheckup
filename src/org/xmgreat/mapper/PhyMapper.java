@@ -3,8 +3,11 @@ package org.xmgreat.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.xmgreat.bean.DetailBean;
+import org.xmgreat.bean.ProResBean;
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.bean.SetmealBean;
+import org.xmgreat.bean.SubentryBean;
 import org.xmgreat.bean.UserAccoutBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.bean.UserPhyRecordBean;
@@ -55,11 +58,11 @@ public interface PhyMapper {
 	public UserInfoBean queryUserByUserId(Integer userId);
 	
 	/**
-	 * @description 根据体检号查询用户体检信息
-	 * @param physicaiId 体检号
+	 * @description 根据体检卡查询用户信息
+	 * @param phyCardId 体检号
 	 * @return 用户信息
 	 */
-	//public UserInfoBean queryUserByPhysicaiId(Long physicaiId);
+	public UserInfoBean queryUserByPhyCardId(Long phyCardId);
 	
 	/**
 	 * @description 查询用户余额信息
@@ -123,4 +126,74 @@ public interface PhyMapper {
 	 */
 	public ProjectBean queryProject(Integer projectId);
 	
+	/**
+	 * @description 初始化项目结果信息
+	 * @param physicaiId 体检号
+	 * @param projectId 项目id
+	 */
+	public void initProResInfo(@Param("physicaiId")Long physicaiId, @Param("projectId")Integer projectId);
+	
+	/**
+	 * @description 查询项目下的细项
+	 * @param projectId 项目id
+	 * @return 项目下的细项
+	 */
+	public List<DetailBean> queryDetailByProject(Integer projectId);
+	
+	/**
+	 * @description 根据体检号和项目id查询项目结果信息
+	 * @param physicaiId 体检号
+	 * @param projectId 项目id
+	 * @return 项目结果信息
+	 */
+	public ProResBean queryProResInfo(@Param("physicaiId")Long physicaiId, @Param("projectId")Integer projectId);
+
+	/**
+	 * @description 初始化细项结果数据
+	 * @param proresId 项目结果id
+	 * @param subentryId 细项id
+	 */
+	public void initSubInfo(@Param("proresId")Integer proresId, @Param("subentryId")Integer subentryId);
+
+	/**
+	 * @description 查询用户最新体信息
+	 * @param userId 用户id
+	 * @return 用户最新体检号
+	 */
+	public Long queryLastPhyRecord(Integer userId);
+	
+	/**
+	 * @description 根据项目结果id查询其细项结果
+	 * @param proresId 项目结果id
+	 * @return 细项结果列表
+	 */
+	public List<SubentryBean> querySubByPro(Integer proresId);
+	
+	/**
+	 * @description 查询可以填写总结的体检记录
+	 * @param physicaiId 体检号
+	 * @param pageNo 第几页
+	 * @return 可以填写总结的体检记录
+	 */
+	public List<UserPhyRecordBean> querySummary(@Param("physicaiId")Long physicaiId, @Param("pageNo")Integer pageNo);
+
+	/**
+	 * @description 查询可以填写总结的体检记录总数
+	 * @param physicaiId 查询条件（体检号）
+	 * @return 可以填写总结的体检记录总数
+	 */
+	public Integer countOfSummary(Long physicaiId);
+	
+	/**
+	 * @description 根据体检号查询项目小结信息
+	 * @param physicaiId 体检号
+	 * @return 项目小结信息
+	 */
+	public List<ProResBean> queryProResByPhysicaiId(Long physicaiId);
+	
+	/**
+	 * @description 写总结
+	 * @param uprb 体检信息
+	 */
+	public void writeSummary(@Param("uprb")UserPhyRecordBean uprb);
 }

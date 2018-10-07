@@ -38,8 +38,8 @@ public class PhyAction {
 	 */
 	@RequestMapping(value = "/addPhy.action")
 	public String addPhy(HttpServletRequest request){
-//		Integer userId = ((UserInfoBean)request.getSession().getAttribute("user")).getUserId();
-		Integer userId = 1005;
+		Integer userId = ((UserInfoBean)request.getSession().getAttribute("user")).getUserId();
+//		Integer userId = 1005;
 		userPhyRecordBean.setUserId(userId);
 		String time = request.getParameter("time");
 		System.out.println(time);
@@ -88,7 +88,7 @@ public class PhyAction {
 			projectId = Integer.parseInt(request.getParameter("project"));
 			userPhyRecordBean.setProjectId(projectId);
 		}
-		phyBizImpl.billing(physicaiId, setmealId, projectId);
+		request.setAttribute("physicaiId", phyBizImpl.billing(physicaiId, setmealId, projectId));
 		return goBilling();
 	}
 	
@@ -120,8 +120,8 @@ public class PhyAction {
 	
 	@RequestMapping("/queryAppo.action")
 	public String queryAppo(HttpServletRequest request) {
-//		Integer userId = ((UserInfoBean)request.getSession().getAttribute("user")).getUserId();
-		Integer userId = 1005;
+		Integer userId = ((UserInfoBean)request.getSession().getAttribute("user")).getUserId();
+//		Integer userId = 1005;
 		if(currentPage == null || request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {

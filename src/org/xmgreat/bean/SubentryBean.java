@@ -12,6 +12,7 @@ public class SubentryBean// 用户细项结果表
 	private Integer proresId; // 项目结果id
 	private Long barcode;// 条码号
 	private DetailBean detail;// 细项实体
+	private DetailBean detailBean;
 
 	public SubentryBean()
 	{
@@ -99,6 +100,14 @@ public class SubentryBean// 用户细项结果表
 	public void setBarcode(Long barcode)
 	{
 		this.barcode = barcode;
+	}
+
+	public DetailBean getDetailBean() {
+		return detailBean;
+	}
+
+	public void setDetailBean(DetailBean detailBean) {
+		this.detailBean = detailBean;
 	}
 
 }

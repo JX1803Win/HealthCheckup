@@ -1,6 +1,8 @@
 package org.xmgreat.action;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +24,10 @@ import org.xmgreat.bean.UserAccoutBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.bean.UserPhyRecordBean;
 import org.xmgreat.biz.AdminBiz;
+import org.xmgreat.util.Excel;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 
 //前后端用户管理
 @Controller // 此注释的含义是将该类设置成为浏览器提交的上来的类
@@ -33,6 +40,7 @@ public class ManageAction {
 	@Autowired
 	AdminBiz adminBizImpl;
 	ModelAndView mav = new ModelAndView();
+
 	// 前端用户管理
 	@RequestMapping(value = "/showUser.action")
 	public ModelAndView showUser(HttpServletRequest request, UserInfoBean userInfoBean) {
@@ -82,6 +90,26 @@ public class ManageAction {
 
 	}
 
+	// 进入后端用户注册界面
+	@RequestMapping(value = "/userAdd.action")
+	public ModelAndView userAdd() {
+		return adminBizImpl.userAdd();
+
+	}
+
+	// 增加用户
+	@RequestMapping(value = "/regUser.action")
+	public String regUser(UserInfoBean userInfoBean) {
+
+		return adminBizImpl.regUser(userInfoBean);
+	}
+	// 查询用户是否已注册
+		@RequestMapping(value = "/selectUser.action")
+		public @ResponseBody List<UserInfoBean> selectUser(UserInfoBean userInfoBean) {
+			return adminBizImpl.selectUser(userInfoBean);
+
+		}
+
 	// 查询城市
 	@RequestMapping(value = "/selectCity.action")
 	public @ResponseBody List<CityBean> selectCity(CityBean cityBean) {
@@ -91,7 +119,7 @@ public class ManageAction {
 
 	// 查询用户是否已注册
 	@RequestMapping(value = "/selectAdmin.action")
-	public @ResponseBody String selectAdmin(ManagerBean managerBean) {
+	public @ResponseBody List<ManagerBean> selectAdmin(ManagerBean managerBean) {
 
 		return adminBizImpl.selectAdmin(managerBean);
 
@@ -165,41 +193,46 @@ public class ManageAction {
 		fileact.transferTo(new File(root + "/" + filename));
 		return adminBizImpl.upFile(fileact);
 	}
-	//结算界面
-		@RequestMapping(value = "/chargeWork.action")
-		public ModelAndView chargeWork() {
-			mav.setViewName("backstage/chargeWork");
-			return mav;
-		}
-		
-		// 项目收费信息
-		@RequestMapping(value = "/selectProject.action")
-		public ModelAndView selectProject(UserPhyRecordBean userPhyRecordBean) {
-			
-			return adminBizImpl.selectProject(userPhyRecordBean);
-			
-		}
-		// 结账
-		@RequestMapping(value = "/settleAccount.action")
-		public @ResponseBody List<CityBean> settleAccount(Double charge,Integer userId,Integer physicaiId) {
-			return adminBizImpl.settleAccount(charge, userId,physicaiId);
 
-		}
-		//结算界面
-				@RequestMapping(value = "/userAccount.action")
-				public ModelAndView userAccount() {
-					mav.setViewName("backstage/userAccount");
-					return mav;
-				}
-		//查询流水账
-				@RequestMapping(value = "/selectAccount.action")
-				public ModelAndView selectAccount(UserInfoBean userInfoBean) {
-					return adminBizImpl.selectAccount(userInfoBean);
-				}
-				// 充值
-				@RequestMapping(value = "/topUp.action")
-				public String topUp(UserAccoutBean userAccoutBean) {
+	// 结算界面
+	@RequestMapping(value = "/chargeWork.action")
+	public ModelAndView chargeWork() {
+		mav.setViewName("backstage/chargeWork");
+		return mav;
+	}
 
-					return adminBizImpl.topUp(userAccoutBean);
-				}
+	// 项目收费信息
+	@RequestMapping(value = "/selectProject.action")
+	public ModelAndView selectProject(UserPhyRecordBean userPhyRecordBean) {
+
+		return adminBizImpl.selectProject(userPhyRecordBean);
+
+	}
+
+	// 结账
+	@RequestMapping(value = "/settleAccount.action")
+	public @ResponseBody List<CityBean> settleAccount(Double charge, Integer userId, Integer physicaiId) {
+		return adminBizImpl.settleAccount(charge, userId, physicaiId);
+
+	}
+
+	// 结算界面
+	@RequestMapping(value = "/userAccount.action")
+	public ModelAndView userAccount() {
+		mav.setViewName("backstage/userAccount");
+		return mav;
+	}
+
+	// 查询流水账
+	@RequestMapping(value = "/selectAccount.action")
+	public ModelAndView selectAccount(UserInfoBean userInfoBean) {
+		return adminBizImpl.selectAccount(userInfoBean);
+	}
+
+	// 充值
+	@RequestMapping(value = "/topUp.action")
+	public String topUp(UserAccoutBean userAccoutBean) {
+
+		return adminBizImpl.topUp(userAccoutBean);
+	}
 }

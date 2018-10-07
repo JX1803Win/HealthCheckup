@@ -1,5 +1,6 @@
 package org.xmgreat.bizImpl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import org.xmgreat.bean.CityBean;
 import org.xmgreat.bean.ManagerBean;
 import org.xmgreat.bean.PermissionsInfBean;
 import org.xmgreat.bean.PhyCardBean;
+import org.xmgreat.bean.ProjectBean;
+import org.xmgreat.bean.SetmealBean;
 import org.xmgreat.bean.UserAccoutBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.bean.UserPhyRecordBean;
@@ -37,14 +40,13 @@ public class AdminBizImpl implements AdminBiz
 	private AdminMapper adminMapper;
 	@Resource
 	private PermissionsMapper permissionsMapper;
-
+	
 	@Override
 	public List<PermissionsInfBean> selectRoleInfo(Integer roleId) {
 		// TODO Auto-generated method stub
 		return permissionsMapper.selectRoleInfo(roleId);
 
 	}
-	@Override
 	public ManagerBean login(String adminName, String psw)
 	{
 		// TODO Auto-generated method stub
@@ -169,17 +171,21 @@ public class AdminBizImpl implements AdminBiz
 	}
 	//查询用户知否以注册
 	@Override
-	public String selectAdmin(ManagerBean managerBean) {
+	public List<ManagerBean> selectAdmin(ManagerBean managerBean) {
 		// TODO Auto-generated method stub
 		int i =adminMapper.selectAdmin(managerBean);
-		String str=null;
+		
+		List<ManagerBean> list = new ArrayList<ManagerBean>();
+		ManagerBean manager=new ManagerBean();
+		
 		if(i>0) {
-			str="已注册";
+			manager.setMangerName("已注册");
 		}else {
-			str="未注册";
+			manager.setMangerName("未注册");
 		}
-		return str;
-	}
+		list.add(manager);
+		return list;
+		}
 	//增加后台用户
 	@Override
 	public String addAdmin(ManagerBean managerBean) {
@@ -378,6 +384,7 @@ public class AdminBizImpl implements AdminBiz
 		mav.setViewName("backstage/userAccount");
 		return mav;
 	}
+	//充值
 	@Override
 	public String topUp(UserAccoutBean userAccoutBean) {
 		System.out.println(userAccoutBean.getUserId());
@@ -396,5 +403,37 @@ public class AdminBizImpl implements AdminBiz
 		result="redirect:/ManageAction/selectAccount.action?page=1&&userId="+userAccoutBean.getUserId()+"";
 	return result;
 	}
-	
+	//跳转前端用户注册
+	@Override
+	public ModelAndView userAdd() {
+		list=adminMapper.selectProvince();
+		mav.addObject("listProvince",list);
+		mav.setViewName("backstage/userAdd");
+		return mav;
+	}
+	//前端用户注册
+	@Override
+	public String regUser(UserInfoBean userInfoBean) {
+		boolean bool=adminMapper.regUser(userInfoBean);
+		String result=null;
+		if(bool==true) {
+			result="redirect:/ManageAction/showUser.action?page=1";
+		}
+		return result;
+	}
+	//查询用户是否已经被注册
+	@Override
+	public List<UserInfoBean> selectUser(UserInfoBean userInfoBean) {
+		int i =adminMapper.selectUser(userInfoBean);
+		List<UserInfoBean> list = new ArrayList<UserInfoBean>();
+		UserInfoBean userInfo=new UserInfoBean();
+		
+		if(i>0) {
+			userInfo.setUserName("已注册");
+		}else {
+			userInfo.setUserName("未注册");
+		}
+		list.add(userInfo);
+		return list;
+	}
 }

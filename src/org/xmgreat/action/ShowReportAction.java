@@ -17,7 +17,7 @@ public class ShowReportAction {
 
 	@RequestMapping(value = "/show.action")
 	public String getpic(String path, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		File file = new File("E:\\培训\\项目\\健康体检散检系统项目\\4-健康体检散检系统项目实战指南.pdf");
+		File file = new File("E:\\培训\\课件\\1.预科\\1.Java开发环境.pdf");
 		if (!file.exists()) {
 			request.setAttribute("error", "附件已删除或不存在");
 		}

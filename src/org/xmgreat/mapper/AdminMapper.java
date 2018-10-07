@@ -59,6 +59,8 @@ public interface AdminMapper
 	public List<UserAccoutBean> selectAccount(UserInfoBean userInfoBean);//查询体检人信息和显目信息
 	public int selectAccountAll(UserInfoBean userInfoBean);//查询流水账总数
 	public UserInfoBean selectUserInfo(UserInfoBean userInfoBean);//查出用户的最新余额和流水账信息
+	public boolean regUser(UserInfoBean userInfoBean);//增加用户
+	public int selectUser(UserInfoBean userInfoBean);//查询用户知否以注册
 	
 	
 	
