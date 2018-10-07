@@ -16,6 +16,8 @@ import org.xmgreat.bean.DetailBean;
 @Repository
 public interface DetailMapper
 {
+	public DetailBean getDetail(@Param("subentryId") Integer subentryId);
+
 	/**
 	 * @description 查询所有细项
 	 * @return 所有细项列表

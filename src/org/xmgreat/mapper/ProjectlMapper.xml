@@ -91,15 +91,15 @@
 	<!-- 查询科室 -->
 	<select id="selectOffice"
 		resultType="org.xmgreat.bean.OfficeBean"
-		parameterType="java.lang.Integer"> select * from tbloffice where officeId
-		= #{officeId}
+		parameterType="java.lang.Integer">
+		select * from tbloffice where officeId = #{officeId}
 	</select>
 
 	<!-- 查询参数 -->
 	<select id="selectParameter"
 		resultType="org.xmgreat.bean.ParameterBean"
-		parameterType="java.lang.Integer"> select * from tblparameter where parameterId
-		=
+		parameterType="java.lang.Integer">
+		select * from tblparameter where parameterId =
 		#{parameterId}
 	</select>
 

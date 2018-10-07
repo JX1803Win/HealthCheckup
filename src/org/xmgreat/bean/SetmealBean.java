@@ -2,14 +2,18 @@ package org.xmgreat.bean;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
+
 @Component
 public class SetmealBean
 {
 	private Integer setmealId; // 套餐id
 	private String setmealName; // 套餐名
 	private List<ProjectBean> items; // 项目列表
-    private SetmealitmeBean setmealitmeBean;
+	@Resource
+	private SetmealitmeBean setmealitmeBean;
     private Integer num;	//序号
 	public SetmealBean()
 	{
@@ -34,11 +38,13 @@ public class SetmealBean
 		this.items = items;
 	}
 
-	public SetmealitmeBean getSetmealitmeBean() {
+	public SetmealitmeBean getSetmealitmeBean()
+	{
 		return setmealitmeBean;
 	}
 
-	public void setSetmealitmeBean(SetmealitmeBean setmealitmeBean) {
+	public void setSetmealitmeBean(SetmealitmeBean setmealitmeBean)
+	{
 		this.setmealitmeBean = setmealitmeBean;
 	}
 

@@ -1,5 +1,9 @@
 package org.xmgreat.biz;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.bean.ProjectResultBean;
 
@@ -19,11 +23,14 @@ public interface SummaryBiz
 
 	/**
 	 * @description 保存体检数据
-	 * @param proresId   项目结果id
-	 * @param subentryId 细项id数组
-	 * @param result     细项结果数组
+	 * @param proresId      项目结果id
+	 * @param subentryId    细项id数组
+	 * @param result        细项结果数组
+	 * @param projectResult 项目结果
+	 * @param parameterId   小结状态
 	 */
-	public void generalSummary(Integer proresId, Integer[] subentryId, String[] result);
+	public void generalSummary(Integer proresId, Integer[] subentryId, String[] result, String projectResult,
+			Integer parameterId);
 
 	/**
 	 * @description 保存体检数据
@@ -31,8 +38,21 @@ public interface SummaryBiz
 	 * @param subentryId    细项id数组
 	 * @param result        细项结果数组
 	 * @param projectResult 项目结果
+	 * @param parameterId   小结状态
 	 */
-	public void generalSummary(Integer proresId, Integer[] subentryId, String[] result, String projectResult);
+	public void projectSummary(Integer proresId, Integer[] subentryId, String[] result, String projectResult,
+			Integer parameterId);
+
+	/**
+	 * @description 保存体检数据
+	 * @param proresId      项目结果id
+	 * @param subentryId    细项id数组
+	 * @param request       页面请求
+	 * @param projectResult 项目结果
+	 * @param parameterId   小结状态
+	 */
+	public void imageSummary(Integer proresId, Integer[] subentryId, HttpServletRequest request, String projectResult,
+			Integer parameterId) throws IllegalStateException, IOException;
 
 	/**
 	 * 

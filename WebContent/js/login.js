@@ -14,7 +14,7 @@ function click1() {
 
 $(function() {
 	$('#login').click(
-			function() {
+			function(ooo) {
 				if ($("#mangerName").val() == "") {
 					alert('用户名不能为空');
 					return false;

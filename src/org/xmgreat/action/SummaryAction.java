@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.xmgreat.annotation.SystemLog;
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.bean.ProjectResultBean;
 import org.xmgreat.biz.SummaryBiz;
@@ -35,20 +36,35 @@ public class SummaryAction
 		return "backstage/examination";
 	}
 
-	@RequestMapping(value = "/generalSummary")
-	public ModelAndView generalSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId,
-			String[] result) throws Exception
-	{
-		summaryBiz.generalSummary(proresId, subentryId, result);
-		return doctorAction.selectAllRole(request, null, null);
-	}
-
 	@RequestMapping(value = "/skipSummary")
-	public String skipSummary(HttpServletRequest request, Integer projectId, Integer proresId)
+	public String skipSummary(HttpServletRequest request, Integer proresId)
 	{
-
 		ProjectResultBean projectResultBean = summaryBiz.skipSummary(proresId);
 		request.setAttribute("projectResult", projectResultBean);
 		return "backstage/summary";
+	}
+
+	@RequestMapping(value = "/generalSummary")
+	public ModelAndView generalSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId,
+			String[] result, String projectResult, Integer parameterId) throws Exception
+	{
+		summaryBiz.generalSummary(proresId, subentryId, result, projectResult, parameterId);
+		return doctorAction.selectAllRole(request, null, null);
+	}
+
+	@RequestMapping(value = "/projectSummary")
+	public ModelAndView projectSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId,
+			String[] result, String projectResult, Integer parameterId) throws Exception
+	{
+		summaryBiz.projectSummary(proresId, subentryId, result, projectResult, parameterId);
+		return doctorAction.selectAllRole(request, null, null);
+	}
+
+	@RequestMapping(value = "/imageSummary")
+	public ModelAndView imageSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId,
+			String projectResult, Integer parameterId) throws Exception
+	{
+		summaryBiz.imageSummary(proresId, subentryId, request, projectResult, parameterId);
+		return doctorAction.selectAllRole(request, null, null);
 	}
 }

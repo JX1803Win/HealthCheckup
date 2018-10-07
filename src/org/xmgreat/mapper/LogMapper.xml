@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.xmgreat.mapper.LogMapper">
+	<!-- 增加日志 -->
+	<insert id="addLog" parameterType="org.xmgreat.bean.LogBean">
+		insert into
+		tbllog(logId,adminId,module,method,rsponseDate,ip,executionDate,commite)
+		values(logId.nextval,#{adminId},#{module},#{method},#{rsponseDate},#{ip},#{executionDate},#{commite})
+	</insert>
+
+	<delete id="delLog">
+		delete tbllog where logId = #{logId}
+	</delete>
+
+
+	<!-- 条件查询日志总数 -->
+	<select id="count" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from tbllog l,tblmanager m where l.adminId = m.adminId
+		<if test="adminName!=null">
+			and m.managerName like #{adminName}
+		</if>
+	</select>
+
+	<!-- 查询日志 -->
+	<select id="getLogs" resultMap="selectLog"
+		parameterType="java.util.Map">
+		select * from (select a.*,rownum rn from (select l.* from tbllog
+		l,tblmanager m where l.adminId = m.adminId
+		<if test="adminName!=null">
+			and m.managerName like #{adminName}
+		</if>
+		order by executionDate asc) a where rownum &lt; #{max}) where
+		rn&gt;#{min}
+	</select>
+
+	<select id="selectUser"
+		resultType="org.xmgreat.bean.ManagerBean">
+		select managerName mangerName from tblmanager where adminId = #{adminId}
+	</select>
+
+	<resultMap type="org.xmgreat.bean.LogBean" id="selectLog">
+		<result property="adminId" column="adminId" />
+		<association property="managerBean" column="adminId"
+			javaType="org.xmgreat.bean.ManagerBean" select="selectUser">
+		</association>
+	</resultMap>
+
+</mapper>

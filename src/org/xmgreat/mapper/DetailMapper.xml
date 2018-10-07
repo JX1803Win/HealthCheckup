@@ -36,6 +36,12 @@
 		select * from tbldetail
 	</select>
 
+	<!-- 根据细项id查询细项 -->
+	<select id="getDetail" parameterType="java.lang.Integer"
+		resultMap="detail">
+		select * from tbldetail where subentryId = #{subentryId}
+	</select>
+
 	<!-- 查询细项 -->
 	<select id="getDetails" parameterType="java.util.Map"
 		resultMap="detail">

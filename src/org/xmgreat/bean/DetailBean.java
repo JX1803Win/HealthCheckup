@@ -1,7 +1,5 @@
 package org.xmgreat.bean;
 
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,11 +7,9 @@ public class DetailBean
 {
 	private Integer subentryId; // 细项id
 	private String detailName; // 细项名
-	private Double price; // 价格
 	private Integer parameterId; // 单位
 	private Double upperLimit; // 上限值
 	private Double lowerLimit; // 下限值
-	@Resource
 	private ParameterBean parameterBean; // 参数实体
 	private String initValue; // 默认值
 
@@ -22,13 +18,12 @@ public class DetailBean
 		super();
 	}
 
-	public DetailBean(Integer subentryId, String detailName, Double price, Integer parameterId, Double upperLimit,
-			Double lowerLimit, ParameterBean parameterBean, String initValue)
+	public DetailBean(Integer subentryId, String detailName, Integer parameterId, Double upperLimit, Double lowerLimit,
+			ParameterBean parameterBean, String initValue)
 	{
 		super();
 		this.subentryId = subentryId;
 		this.detailName = detailName;
-		this.price = price;
 		this.parameterId = parameterId;
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
@@ -66,15 +61,6 @@ public class DetailBean
 		this.detailName = detailName;
 	}
 
-	public Double getPrice()
-	{
-		return price;
-	}
-
-	public void setPrice(Double price)
-	{
-		this.price = price;
-	}
 
 	public Integer getParameterId()
 	{

@@ -11,4 +11,5 @@
 		values(resultid.nextval,#{result,jdbcType=VARCHAR},#{subentryId,jdbcType=INTEGER},#{proresId},#{hint,jdbcType=VARCHAR})
 	</insert>
 
+
 </mapper>
