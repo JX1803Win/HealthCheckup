@@ -67,14 +67,15 @@
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 						<button type="submit" class="btn btn-primary m2"
-							onclick="change1('backstage/generalSummary.action')">保存</button>
+							onclick="change1('backstage/generalSummary.action?parameterId=12')">保存</button>
 						<button type="submit" class="btn btn-primary m2"
-							onclick="change1('backstage/generalSummary1.action')">提交</button>
+							onclick="change1('backstage/generalSummary.action?parameterId=13')">提交</button>
 					</div>
 				</form>
 			</c:if>
 			<c:if test="${project.parameterId==27}">
-				<form action="" method="post">
+				<form action="" id="method2" method="post"
+					enctype="multipart/form-data">
 					<input type="hidden" name="proresId" value="${proresId}" />
 					<table class="table">
 						<thead>
@@ -82,29 +83,32 @@
 								<tr>
 									<th>${detail.detailName}<input type="hidden"
 										name="subentryId" value="${detail.subentryId}" /></th>
-									<td><input type="file" id="inputfile" /></td>
+									<td><input type="file" name="${detail.detailName}"
+										id="inputfile" /></td>
 								</tr>
 							</c:forEach>
 						</thead>
 						<tbody>
 							<tr>
 								<th>医师小结</th>
-								<td><textarea class="form-control" rows="3"></textarea></td>
+								<td><textarea class="form-control" name="projectResult"
+										rows="3"></textarea></td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="text-center t2">
-						<a
-							href="backstage/queryProject.action?currentPage=${currentPage}&&name=${name}"><button
-								type="button" class="btn btn-default m2">返回</button></a> <a
-							href="backstage/queryProject.action?currentPage=${currentPage}&&name=${name}"><button
-								type="button" class="btn btn-primary m2">保存</button></a>
-						<button type="submit" class="btn btn-primary m2">提交</button>
+						<a href="doctor/projectInf.action">
+							<button type="button" class="btn btn-default m2">返回</button>
+						</a>
+						<button type="submit" class="btn btn-primary m2"
+							onclick="change2('backstage/imageSummary.action?parameterId=12')">保存</button>
+						<button type="submit" class="btn btn-primary m2"
+							onclick="change2('backstage/imageSummary.action?parameterId=13')">提交</button>
 					</div>
 				</form>
 			</c:if>
 			<c:if test="${project.parameterId==28}">
-				<form action="" method="post">
+				<form action="" id="method3" method="post">
 					<input type="hidden" name="proresId" value="${proresId}" />
 					<table class="table table-bordered">
 						<thead>
@@ -122,26 +126,27 @@
 									<td>${vs.index+1}<input type="hidden" name="subentryId"
 										value="${detail.subentryId}" /></td>
 									<td>${detail.detailName}</td>
-									<td><input type="text" class="form-control" id="result"
-										placeholder="请输入数值" /></td>
+									<td><input type="text" class="form-control" name="result"
+										placeholder="请输入数值" value="${detail.initValue}" /></td>
 									<td>${detail.parameterBean.parameterName}</td>
+									<td>${detail.lowerLimit}~${detail.upperLimit}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 					<div class="form-group">
 						<label for="name">医师小结:</label>
-						<textarea class="form-control" rows="3"></textarea>
+						<textarea class="form-control" name="projectResult" rows="3"></textarea>
 					</div>
 
 					<div class="text-center t2">
-						<a
-							href="backstage/queryProject.action?currentPage=${currentPage}&&name=${name}">
+						<a href="doctor/projectInf.action">
 							<button type="button" class="btn btn-default m2">返回</button>
-						</a> <a
-							href="backstage/queryProject.action?currentPage=${currentPage}&&name=${name}"><button
-								type="button" class="btn btn-primary m2">保存</button></a>
-						<button type="submit" class="btn btn-primary m2">提交</button>
+						</a>
+						<button type="submit" class="btn btn-primary m2"
+							onclick="change3('backstage/projectSummary.action?parameterId=12')">保存</button>
+						<button type="submit" class="btn btn-primary m2"
+							onclick="change3('backstage/projectSummary.action?parameterId=13')">提交</button>
 					</div>
 				</form>
 			</c:if>

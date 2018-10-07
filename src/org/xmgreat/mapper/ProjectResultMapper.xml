@@ -20,15 +20,23 @@
 	<!-- 查询细项结果 -->
 	<select id="subentry" resultType="org.xmgreat.bean.SubentryBean">
 		select * from tblsubentry where
-		proresId = #{proresId} ;
+		proresId = #{proresId}
+	</select>
+
+	<!-- 查询项目实体 -->
+	<select id="getProject"
+		resultType="org.xmgreat.bean.ProjectBean">
+		select * from tblproject where projectId = #{projectId}
 	</select>
 
 	<resultMap type="org.xmgreat.bean.ProjectResultBean"
 		id="projectResult">
 		<id property="proresId" column="proresId" />
-		<collection property="subentrys"
-			javaType="org.xmgreat.bean.SubentryBean" column="proresId"
-			select="subentry">
+		<association property="projectBean" column="projectId"
+			javaType="org.xmgreat.bean.ProjectBean" select="getProject">
+		</association>
+		<collection property="subentrys" column="proresId"
+			javaType="java.util.ArrayList" select="subentry">
 		</collection>
 	</resultMap>
 </mapper>

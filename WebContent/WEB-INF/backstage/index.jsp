@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>心理咨询后台管理</title>
+<title>健康体检散检后台管理</title>
 </head>
 <frameset rows="100,*" cols="*" scrolling="No" framespacing="0"
 	frameborder="no" border="0">

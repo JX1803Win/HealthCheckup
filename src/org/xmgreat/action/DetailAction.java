@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.xmgreat.annotation.SystemLog;
 import org.xmgreat.bean.DetailBean;
 import org.xmgreat.biz.DetailBiz;
 
@@ -45,6 +46,7 @@ public class DetailAction
 	}
 
 	@RequestMapping(value = "/addDetail")
+	@SystemLog(module = "系统管理", methods = "细项管理，添加细项")
 	public String addDetail(HttpServletRequest request, DetailBean detailBean, String name, Integer currentPage)
 	{
 		detailBiz.addDetail(detailBean);
@@ -52,6 +54,7 @@ public class DetailAction
 	}
 
 	@RequestMapping(value = "/updateDetail")
+	@SystemLog(module = "系统管理", methods = "细项管理，更新细项")
 	public String updateDetail(HttpServletRequest request, DetailBean detailBean, String name, Integer currentPage)
 	{
 		detailBiz.updateDetail(detailBean);
@@ -59,6 +62,7 @@ public class DetailAction
 	}
 
 	@RequestMapping(value = "/delDetail")
+	@SystemLog(module = "系统管理", methods = "细项管理，删除细项")
 	public String delDetail(HttpServletRequest request, Integer subentryId, String name, Integer currentPage)
 	{
 		detailBiz.delDetail(subentryId);

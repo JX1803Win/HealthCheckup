@@ -10,6 +10,7 @@
 <head>
 <meta charset="utf-8">
 <title>二级菜单管理</title>
+<base href="<%=path%>">
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -17,48 +18,42 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link href="<%=path%>css/x-admin.css" rel="stylesheet" type="text/css">
-<link href="<%=path%>css/pag.css" rel="stylesheet" type="text/css">
-<link href="<%=path%>css/AdminManagement.css" rel="stylesheet"
-	type="text/css">
-<link href="<%=path%>lib/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
-<link href="<%=path%>lib/bootstrap/css/bootstrap-theme.min.css"
-	rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%=path%>bgjs/jquery.min.js"></script>
-<script type="text/javascript"
-	src="<%=path%>lib/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=path%>js/AdminManagement.js"></script>
+<link href="css/x-admin.css" rel="stylesheet" type="text/css">
+<link href="css/pag.css" rel="stylesheet" type="text/css">
+<link href="css/AdminManagement.css" rel="stylesheet" type="text/css">
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="lib/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript" src="bgjs/jquery.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/AdminManagement.js"></script>
 <script type="text/javascript">
 	var typeList;
-	
+
 	function turn() {
 		var msg = "是否确定修改？";
-		if(confirm(msg) == true) {
+		if (confirm(msg) == true) {
 			return true;
 		}
 		return false;
 	}
 	function del() {
 		var msg = "是否确定删除？";
-		if(confirm(msg) == true) {
+		if (confirm(msg) == true) {
 			return true;
 		}
 		return false;
 	}
 	function search(pageNo) {
-		if(pageNo == 0) {
+		if (pageNo == 0) {
 			return;
 		}
-		var myForm=document.getElementById("myForm");		
-		myForm.action="<%=path%>doctor/projectInf.action?pageNo="+pageNo;
-		myForm.method="post";
+		var myForm = document.getElementById("myForm");
+		myForm.action = "doctor/projectInf.action?pageNo=" + pageNo;
+		myForm.method = "post";
 		myForm.submit();
 	}
-
-
-
-
 </script>
 </head>
 <body>
@@ -75,18 +70,19 @@
 			<form class="form-inline" role="form" id="myForm">
 				<div class="form-group">
 					<label for="name" class="m">菜单名称:</label> <input type="text"
-						class="form-control input-sm  m5" id="physicaiId" name="physicaiId"
-						placeholder="请输入名称" value="${physicaiId}">
+						class="form-control input-sm  m5" id="physicaiId"
+						name="physicaiId" placeholder="请输入名称" value="${physicaiId}">
 				</div>
 
-				<input type="button" class="btn btn-primary" onclick="search(1)" value="查询" />
+				<input type="button" class="btn btn-primary" onclick="search(1)"
+					value="查询" />
 			</form>
 		</div>
 
 		<div class="clearfix"></div>
 
-		<div class="tools">		
-			<br><span>共有数据：${sizeD} 条&nbsp;&nbsp;&nbsp;&nbsp;</span> <span>共${AllPageD}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		<div class="tools">
+			<br> <span>共有数据：${sizeD} 条&nbsp;&nbsp;&nbsp;&nbsp;</span> <span>共${AllPageD}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
 			<span>当前页数：${pageNoD}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 		</div>
 		<table class="table table-bordered">
@@ -95,6 +91,7 @@
 					<th>序号</th>
 					<th>用户名</th>
 					<th>项目名</th>
+					<th>状态</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -104,20 +101,24 @@
 						<td>${(pageNoD-1)*5+vs.index+1}</td>
 						<%-- <td>${menu.physicaiId}</td> --%>
 						<td>${menu.userName}</td>
-						<td>${menu.projectName}</td>				
-					  <c:if test="${menu.parameterName=='可编辑'}">
-						<td>可编辑</td>
-						<td><a onclick="return sureable()"
-							href="BlackAppointTableServlet?action=answer&physicaiId=
-						${menu.physicaiId}"><button type="button" class="btn btn-primary">小结</button></a></td>
-					</c:if>
-					<c:if test="${menu.parameterName=='已提交'}">
-						<td>已提交</td>
-						<td><a 
-							href="BlackAppointTableServlet?action=info&physicaiId=
-						${menu.physicaiId}"><button type="button" class="btn btn-primary">查看详情</button></a></td>
-					</c:if>
-						
+						<td>${menu.projectName}</td>
+						<td>${menu.parameterName}</td>
+						<c:if test="${menu.parameterId==68}">
+							<td><a
+								href="backstage/skipExamination.action?projectId=${menu.projectId}&&proresId=${menu.proresId}"><button
+										type="button" class="btn btn-primary">体检</button></a></td>
+						</c:if>
+						<c:if test="${menu.parameterId==12}">
+							<td><a
+								href="backstage/skipSummary.action?proresId=${menu.proresId}"><button
+										type="button" class="btn btn-primary">小结</button></a></td>
+						</c:if>
+						<c:if test="${menu.parameterId==13}">
+							<td><a
+								href="BlackAppointTableServlet?action=info&physicaiId=
+						${menu.physicaiId}"><button
+										type="button" class="btn btn-primary">查看详情</button></a></td>
+						</c:if>
 
 
 
@@ -127,7 +128,8 @@
 		</table>
 		<div class="page">
 			<div class="pagelist text-center">
-				<button class="btn btn-primary" onclick="search('${pageNoD==1?0:1}')">首页</button>
+				<button class="btn btn-primary"
+					onclick="search('${pageNoD==1?0:1}')">首页</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-primary"
 					onclick="search('${(pageNoD-1)>0?pageNoD-1:0}')">上一页</button>
