@@ -188,6 +188,12 @@ public class RoleBizImpl implements RoleBiz {
 		// TODO Auto-generated method stub
 		permissionsMapper.updateSMenu(upmenuId, upmenuName, upurlAddress);
 	}
+
+	@Override
+	public int selectAllFMenus(Integer permissionsId) {
+		// TODO Auto-generated method stub
+		return permissionsMapper.selectAllFMenus(permissionsId);
+	}
 	
 	
 

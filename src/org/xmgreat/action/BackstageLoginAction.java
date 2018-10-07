@@ -55,6 +55,7 @@ public class BackstageLoginAction
 			int roleId=managerBean.getRoleId();
 			List<PermissionsInfBean> pibList=adminBiz.selectRoleInfo(roleId);
 			session.setAttribute("pibList", pibList);
+			session.setAttribute("admin", managerBean);
 		}
 
 	}

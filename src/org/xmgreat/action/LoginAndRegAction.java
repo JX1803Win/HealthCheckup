@@ -47,22 +47,34 @@ public class LoginAndRegAction
 
 	// 验证前台登入
 	@RequestMapping(value = "/login.action")
-	public String login(HttpServletRequest request, String phone, String psw)
+	@ResponseBody
+	public void login(HttpServletRequest request, String phone, String psw) throws IOException
 	{
+		String tips;
+		PrintWriter out = response.getWriter();
 		List<UserInfoBean> users = userBiz.checkUser(Long.parseLong(phone), psw);
 		if (users.size() != 0)
 		{
 			UserInfoBean user = users.get(0);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
-
-			return "user/index";
 		} else
 		{
-			return "UserLoginAndReg";
+			tips = "否";
+			Gson gson = new Gson();
+			String str = gson.toJson(tips);
+			out.print(str);
+			out.close();
 		}
-
+		
 	}
+	
+	@RequestMapping(value = "/loginsuccess.action")
+	public String index(HttpServletRequest request) 
+	{
+		return "user/index";
+	}
+	
 
 	// 验证手机号是否被注册
 	@RequestMapping(value = "/checkphone.action")

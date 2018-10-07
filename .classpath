@@ -66,5 +66,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/fr.opensagres.xdocreport.core-2.0.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jbarcode-0.2.8.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

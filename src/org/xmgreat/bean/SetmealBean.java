@@ -14,10 +14,20 @@ public class SetmealBean
 	private List<ProjectBean> items; // 项目列表
 	@Resource
 	private SetmealitmeBean setmealitmeBean;
-
+    private Integer num;	//序号
 	public SetmealBean()
 	{
 		super();
+	}
+
+	public Integer getNum()
+	{
+		return num;
+	}
+
+	public void setNum(Integer num)
+	{
+		this.num = num;
 	}
 
 	public SetmealBean(Integer setmealId, String setmealName, List<ProjectBean> items)

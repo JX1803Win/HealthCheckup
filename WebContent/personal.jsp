@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+	pageEncoding="utf-8" import="java.util.*,org.xmgreat.bean.UserAccoutBean"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <head>
@@ -128,6 +129,24 @@
 
 
 <script>
+	//获得request对象		
+		
+	function nextPage(page) {
+		page++;
+		$.ajax({
+			url : "nextpage.action",
+			data : "page=" + 0,
+			dataType : "text",
+			type : "post",
+			success : function(redata) {
+			}
+		});
+	}
+</script>
+
+
+
+<script>
 	function checkpwd() {
 		var initpass = document.getElementById('initpass').value;
 		var newpass = document.getElementById('newpass').value;
@@ -145,7 +164,7 @@
 			return false;
 		}
 		$.ajax({
-			url : "user/chengepsw.action",
+			url : "chengepsw.action",
 			data : "initpass=" + initpass + "&newpass=" + newpass,
 			dataType : "text",
 			type : "post",
@@ -173,16 +192,16 @@
 		var selMonth = document.getElementById('selMonth').value;
 		var selDay = document.getElementById('selDay').value;
 		$.ajax({
-			url : "user/chengeinfo.action",
+			url : "chengeinfo.action",
 			data : "sex=" + sex + "&phone=" + phone + "&blood=" + blood
 					+ "&dizhi=" + dizhi + "&selYear=" + selYear + "&selMonth="
 					+ selMonth + "&selDay=" + selDay,
 			dataType : "text",
 			type : "post",
 			success : function(redata) {
-			
-					alert("修改成功");
-				
+
+				alert("修改成功");
+
 			}
 		});
 	}
@@ -200,7 +219,7 @@
 				<ul>
 					<li id="one1" onclick="setTab('one',1)">资料更改</li>
 					<li id="one2" onclick="setTab('one',2)">密码更改</li>
-					<li id="one3" onclick="setTab('one',3)">TAT</li>
+					<li id="one3" onclick="setTab('one',3)">我的账户</li>
 					<li id="one4" onclick="setTab('one',4)">QAQ</li>
 				</ul>
 			</div>
@@ -295,7 +314,8 @@
 							</tr>
 							<tr>
 								<td style="white-space: nowrap;" height="30" align="right">地址：</td>
-								<td><input type="text" name="dizhi" id="dizhi" size="30" value="${sessionScope.user.useradd}" /></td>
+								<td><input type="text" name="dizhi" id="dizhi" size="30"
+									value="${sessionScope.user.useradd}" /></td>
 							</tr>
 
 
@@ -334,7 +354,47 @@
 					</div>
 					<div id="bc01"></div>
 				</div>
-				<div id="con_one_3" style="display: none;">TAT</div>
+
+
+				<div id="con_one_3" style="display: none;">
+
+					<c:if test="${not empty accoutlist}">
+
+						<table width="500xp" align="center" high="200xp" border="1"
+							style="margin-top: 20px" cellspacing="0">
+							<tr>
+								<th align="center">发生时间</th>
+								<th align="center">发生事项</th>
+								<th align="center">金&emsp;&emsp;额</th>
+								<th align="center">余&emsp;&emsp;额</th>
+							</tr>
+							<c:forEach items="${accoutlist}" var="acc">
+								<tr align="center">
+									<td>${acc.getOccurTime()}</td>
+									<td>${acc.getOccurMatter()}</td>
+									<td>${acc.getMoney()}</td>
+									<td>${acc.getBalance()}</td>
+								</tr>
+
+							</c:forEach>
+
+						</table>	
+						<div style="text-align: center; margin-top: 50px;"
+						class="subtijiao">
+						<tr>
+						<td>&emsp;&emsp;
+						<button type="button" onClick="">上一页</button>
+						&emsp;&emsp;
+						<button type="button" onClick="nextPage(${sessionScope.page})">下一页</button>
+						</td>
+						</tr>
+						</div>
+					</c:if>
+					
+					<c:if test="${empty accoutlist}">
+						<h3 align="center">暂无账户记录</h3>
+					</c:if>
+				</div>
 
 				<div id="con_one_4" style="display: none;">QAQ</div>
 			</div>

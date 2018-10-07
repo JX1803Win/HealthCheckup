@@ -26,9 +26,17 @@ public class UserPhyRecordBean // 用户体检记录
 	private UserInfoBean userInfoBean;//用户实体
 	private ManagerBean managerBean;//管理员实体
 	private SetmealBean setmealBean;//套餐实体
-
+    private UserAppoBean userAppoBean;
 	public UserPhyRecordBean() {
 
+	}
+
+	public UserAppoBean getUserAppoBean() {
+		return userAppoBean;
+	}
+
+	public void setUserAppoBean(UserAppoBean userAppoBean) {
+		this.userAppoBean = userAppoBean;
 	}
 
 	public Long getPhysicaiId() {

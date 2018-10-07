@@ -18,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.xmgreat.bean.OfficeBean;
+import org.xmgreat.bean.ProjectBean;
+import org.xmgreat.bean.SetmealBean;
+import org.xmgreat.bean.UserAccoutBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.biz.UserBiz;
 import org.xmgreat.util.AgeByBirth;
@@ -45,27 +49,37 @@ public class PersonalCenterAction
 	private UserInfoBean userInfoBean;
 
 	// 进入个人中心
-		@RequestMapping(value = "/gopersonal.action")
-		public String login(HttpServletRequest request, String phone, String psw)
+	@RequestMapping(value = "/gopersonal.action")
+	public String gopersonal(HttpServletRequest request, Integer page)
+	{
+		HttpSession session = request.getSession();
+		userInfoBean = (UserInfoBean) session.getAttribute("user");
+		int userid = userInfoBean.getUserId();
+		if (page == null)
 		{
-			System.out.println("in");
-				return "../personal";
+			page = 1;
 		}
+		session.setAttribute("page", page);
+		List<UserAccoutBean> accoutlist = userBiz.getAccout(userid, page);
+		session.setAttribute("accoutlist", accoutlist);
+		return "../personal";
+	}
 
-	
 	// 验证原密码是否正确,正确则修改密码
 	@RequestMapping(value = "/chengepsw.action")
 	@ResponseBody
 	public void checkphone(HttpServletRequest request, String initpass, String newpass)
 			throws IOException, ClientException
 	{
+		System.out.println("改密码");
 		HttpSession session = request.getSession();
 		userInfoBean = (UserInfoBean) session.getAttribute("user");
 		Long phone = userInfoBean.getPhone();
 		PrintWriter out = response.getWriter();
 		String tips;
 		List<UserInfoBean> users = userBiz.checkUser(phone, initpass);
-		if (!(users.size() == 0))
+		System.out.println(users.size());
+		if (users.size() == 0)
 		{
 			tips = "否";
 			Gson gson = new Gson();
@@ -90,6 +104,53 @@ public class PersonalCenterAction
 		AgeByBirth Birth = new AgeByBirth();
 		int age = Birth.getAgeByBirth(bithday);
 		userBiz.changeInfo(sex, age, birth, blood, dizhi, Long.parseLong(phone));
-
 	}
+
+	// 下一页
+	@RequestMapping(value = "/nextpage.action")
+	@ResponseBody
+	public void nextpage(HttpServletRequest request, Integer page)
+	{
+		System.out.println(page);
+		HttpSession session = request.getSession();
+		userInfoBean = (UserInfoBean) session.getAttribute("user");
+		int userid = userInfoBean.getUserId();
+		session.setAttribute("page", page);
+		List<UserAccoutBean> accoutlist = userBiz.getAccout(userid, page);
+		session.setAttribute("accoutlist", accoutlist);
+	}
+
+	// 进入套餐
+	@RequestMapping(value = "/gosetmeal.action")
+	public String gosetmeal(HttpServletRequest request,Integer page)
+	{
+		if(page==null) {
+			page=1;
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("page", page);
+		List<SetmealBean> list = userBiz.getSetmeal(page);
+		request.setAttribute("list", list);
+		return "backstage/Package";
+	}
+
+	// 细项
+	@RequestMapping(value = "/lookxi.action",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String lookxi(HttpServletRequest request, Integer mid)
+	{
+		List<ProjectBean> accoutlist = userBiz.getxi(mid);
+		Gson gson = new Gson();
+		return gson.toJson(accoutlist);
+	}
+	//查询套餐
+	@RequestMapping(value = "/selectmeal.action")
+	public String selectmeal(HttpServletRequest request,String name)
+	{
+		System.out.println(name);
+		/*List<SetmealBean> list = userBiz.getSetmeal();
+		request.setAttribute("list", list);*/
+		return "backstage/Package";
+	}
+
 }
