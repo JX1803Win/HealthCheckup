@@ -91,8 +91,8 @@
        }
        });
 	}
-	function alert3(phyConad){
-		$("#phyConad").val(phyConad);
+	function alters3(phyConad){
+		$("#phyConad").html(phyConad);
 		
 	}
 	
@@ -171,9 +171,9 @@
 							</c:if>
 
 							<button class="btn btn-primary" data-toggle="modal"
-								data-target="#myModal2" onclick="alter3('${user.phyConad}')">项目总结</button>
-							<button class="btn btn-primary" data-toggle="modal"
-								data-target="#myModal4" onclick="alter4('${user.phyConad}'')">体检报告</button>
+								data-target="#myModal2" onclick="alters3('${user.phyConad}')">项目总结</button>
+							<%-- <button class="btn btn-primary" data-toggle="modal"
+								data-target="#myModal4" onclick="alter4('${user.phyConad}'')">体检报告</button> --%>
 
 						</td>
 					</tr>
@@ -230,7 +230,7 @@
 					<form id="myForm2" class="form-horizontal" role="form">
 						<div class="modal-body">
 							<div class="form-group">
-								<label for="roleNames" class="col-sm-2 control-label">项目总结</label>
+								<label for="roleNames" class="col-sm-2 control-label">项目总结</label></br></br>
 								<span id="phyConad"></span>
 							</div>
 

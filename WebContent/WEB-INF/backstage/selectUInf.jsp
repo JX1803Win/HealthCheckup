@@ -50,19 +50,7 @@
 		myForm.submit();
 	}
 	
-<%-- 	function alter1(setmealId, physicaiId) {
-		 $.ajax({       	
-        url:"<%=path%>doctor/weekStatics.action",        	       
-        dataType:"json",
-		type:"POST",	
-        success:function(redata){
-        	var tb = document.getElementById('datas');
-        	    var rowNum=tb.rows.length;
-        	     
-        	
-        }
-        });
-	} --%>
+
 	function alter2(projectId, physicaiId) {
 		 $.ajax({       	
        url:"<%=path%>doctor/projectResult.action",
@@ -141,10 +129,10 @@
 			<button class="btn btn-primary " data-toggle="modal" data-target="#myModal1" onclick="alter1()">本周数据统计</button>
 		    <button class="btn btn-primary " data-toggle="modal" data-target="#myModal2" onclick="alter2()">本月数据统计</button>
 		    <button class="btn btn-primary " data-toggle="modal" data-target="#myModal3" onclick="alter3()">三月数据统计</button><br>
-			<span>共有数据：${sizeU} 条&nbsp;&nbsp;&nbsp;&nbsp;</span> <span>共${AllPageU}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
-			<span>当前页数：${pageNoU}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span>共有数据：${sizeM} 条&nbsp;&nbsp;&nbsp;&nbsp;</span> <span>共${AllPageM}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span>当前页数：${pageNoM}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-		</div>
+		</div></br>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -159,7 +147,7 @@
 			<tbody>
 				<c:forEach items="${uprbList}" var="user" varStatus="vs">
 					<tr>
-						<td>${(pageNoU-1)*5+vs.index+1}</td>
+						<td>${(pageNoM-1)*5+vs.index+1}</td>
 						<td>${user.userName}</td>
 						<td>${user.sex}</td>
 						<td>${user.age}</td>
@@ -176,16 +164,16 @@
 		</table>
 		<div class="page">
 			<div class="pagelist text-center">
-				<button class="btn btn-primary" onclick="search(${pageNoU==1?0:1})">首页</button>
+				<button class="btn btn-primary" onclick="search(${pageNoM==1?0:1})">首页</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-primary"
-					onclick="search(${(pageNoU-1)>0?pageNoU-1:0})">上一页</button>
+					onclick="search(${(pageNoM-1)>0?pageNoM-1:0})">上一页</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-primary"
-					onclick="search(${(pageNoU+1)<=AllPageU?pageNoU+1:0})">下一页</button>
+					onclick="search(${(pageNoM+1)<=AllPageM?pageNoM+1:0})">下一页</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-primary"
-					onclick="search(${pageNoU==AllPageU?0:AllPageU})">末页</button>
+					onclick="search(${pageNoM==AllPageM?0:AllPageM})">末页</button>
 			</div>
 		</div>
 		<!-- 模态框（Modal） -->

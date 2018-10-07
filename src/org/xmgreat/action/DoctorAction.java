@@ -221,7 +221,7 @@ public class DoctorAction {
 			barCode=(long) 0;
 		}
 		int size=doctorBizImpl.selectMedicalManNum(userName, phone, barCode, starDay,end);
-		request.setAttribute("sizeU", size);
+		request.setAttribute("sizeM", size);
   	    int AllPage = 0;
 			if (size % 5 != 0) {
 				AllPage = (size / 5) + 1;
@@ -238,8 +238,8 @@ public class DoctorAction {
 				}
 			}  
 			
-		request.setAttribute("pageNoU", pageNo);
-		request.setAttribute("AllPageU", AllPage);
+		request.setAttribute("pageNoM", pageNo);
+		request.setAttribute("AllPageM", AllPage);
 	    List<UserInfoBean> uprbList=doctorBizImpl.selectMedicalMan(userName, phone, barCode, starDay,end, pageNo);	
 	   for (int i = 0; i < uprbList.size(); i++) {
 		   if (uprbList.get(i).getUserPhyRecordBean().getPhyTime()==null) {
@@ -250,7 +250,7 @@ public class DoctorAction {
 	    
 	    request.setAttribute("uprbList", uprbList);    
 		ModelAndView mav = new ModelAndView();
-	  	mav.setViewName("backstage/test");
+	  	mav.setViewName("backstage/selectUInf");
 	  	return mav;
 	}
   
