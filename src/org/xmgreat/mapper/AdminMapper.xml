@@ -316,5 +316,12 @@ select max(occurtime) from  TBLUSERACCOUT where userid = #{userId} ) and userid 
          select acc.* ,rownum rn from (
                select * from TBLUSERACCOUT where USERID=#{userId} ORDER BY OCCURTIME desc) acc)acc where acc.rn &lt;#{page}*3+1)acc2 where acc2.rn &gt;(#{page} - 1) * 3
 	</select>
-	
+	<!-- 增加后台用户 -->
+	<insert id="regUser" parameterType="org.xmgreat.bean.UserInfoBean">
+	INSERT INTO TBLUSERINFO (USERID, USERNAME, SEX, AGE, BIRTH, BLOODTYPE, CITYID, USERADD, PHONE, PWD, REGTIME,PARAMETERID) VALUES (#{userId}, #{userName}, #{sex}, #{age}, #{birth}, #{bloodType}, #{cityId}, #{useradd}, #{phone}, #{pwd}, to_char(sysdate, 'yyyy-mm-dd hh24:mi'),#{parameterID})
+	</insert>
+	<!-- 查询用户知否以注册 -->
+	<select id="selectUser" parameterType="org.xmgreat.bean.UserInfoBean" resultType="java.lang.Integer">
+	select count(*) from TBLUSERINFO where USERID=#{userId}
+	</select>
 </mapper>

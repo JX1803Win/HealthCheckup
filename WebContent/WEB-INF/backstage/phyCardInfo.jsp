@@ -183,13 +183,13 @@
 						<div class="form-group">
 							<label for="role" class="col-sm-2 control-label">请选择文件</label>
 							<div class="col-sm-10">
-									请选择文件:<input type="file" name="fileact">
+									请选择文件:<input type="file" name="fileact" id="uploadEventFile">
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="submit" class="btn btn-primary">提交</button>
+						<button type="submit" class="btn btn-primary" onclick="user.uploadBtn()">提交</button>
 					</div>
 				</form>
 			</div>
@@ -197,5 +197,29 @@
 		</div>
 		<!-- /.modal -->
 	</div>
+	<script type="text/javascript">
+    var User = function() {
+        
+        //点击上传钮  
+        this.uploadBtn = function() {
+            var uploadEventFile = $("#uploadEventFile").val();
+            if (uploadEventFile == '') {
+                alert("请择excel,再上传");
+            	return false;
+            } else if (uploadEventFile.lastIndexOf(".xls") < 0) {//可判断以.xls和.xlsx结尾的excel  
+                alert("只能上传Excel文件");
+            	return false;
+            }
+            return true;
+        };
+
+    };
+    var user;
+    $(function() {
+        user = new User();
+        user.init();
+    });
+</script>
 </body>
+
 </html>

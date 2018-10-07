@@ -14,8 +14,7 @@ import org.xmgreat.bean.UserPhyRecordBean;
 
 public interface AdminBiz
 {
-	//通过角色ID查询权限ID
-    public List<PermissionsInfBean> selectRoleInfo(Integer roleId);
+	public List<PermissionsInfBean> selectRoleInfo(Integer roleId);
 	public ManagerBean login(String adminName, String psw);
 	public  ModelAndView showUser(UserInfoBean userInfoBean);//用户管理
 	public String  updateUserState (UserInfoBean userInfoBean);//修改用户状态
@@ -25,7 +24,7 @@ public interface AdminBiz
 	public String  updateAdminPwd (ManagerBean managerBean);//修改用户密码
 	public  ModelAndView adminAdd();//查询注册下拉框的值
 	public  List<CityBean> selectCity(CityBean cityBean);//查询注册下拉框的城市
-	public  String selectAdmin(ManagerBean managerBean);//查询用户知否以注册
+	public  List<ManagerBean> selectAdmin(ManagerBean managerBean);//查询用户知否以注册
 	public String  addAdmin (ManagerBean managerBean);//增加用户
 	public  ModelAndView showPhyCardInfo(PhyCardBean phyCardBean);//体检卡管理
 	public String  updatePhyCardState (PhyCardBean phyCardBean);//修改体检卡状态
@@ -39,4 +38,7 @@ public interface AdminBiz
 	public  List<CityBean> settleAccount(Double charge,Integer userId,Integer physicaiId);//结算
 	public ModelAndView selectAccount(UserInfoBean userInfoBean);//流水账
 	public String  topUp (UserAccoutBean userAccoutBean);//充值
+	public  ModelAndView userAdd();//查询注册下拉框的值
+	public String  regUser (UserInfoBean userInfoBean);//增加用户
+	public  List<UserInfoBean> selectUser(UserInfoBean userInfoBean);//查询用户知否以注册
 }

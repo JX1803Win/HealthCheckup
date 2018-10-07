@@ -357,11 +357,12 @@ $(function() {
 					url : "<%=basePath %>ManageAction/selectAdmin.action",//请求地址
 					data : "adminId="
 						+ $("#adminId").val(),//发送至服务器的键值数据
-					dataType : "text",//请求数据格式，如script,json,text等
+					dataType : "json",//请求数据格式，如script,json,text等
 					type : "post",//发送方式，get/post
 					success : function(redata) {////定义各事件发生时回调的函数
-						alert(redata)
-						$("#tiShi").html(redata)
+						$.each(redata, function(i, item) {
+							$("#tiShi").html(item.mangerName)
+							});
 						 
 					}
 				});

@@ -74,6 +74,13 @@
 			}
 		});
 	})
+	$(function() {
+		var msg = "${requestScope.get('physicaiId')}";
+		console.log(msg);
+		if(msg.length > 0) {
+			alert("开单成功，您的体检号为:"+msg);
+		}
+	})
 </script>
 </head>
 <body>

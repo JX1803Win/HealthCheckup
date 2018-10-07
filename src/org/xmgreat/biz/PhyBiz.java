@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.xmgreat.bean.ProResBean;
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.bean.SetmealBean;
 import org.xmgreat.bean.UserAccoutBean;
@@ -43,8 +44,12 @@ public interface PhyBiz {
 	
 	/**
 	 * @description 用户体检开单
+	 * @param physicaiId 体检卡号
+	 * @param setmealId 套餐号
+	 * @param projectId 项目号
+	 * @return 体检号
 	 */
-	public void billing(Long physicaiId, Integer setmealId, Integer projectId);
+	public Long billing(Long physicaiId, Integer setmealId, Integer projectId);
 	
 	/**
 	 * @description 查询用户余额信息
@@ -92,7 +97,50 @@ public interface PhyBiz {
 	/**
 	 * @description 生成导检单数据
 	 * @param physicaiId 体检号
-	 * @return
+	 * @return 导检单数据
 	 */
 	public Map<String, Object> createChecklist(Long physicaiId);
+	
+	/**
+	 * @description 预览导检单数据
+	 * @param physicaiId 体检号
+	 * @return 导检单数据
+	 */
+	public Map<String, Object> lookChecklist(Long physicaiId);
+	
+	/**
+	 * @description 获取体检报告数据
+	 * @param physicaiId 体检号
+	 * @return 体检报告数据
+	 */
+	public Map<String, Object> createReport(Long physicaiId);
+	
+	/**
+	 * @description 查询可以填写总结的体检记录
+	 * @param physicaiId 体检号
+	 * @param pageNo 第几页
+	 * @return 可以填写总结的体检记录
+	 */
+	public List<UserPhyRecordBean> querySummary(Long physicaiId, Integer pageNo);
+	
+	/**
+	 * @description 查询可以填写总结的体检记录总数
+	 * @param physicaiId 查询条件（体检号）
+	 * @return 可以填写总结的体检记录总数
+	 */
+	public Integer countOfSummary(Long physicaiId);
+	
+	/**
+	 * @description 根据体检号查询项目小结信息
+	 * @param physicaiId 体检号
+	 * @return 项目小结信息
+	 */
+	public List<ProResBean> queryProResByPhysicaiId(Long physicaiId);
+	
+	/**
+	 * @description 写总结
+	 * @param uprb 体检信息
+	 */
+	public void writeSummary(UserPhyRecordBean uprb);
+
 }

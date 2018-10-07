@@ -7,9 +7,9 @@
 <mapper namespace="org.xmgreat.mapper.PhyMapper">
 	<!-- 根据体检号查询体检信息 -->
 	<select id="queryByPhyId" parameterType="java.lang.Long" resultType="org.xmgreat.bean.UserPhyRecordBean">
-		select tupr.*, tbi.username, tp.itemname, ts.setmealname
-		from TBLUSERPHYRECORD tupr, tbluserinfo tbi, tblproject tp, tblsetmeal ts
-		where tupr.userid = tbi.userid 
+		select tupr.*, tbi.username, tp.itemname, ts.setmealname, tm.managername mangername
+		from TBLUSERPHYRECORD tupr, tbluserinfo tbi, tblproject tp, tblsetmeal ts, tblmanager tm
+		where tupr.userid = tbi.userid and tupr.adminid = tm.adminid
 		and tupr.projectid = tp.projectid(+) and tupr.setmealid = ts.setmealid(+)
 		and tupr.PHYSICAIID = #{physicaiId}
 	</select>
@@ -30,7 +30,7 @@
 	<!-- 添加用户体检开单记录 -->
 	<insert id="billing">
 		insert into TBLUSERPHYRECORD(physicaiId, userId, setmealId, projectId, phyTime, parameterId)
-		values(phySeq.NEXTVAL, #{uprb.userId}, #{uprb.setmealId,jdbcType=INTEGER}, 
+		values(phySeq.NEXTVAL, barcodeseq.nextval, #{uprb.userId}, #{uprb.setmealId,jdbcType=INTEGER}, 
 			#{uprb.projectId,jdbcType=INTEGER}, to_char(sysdate, 'yyyy-mm-dd'), 22)
 	</insert>
 	<!-- 根据用户id查询用户信息 -->
@@ -100,4 +100,115 @@
 		from tblproject tp, tbloffice o 
 		where tp.projectid = #{projectId} and tp.officeid = o.officeid
 	</select>
+	<!-- 初始化项目结果信息 -->
+	<insert id="initProResInfo">
+		insert into tbrprojectresult(proResId, physicaiId, projectId, parameterId)
+		values(proResSeq.nextval, #{physicaiId}, #{projectId}, 68)
+	</insert>
+	<!-- 查询项目下的细项 -->
+	<select id="queryDetailByProject" parameterType="java.lang.Integer" resultType="org.xmgreat.bean.DetailBean">
+		select tpd.subentryid from tbldetail td, tblprojectdetail tpd
+		where td.subentryid = tpd.subentryid and tpd.projectid = #{projectId}
+	</select>
+	<!-- 根据体检号和项目id查询项目结果信息 -->
+	<select id="queryProResInfo" resultType="org.xmgreat.bean.ProResBean">
+		select tpr.*, tm.managername  from tbrprojectresult tpr, tblmanager tm 
+		where tpr.adminid = tm.adminid and 
+		tpr.physicaiId = #{physicaiId} and tpr.projectId = #{projectId}
+	</select>
+	<!-- 初始化细项结果数据 -->
+	<insert id="initSubInfo">
+		insert into tblsubentry(resultid, subentryid, proresid)
+		values(SUBENTRYID.nextval, #{subentryId}, #{proresId})
+	</insert>
+	<!-- 根据体检卡查询用户信息 -->
+	<select id="queryUserByPhyCardId" parameterType="java.lang.Long" resultType="org.xmgreat.bean.UserInfoBean">
+		select * from tbluserinfo where phyCardId = #{phyCardId}
+	</select>
+	<!-- 查询用户最新体信息 -->
+	<select id="queryLastPhyRecord" parameterType="java.lang.Integer" resultType="java.lang.Long">
+		select max(tpr.physicaiid) from tbluserphyrecord tpr where tpr.userid = #{userId}
+	</select>
+	<resultMap type="org.xmgreat.bean.ParameterBean" id="parameterMap">
+		<id property="parameterId" column="parameterId"/>
+		<result property="parameterName" column="parameterName"/>
+	</resultMap>
+	<resultMap type="org.xmgreat.bean.DetailBean" id="detailMap">
+		<result property="detailName" column="detailName"/>
+		<result property="upperLimit" column="upperLimit"/>
+		<result property="lowerLimit" column="lowerLimit"/>
+		<association property="parameterBean" resultMap="parameterMap"/>
+	</resultMap>
+	<resultMap type="org.xmgreat.bean.SubentryBean" id="subMqp">
+		<id property="resultId" column="resultId"/>
+		<id property="subentryId" column="subentryId"/>
+		<result property="itemName" column="itemName"/>
+		<result property="result" column="result"/>
+		<result property="hint" column="hint"/>
+		<result property="barcode" column="barcode"/>
+		<association property="detailBean" resultMap="detailMap"/>
+	</resultMap>
+	<!-- 根据项目结果id查询其细项结果 -->
+	<select id="querySubByPro" parameterType="java.lang.Integer" resultMap="subMqp">
+		select ts.*, td.detailname, td.upperlimit, td.lowerlimit, tp.parametername
+		from tblsubentry ts, tbldetail td, tblparameter tp
+		where ts.subentryid = td.subentryid and td.parameterid = tp.parameterid(+)
+		and ts.proresid = #{proresId}
+	</select>
+	<select id="querySummary" resultType="org.xmgreat.bean.UserPhyRecordBean">
+		select * from (
+		select * from (
+		select rownum rn, t.* from (
+		select tupr.* , tbi.username, tp.itemname, ts.setmealname
+		from tbluserphyrecord tupr, tbluserinfo tbi, tblproject tp, tblsetmeal ts, (
+		select r1.physicaiid from (
+		select tupr.physicaiid, tupr.setmealid, tupr.projectid, count(tsi.projectid) num1
+		from tbluserphyrecord tupr, tblsetmealitme tsi 
+		where tupr.setmealid = tsi.setmealid
+		group by tupr.physicaiid, tupr.setmealid, tupr.projectid
+		union 
+		select tupr.physicaiid, tupr.setmealid, tupr.projectid, count(tupr.projectid) 
+		from tbluserphyrecord tupr
+		where tupr.projectid is not null group by tupr.physicaiid, tupr.setmealid, tupr.projectid) r1,
+		(select tpr.physicaiid, count(*) num1
+		from tbrprojectresult tpr 
+		where tpr.parameterid = 13 
+		group by tpr.physicaiid ) r2 where r1.physicaiid = r2.physicaiid and r1.num1 = r2.num1 ) r3
+		where tupr.physicaiid = r3.physicaiid and tupr.userid = tbi.userid 
+		and tupr.projectid = tp.projectid(+) and tupr.setmealid = ts.setmealid(+) 
+		<if test="null != physicaiId and '' != physicaiId">
+			and tupr.physicaiid = #{physicaiId}
+		</if>
+		order by tupr.physicaiid desc
+		) t ) t1 where t1.rn &lt;= #{pageNo}*5 ) t2 where t2.rn &gt; (#{pageNo}-1)*5
+	</select>
+	<select id="countOfSummary" resultType="java.lang.Integer" parameterType="java.lang.Long">
+		select count(r1.physicaiid )from (
+		select tupr.physicaiid, tupr.setmealid, tupr.projectid, count(tsi.projectid) num1
+		from tbluserphyrecord tupr, tblsetmealitme tsi 
+		where tupr.setmealid = tsi.setmealid
+		group by tupr.physicaiid, tupr.setmealid, tupr.projectid
+		union 
+		select tupr.physicaiid, tupr.setmealid, tupr.projectid, count(tupr.projectid) 
+		from tbluserphyrecord tupr
+		where tupr.projectid is not null group by tupr.physicaiid, tupr.setmealid, tupr.projectid) r1,
+		(select tpr.physicaiid, count(*) num1
+		from tbrprojectresult tpr 
+		where tpr.parameterid = 13 
+		group by tpr.physicaiid ) r2 where r1.physicaiid = r2.physicaiid and r1.num1 = r2.num1
+		<if test="null != physicaiId and '' != physicaiId">
+			and r1.physicaiid = #{physicaiId}
+		</if>
+	</select>
+	<select id="queryProResByPhysicaiId" parameterType="java.lang.Long" resultType="org.xmgreat.bean.ProResBean">
+		select tpr.*, tp.itemname, p.parametername, tm.managername
+		from  tbrprojectresult tpr, tblproject tp, tblparameter p, tblmanager tm
+		where tpr.projectid = tp.projectid  and tm.adminid = tpr.adminid
+		and tpr.parameterid = p.parameterid and tpr.physicaiid = #{physicaiId}
+	</select>
+	<update id="writeSummary">
+		update tbluserphyrecord set phyConad = #{uprb.phyConad}, guidance = #{uprb.guidance}, 
+		adminId = #{uprb.adminId}, sumTime = to_char(sysdate, 'yyyy-mm-dd')
+		where physicaiId = #{uprb.physicaiId}
+	</update>
 </mapper>

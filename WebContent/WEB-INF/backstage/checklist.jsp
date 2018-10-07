@@ -23,11 +23,22 @@
 <script type="text/javascript" src="<%=path%>js/AdminManagement.js"></script>
 <script type="text/javascript">
 	function search() {
+		if($("#physicaiId").val() == "") {
+			alert("体检号不能为空！");
+			return;
+		}
 		var myForm=document.getElementById("myForm");
 		myForm.action="<%=path%>ChecklistAction/query.action";
 		myForm.method="post";
 		myForm.submit();
 	}
+	$(function() {
+		var result = "${uprb}";
+		var condition = "${physicaiId}";
+		if(result == "" && condition.length > 0) {
+			alert("未找到，请重新输入！");
+		}
+	})
 </script>
 </head>
 <body>
@@ -66,8 +77,11 @@
 				<td>${uprb.setmealName}</td>
 				<td>${uprb.itemName}</td>
 				<td class="text-center">
-					<a href="<%=path%>ChecklistAction/download.action?physicaiId=${uprb.physicaiId}" 
-						onclick="return cancel()"><button class="btn btn-primary">下载导检单</button>
+					<a target="_blank" href="<%=path%>ChecklistAction/preview.action?physicaiId=${uprb.physicaiId}">
+						<button class="btn btn-primary">预览</button>
+					</a>
+					<a href="<%=path%>ChecklistAction/download.action?physicaiId=${uprb.physicaiId}">
+						<button class="btn btn-primary">下载</button>
 					</a>
 				</td>
 			</tr>
