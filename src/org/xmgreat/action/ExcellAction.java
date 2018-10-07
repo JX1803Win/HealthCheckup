@@ -2,11 +2,15 @@ package org.xmgreat.action;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,10 +40,19 @@ public class ExcellAction {
 	@RequestMapping("/exportExcell.action")
 	public void exportExcel(HttpServletRequest request,HttpServletResponse response,String userName,Long phone,Long barCode,String starDay,String end) throws Exception{
 		Date now = new Date();
+		InputStream fin = null;
+		ServletOutputStream out = null;
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String nowdate = df.format(now);
         // 打开文件
-        File file=new File(nowdate + ".xls");
+        File file=new File("C:\\"+nowdate + ".xls");
+        
+        
+        
+        
+        
+        
+        
         WritableWorkbook book = Workbook.createWorkbook(file);
         
         // 生成名为"第一页"的工作表，参数0表示这是第一
@@ -100,5 +113,35 @@ public class ExcellAction {
         
         book.close();
         System.out.println("创建文件成功!");
+        
+        fin = new FileInputStream(file);
+
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/excel");
+		response.addHeader("Content-Disposition", "attachment;filename="+nowdate + ".xls");
+
+		out = response.getOutputStream();
+		byte[] buffer = new byte[1024];// 缓冲区
+		int bytesToRead = -1;
+		// 通过循环将读入的Word文件的内容输出到浏览器中
+		while ((bytesToRead = fin.read(buffer)) != -1) {
+			out.write(buffer, 0, bytesToRead);
+		}
+	
+		try {
+			if (fin != null) {
+				fin.close();
+			}
+			if (out != null) {
+				out.close();
+			}
+			if (file != null) {
+				file.delete(); // 删除临时文件
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+        
+	
 }
