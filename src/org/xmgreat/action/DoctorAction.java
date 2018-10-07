@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.xmgreat.bean.ManagerBean;
 import org.xmgreat.bean.MouthBean;
 import org.xmgreat.bean.ParameterBean;
 import org.xmgreat.bean.ProjectBean;
@@ -59,7 +60,8 @@ public class DoctorAction {
 	@ResponseBody
 	public ModelAndView selectAllRole (HttpServletRequest request,HttpServletResponse response,Integer physicaiId)throws Exception {
 		HttpSession session = request.getSession();
-		int officeId=2/*(int) session.getAttribute("")*/;
+		ManagerBean managerBean=(ManagerBean) session.getAttribute("admin");
+		int officeId=managerBean.getOfficeId();
 		String aString=request.getParameter("pageNo");
 		if (aString!=null) {
 			pageNo=Integer.parseInt(aString);
