@@ -714,7 +714,7 @@
       <w:tbl>
         <w:tblPr>
           <w:tblStyle w:val="a10"/>
-          <w:tblW w:w="6462" w:type="dxa"/>
+          <w:tblW w:w="6913" w:type="dxa"/>
           <w:jc w:val="center"/>
           <w:tblInd w:w="-62" w:type="dxa"/>
           <w:tblBorders>
@@ -734,10 +734,10 @@
           </w:tblCellMar>
         </w:tblPr>
         <w:tblGrid>
-          <w:gridCol w:w="1313"/>
-          <w:gridCol w:w="1947"/>
-          <w:gridCol w:w="1352"/>
-          <w:gridCol w:w="1850"/>
+          <w:gridCol w:w="1462"/>
+          <w:gridCol w:w="2016"/>
+          <w:gridCol w:w="1614"/>
+          <w:gridCol w:w="1821"/>
         </w:tblGrid>
         <w:tr>
           <w:tblPrEx>
@@ -761,11 +761,12 @@
           </w:trPr>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1313" w:type="dxa"/>
+              <w:tcW w:w="1462" w:type="dxa"/>
               <w:tcBorders>
                 <w:bottom w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -792,12 +793,12 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1947" w:type="dxa"/>
+              <w:tcW w:w="2016" w:type="dxa"/>
               <w:tcBorders>
-                <w:tl2br w:val="nil"/>
-                <w:tr2bl w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -824,11 +825,14 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1352" w:type="dxa"/>
+              <w:tcW w:w="1614" w:type="dxa"/>
               <w:tcBorders>
+                <w:left w:val="nil"/>
                 <w:bottom w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -855,12 +859,13 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1850" w:type="dxa"/>
+              <w:tcW w:w="1821" w:type="dxa"/>
               <w:tcBorders>
-                <w:tl2br w:val="nil"/>
-                <w:tr2bl w:val="nil"/>
+                <w:left w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -908,12 +913,13 @@
           </w:trPr>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1313" w:type="dxa"/>
+              <w:tcW w:w="1462" w:type="dxa"/>
               <w:tcBorders>
                 <w:top w:val="nil"/>
                 <w:bottom w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -940,12 +946,12 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1947" w:type="dxa"/>
+              <w:tcW w:w="2016" w:type="dxa"/>
               <w:tcBorders>
-                <w:tl2br w:val="nil"/>
-                <w:tr2bl w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -972,12 +978,15 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1352" w:type="dxa"/>
+              <w:tcW w:w="1614" w:type="dxa"/>
               <w:tcBorders>
                 <w:top w:val="nil"/>
+                <w:left w:val="nil"/>
                 <w:bottom w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -1004,12 +1013,13 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1850" w:type="dxa"/>
+              <w:tcW w:w="1821" w:type="dxa"/>
               <w:tcBorders>
-                <w:tl2br w:val="nil"/>
-                <w:tr2bl w:val="nil"/>
+                <w:left w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -1057,12 +1067,13 @@
           </w:trPr>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1313" w:type="dxa"/>
+              <w:tcW w:w="1462" w:type="dxa"/>
               <w:tcBorders>
                 <w:top w:val="nil"/>
                 <w:bottom w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -1089,12 +1100,12 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1947" w:type="dxa"/>
+              <w:tcW w:w="2016" w:type="dxa"/>
               <w:tcBorders>
-                <w:tl2br w:val="nil"/>
-                <w:tr2bl w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -1121,12 +1132,15 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1352" w:type="dxa"/>
+              <w:tcW w:w="1614" w:type="dxa"/>
               <w:tcBorders>
                 <w:top w:val="nil"/>
+                <w:left w:val="nil"/>
                 <w:bottom w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>
@@ -1153,12 +1167,13 @@
           </w:tc>
           <w:tc>
             <w:tcPr>
-              <w:tcW w:w="1850" w:type="dxa"/>
+              <w:tcW w:w="1821" w:type="dxa"/>
               <w:tcBorders>
-                <w:tl2br w:val="nil"/>
-                <w:tr2bl w:val="nil"/>
+                <w:left w:val="nil"/>
+                <w:right w:val="nil"/>
               </w:tcBorders>
               <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+              <w:vAlign w:val="top"/>
             </w:tcPr>
             <w:p>
               <w:pPr>

@@ -86,13 +86,13 @@ public class ChecklistAction {
 		InputStream in = null;
 		OutputStream os = null;
 		try {
-//			response.reset();
 			response.setContentType("application/pdf"); // 设置返回内容格式
 			in = new FileInputStream(pdfFile); // 用该文件创建一个输入流
-			os = response.getOutputStream(); // 创建输出流
-			byte[] b = new byte[1024];
-			while (in.read(b) != -1) {
-				os.write(b);
+			os = response.getOutputStream();
+			byte[] buffer = new byte[1024];// 缓冲区
+			int bytesToRead = -1;
+			while ((bytesToRead = in.read(buffer)) != -1) {// 通过循环将读入的Word文件的内容输出到浏览器中
+				os.write(buffer, 0, bytesToRead);
 			}
 			os.flush();
 		} catch (Exception e) {
@@ -115,7 +115,7 @@ public class ChecklistAction {
 				e1.printStackTrace();
 			}
 		}
-		return "backstage/preview";
+		return null;
 	}
 	
 	

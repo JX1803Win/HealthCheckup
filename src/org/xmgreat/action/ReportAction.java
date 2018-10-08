@@ -130,7 +130,8 @@ public class ReportAction {
 				e1.printStackTrace();
 			}
 		}
-		return "backstage/preview";
+//		return "backstage/preview";
+		return null;
 	}
 	
 	@RequestMapping("/goReport.action")

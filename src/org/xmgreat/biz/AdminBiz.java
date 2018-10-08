@@ -41,4 +41,5 @@ public interface AdminBiz
 	public  ModelAndView userAdd();//查询注册下拉框的值
 	public String  regUser (UserInfoBean userInfoBean);//增加用户
 	public  List<UserInfoBean> selectUser(UserInfoBean userInfoBean);//查询用户知否以注册
+	public  List<UserInfoBean> refund(Double money, Integer userId);//退款
 }

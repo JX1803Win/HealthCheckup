@@ -235,4 +235,11 @@ public class ManageAction {
 
 		return adminBizImpl.topUp(userAccoutBean);
 	}
+	
+	// 退款
+	@RequestMapping(value = "/refund.action")
+	public @ResponseBody List<UserInfoBean> refund(Double money, Integer userId) {
+		return adminBizImpl.refund( money,userId);
+
+	}
 }
