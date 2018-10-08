@@ -75,7 +75,7 @@
 		</span>
 	
 	<div class="page-header text-center">
-		<h1>角色管理</h1>
+		<h1>权限管理</h1>
 	</div>	
 		<div class="text-center" id="div4">
 		<form class="form-inline" role="form" id="myForm">
@@ -88,14 +88,13 @@
 			<input type="button" class="btn btn-primary" onclick="search(1)" value="查询"/>
 		</form>
 	</div>
-        <div id="statisipArea" class="">
-            
+    <div id="statisipArea" class="">            
 	<div class="tools">		
         <span>共有数据：${sizeL} 条&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>共${AllPage}页&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>当前页数：${pageNo}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	</div>
-            <table id="treeSelectTable"  class="table table-striped table-bordered">
+            <table id="treeSelectTable"  class="table table-bordered">
                 <thead>
                     <tr><td>序号</td><td>角色名称</td><td>操作</td></tr>
                 </thead> 

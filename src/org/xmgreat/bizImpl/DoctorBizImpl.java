@@ -47,7 +47,7 @@ public class DoctorBizImpl implements DoctorBiz {
 		// 查询对应项目ID
 		List<ProjectBean> pblist = doctorMapper.selectProjectId(officeId);		
 				
-		// 通过项目ID、套餐ID查询所有的体检记录表（再放上输入体检卡号）
+		// 通过项目ID、体检单查询所有的体检记录表（再放上输入体检卡号）
 		if (physicaiId==null) {
 			physicaiId=0;
 		}
@@ -165,6 +165,12 @@ public class DoctorBizImpl implements DoctorBiz {
 		int a1=doctorMapper.selectPhyTimeWeekNum(StarTime,EndTime);
 		int a2=doctorMapper.selectAppointTimeWeekNum(StarTime,EndTime);
 		return a1+a2;
+	}
+
+	@Override
+	public void updateAcceptState(int proresId) {
+		// TODO Auto-generated method stub
+		doctorMapper.updateAcceptState(proresId);
 	}
 
 }
