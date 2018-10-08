@@ -27,4 +27,9 @@ public interface UserMapper
 	public List<SetmealBean> getSetmeal(@Param("page") int page);
 	//查看细项
 	public List<ProjectBean> getxi(@Param("mid")int mid);
+	//模糊查询套餐
+	public List<SetmealBean> selectMeal(@Param("name")String name,@Param("page")int page);
+	//查询总数
+	public int countMeal();
+
 }

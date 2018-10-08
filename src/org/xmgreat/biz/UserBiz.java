@@ -17,4 +17,6 @@ public interface UserBiz
 	public List<UserAccoutBean> getAccout(int userid,int page);
 	public List<SetmealBean> getSetmeal(int page);
 	public List<ProjectBean> getxi(int mid);
+	public List<SetmealBean> selectMeal(String name,int page);
+	public int countMeal();
 }
