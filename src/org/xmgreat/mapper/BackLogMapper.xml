@@ -5,8 +5,10 @@
 	<!-- 验证后台登入 -->
 	<select id="checkBackLog"
 		resultType="org.xmgreat.bean.ManagerBean">
-		SELECT * FROM TBLMANAGER WHERE MANAGERNAME=#{managername}
-		AND PASSWORD=#{password}
+		SELECT ADMINID,MANAGERNAME
+		MANGERNAME,SEX,AGE,BIRTHDATE,CITYID,ADDRESS,PHONENUM,PASSWORD,ROLEID,OFFICEID,PARAMETERID
+		FROM TBLMANAGER WHERE MANAGERNAME=#{managername} AND
+		PASSWORD=#{password}
 	</select>
 
 </mapper>

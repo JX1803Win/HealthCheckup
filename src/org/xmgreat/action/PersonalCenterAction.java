@@ -124,8 +124,13 @@ public class PersonalCenterAction
 	@RequestMapping(value = "/gosetmeal.action")
 	public String gosetmeal(HttpServletRequest request,Integer page)
 	{
+		int coun = userBiz.countMeal();
+		int counpage = (int) Math.ceil(1.0*coun/5);
 		if(page==null) {
 			page=1;
+		}
+		if(page>counpage) {
+			page--;
 		}
 		HttpSession session = request.getSession();
 		session.setAttribute("page", page);
@@ -148,8 +153,8 @@ public class PersonalCenterAction
 	public String selectmeal(HttpServletRequest request,String name)
 	{
 		System.out.println(name);
-		/*List<SetmealBean> list = userBiz.getSetmeal();
-		request.setAttribute("list", list);*/
+		List<SetmealBean> list = userBiz.selectMeal(name,1);
+		request.setAttribute("list", list);
 		return "backstage/Package";
 	}
 

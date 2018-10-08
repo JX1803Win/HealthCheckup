@@ -146,8 +146,8 @@
 						</a>
 						<button type="submit" class="btn btn-primary m2"
 							onclick="change3('backstage/projectSummary.action?parameterId=12')">保存</button>
-						<button type="submit" class="btn btn-primary m2"
-							onclick="change3('backstage/projectSummary.action?parameterId=13')">提交</button>
+					 	<!-- <button type="submit" class="btn btn-primary m2"
+							onclick="change3('backstage/projectSummary.action?parameterId=13')">提交</button>  -->
 					</div>
 				</form>
 			</c:if>

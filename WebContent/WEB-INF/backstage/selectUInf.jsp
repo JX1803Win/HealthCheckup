@@ -137,6 +137,7 @@
 			<thead>
 				<tr>
 					<th>序号</th>
+					<th>体检号</th>
 					<th>体检人</th>
 					<th>性别</th>
 					<th>年龄</th>
@@ -148,6 +149,7 @@
 				<c:forEach items="${uprbList}" var="user" varStatus="vs">
 					<tr>
 						<td>${(pageNoM-1)*5+vs.index+1}</td>
+						<td>${user.userPhyRecordBean.physicaiId}</td>
 						<td>${user.userName}</td>
 						<td>${user.sex}</td>
 						<td>${user.age}</td>
@@ -234,9 +236,8 @@
 					<form id="myForm2" class="form-horizontal" role="form">
 						<div class="modal-body">
 							<div class="form-group">
-								<label for="roleNames" class="col-sm-2 control-label">三月统计</label>
+								<label for="roleNames" class="col-sm-2 control-label">三月统计</label>								
 								<div id='ichart-render3'></div>
-								
 							</div>
 
 						</div>
@@ -322,7 +323,7 @@ function alter1(setmealId, physicaiId) {
 $(function(){
       var chart = iChart.create({
             render:"ichart-render",
-            width:800,
+            width:550,
             height:400,
             background_color:"#9edbd9",
             gradient:false,
@@ -474,7 +475,7 @@ function alter2() {
 $(function(){
       var chart = iChart.create({
             render:"ichart-render2",
-            width:800,
+            width:550,
             height:400,
             background_color:"#45d1bc",
             gradient:true,
@@ -617,7 +618,7 @@ function alter3() {
 $(function(){
       var chart = iChart.create({
             render:"ichart-render3",
-            width:800,
+            width:550,
             height:400,
             background_color:"#1dded1",
             gradient:false,
