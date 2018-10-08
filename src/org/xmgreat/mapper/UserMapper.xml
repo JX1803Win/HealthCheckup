@@ -45,15 +45,33 @@
 	<!-- 套餐 -->
 	<select id="getSetmeal"
 		resultType="org.xmgreat.bean.SetmealBean">
-		SELECT ROWNUM NUM,SETMEALID,SETMEALNAME FROM (SELECT E.*,ROWNUM RN FROM TBLSETMEAL E WHERE ROWNUM&lt;=#{page}*5)WHERE RN&gt;=#{page}*5-4
+		SELECT ROWNUM NUM,SETMEALID,SETMEALNAME FROM (SELECT
+		E.*,ROWNUM RN FROM TBLSETMEAL E WHERE ROWNUM&lt;=#{page}*5)WHERE
+		RN&gt;=#{page}*5-4
 	</select>
 
 	<!-- 细项 -->
-	<select id="getxi"
-		resultType="org.xmgreat.bean.ProjectBean">
-		SELECT C.ITEMNAME FROM TBLSETMEAL A,TBLSETMEALITME
+	<select id="getxi" resultType="org.xmgreat.bean.ProjectBean">
+		SELECT C.ITEMNAME FROM TBLSETMEAL
+		A,TBLSETMEALITME
 		B,TBLPROJECT C WHERE A.SETMEALID=B.SETMEALID AND
 		B.PROJECTID=C.PROJECTID AND A.SETMEALID=#{mid}
+	</select>
+
+
+	<!-- 模糊查询套餐 -->
+	<select id="selectMeal"
+		resultType="org.xmgreat.bean.SetmealBean">
+		SELECT ROWNUM NUM,SETMEALID,SETMEALNAME FROM(SELECT
+		E.*,ROWNUM RN FROM TBLSETMEAL E WHERE SETMEALNAME LIKE '%${name}%' AND
+		ROWNUM&lt;=#{page}*5)WHERE RN&gt;=#{page}*5-4
+	</select>
+
+
+	<!-- 查询总数 -->
+	<select id="countMeal" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM
+		TBLSETMEAL
 	</select>
 
 

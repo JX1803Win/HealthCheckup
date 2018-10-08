@@ -72,6 +72,23 @@
 		myForm.submit();
 	}
 	
+	
+	
+	function nextPage(page) {
+		page++;
+		window.location.href='gosetmeal.action?page='+page;
+		
+	}
+	function previousPage(page) {
+		page--;
+		if(page<=0){
+			page=1;
+		}
+		window.location.href='gosetmeal.action?page='+page;
+	}
+	
+
+	
 	function add() {
 		var roleName = $("#roleNames").val();
 		alert($("#roleNames").val())
@@ -176,6 +193,17 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
+				<div class="page">
+			<div class="pagelist text-center">
+				<button class="btn btn-primary"
+					onclick="previousPage(${sessionScope.page})">上一页</button>
+				<button class="btn btn-primary"
+					onclick="nextPage(${sessionScope.page})">下一页</button>
+			</div>
+		</div>
+		
+		
 		
 		<!-- 模态框（Modal） -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
