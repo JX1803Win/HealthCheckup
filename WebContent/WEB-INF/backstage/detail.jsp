@@ -80,7 +80,7 @@
 								data-target="#update"
 								onclick="alter('${detail.subentryId}','${detail.detailName}','${detail.parameterBean.parameterId}','${detail.upperLimit}','${detail.lowerLimit}','${detail.initValue}')">修改</button>&nbsp;&nbsp;
 							<a
-							href="backstage/delDetail.action?subentryId=${detail.subentryId}&&currentPage=${resultMap['currentPage']+1}&&name=${resultMap['name']}"
+							href="backstage/delDetail.action?subentryId=${detail.subentryId}&&currentPage=${resultMap['currentPage']}&&name=${resultMap['name']}"
 							onclick="return del()"><button type="button"
 									class="btn btn-primary">删除</button></a>
 						</td>
@@ -94,9 +94,12 @@
 				<c:choose>
 					<c:when test="${resultMap['currentPage']>1}">
 						<span class="jump"><a
-							href="backstage/queryDetail.action?currentPage=${resultMap['currentPage-1']}&&name=${name}">上一页</a></span>
+							href="backstage/queryDetail.action?name=${name}">首页</a></span>
+						<span class="jump"><a
+							href="backstage/queryDetail.action?currentPage=${resultMap['currentPage']-1}&&name=${name}">上一页</a></span>
 					</c:when>
 					<c:otherwise>
+						<span class="jump">首页</span>
 						<span class="jump">上一页</span>
 					</c:otherwise>
 				</c:choose>
@@ -105,9 +108,12 @@
 					<c:when test="${resultMap['currentPage']<resultMap['totalPage']}">
 						<span class="jump"><a
 							href="backstage/queryDetail.action?currentPage=${resultMap['currentPage']+1}&&name=${name}">下一页</a></span>
+						<span class="jump"><a
+							href="backstage/queryDetail.action?currentPage=${resultMap['totalPage']}&&name=${name}">末页</a></span>
 					</c:when>
 					<c:otherwise>
 						<span class="jump">下一页</span>
+						<span class="jump">末页</span>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -129,7 +135,8 @@
 						<div class="modal-body">
 
 							<input type="hidden" name="name" value="${name}"> <input
-								type="hidden" name="currentPage" value="${currentPage}">
+								type="hidden" name="currentPage"
+								value="${resultMap['currentPage']}">
 							<div class="form-group">
 								<label for="detailName" class="col-sm-2 control-label">细项名称：</label>
 								<div class="col-sm-10">
@@ -210,8 +217,9 @@
 						<div class="modal-body">
 
 							<input type="hidden" name="name" value="${name}"> <input
-								type="hidden" name="currentPage" value="${currentPage}">
-							<input type="hidden" name="subentryId" id="subentryId">
+								type="hidden" name="currentPage"
+								value="${resultMap['currentPage']}"> <input
+								type="hidden" name="subentryId" id="subentryId">
 							<div class="form-group">
 								<label for="detailName" class="col-sm-2 control-label">细项名称：</label>
 								<div class="col-sm-10">

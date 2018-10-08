@@ -75,7 +75,7 @@
 					<a
 						href="backstage/querySetmeal.action?currentPage=${currentPage}&&name=${name}"><button
 							type="button" class="btn btn-default m2">返回</button></a>
-					<button type="submit" class="btn btn-primary m2">提交</button>
+					<button type="submit" class="btn btn-primary m2" onclick="return uodate()">提交</button>
 				</div>
 			</form>
 

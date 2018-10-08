@@ -22,6 +22,8 @@ public interface LogMapper
 
 	public List<LogBean> getLogs(Map<String, Object> condition);
 
+	public List<LogBean> selectAll();
+
 	/**
 	 * @description 计算条件查询日志总数
 	 * @param userName 用户名称

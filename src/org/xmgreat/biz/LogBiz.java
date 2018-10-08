@@ -17,6 +17,8 @@ public interface LogBiz
 	public Map<String, Object> search(Map<String, Object> condition);
 
 	public void delLog(Integer logId);
-	
+
 	public void delLogs(Integer[] logId);
+
+	public Map<String, Object> exportExcel();
 }

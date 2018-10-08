@@ -6,8 +6,9 @@
 	<!-- 增加项目 -->
 	<insert id="addProject"
 		parameterType="org.xmgreat.bean.ProjectBean">
-		insert into tblproject(projectId,itemName,officeId)
-		values(projectid.nextval,#{itemName},#{officeId})
+		insert into
+		tblproject(projectId,itemName,charge,parameterId,officeId)
+		values(projectid.nextval,#{itemName},#{charge},#{parameterId},#{officeId})
 	</insert>
 
 	<!-- 增加项目关系 -->

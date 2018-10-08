@@ -1,6 +1,5 @@
 package org.xmgreat.action;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,21 +26,24 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
-
-
 @Controller
 @RequestMapping("fileAction")
-public class ExcellAction {
+public class ExcellAction
+{
 	@Resource
 	public DoctorBizImpl doctorBizImpl;
+
 	/*
 	 * 生成excel并导出
 	 */
 	@RequestMapping("/exportExcell.action")
-	public void exportExcel(HttpServletRequest request,HttpServletResponse response,String userName,Long phone,Long barCode,String starDay,String end) throws Exception{
+	public void exportExcel(HttpServletRequest request, HttpServletResponse response, String userName, Long phone,
+			Long barCode, String starDay, String end) throws Exception
+	{
 		Date now = new Date();
 		InputStream fin = null;
 		ServletOutputStream out = null;
+
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String nowdate = df.format(now);
         // 打开文件
@@ -76,22 +78,27 @@ public class ExcellAction {
 		if (phone==null) {
 			phone=(long) 0;
 		}
-		if (barCode==null) {
-			barCode=(long) 0;
+		if (barCode == null)
+		{
+			barCode = (long) 0;
 		}
-        List<UserInfoBean> uprbList=doctorBizImpl.selectMedicalManS(userName, phone, barCode, starDay,end); 
-        for (int i = 0; i < uprbList.size(); i++) {
-            Label labelAi = new Label(0, i + 1, String.valueOf(i+1));
-            Label labelBi = new Label(1, i + 1, uprbList.get(i).getUserName());
-            Label labelCi = new Label(2, i + 1, uprbList.get(i).getSex());
-            Label labelDi = new Label(3, i + 1, String.valueOf(uprbList.get(i).getAge()));
-            Label labelEi = new Label(4, i + 1, String.valueOf(uprbList.get(i).getPhone()));
-            Label labelFi;
-            if (uprbList.get(i).getUserPhyRecordBean().getPhyTime()!=null) {
-            	labelFi = new Label(5, i + 1, uprbList.get(i).getUserPhyRecordBean().getPhyTime());
-			}else {
-				String appoTime=doctorBizImpl.selectAppoTime(uprbList.get(i).getUserPhyRecordBean().getPhysicaiId());
+		List<UserInfoBean> uprbList = doctorBizImpl.selectMedicalManS(userName, phone, barCode, starDay, end);
+		for (int i = 0; i < uprbList.size(); i++)
+		{
+			Label labelAi = new Label(0, i + 1, String.valueOf(i + 1));
+			Label labelBi = new Label(1, i + 1, uprbList.get(i).getUserName());
+			Label labelCi = new Label(2, i + 1, uprbList.get(i).getSex());
+			Label labelDi = new Label(3, i + 1, String.valueOf(uprbList.get(i).getAge()));
+			Label labelEi = new Label(4, i + 1, String.valueOf(uprbList.get(i).getPhone()));
+			Label labelFi;
+			if (uprbList.get(i).getUserPhyRecordBean().getPhyTime() != null)
+			{
+				labelFi = new Label(5, i + 1, uprbList.get(i).getUserPhyRecordBean().getPhyTime());
+			} else
+			{
+				String appoTime = doctorBizImpl.selectAppoTime(uprbList.get(i).getUserPhyRecordBean().getPhysicaiId());
 				labelFi = new Label(5, i + 1, appoTime);
+
 			}                        
             sheet.addCell(labelAi);
             sheet.addCell(labelBi);
@@ -109,30 +116,35 @@ public class ExcellAction {
 
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/excel");
-		response.addHeader("Content-Disposition", "attachment;filename="+nowdate + ".xls");
+		response.addHeader("Content-Disposition", "attachment;filename=" + nowdate + ".xls");
 
 		out = response.getOutputStream();
 		byte[] buffer = new byte[1024];// 缓冲区
 		int bytesToRead = -1;
 		// 通过循环将读入的Word文件的内容输出到浏览器中
-		while ((bytesToRead = fin.read(buffer)) != -1) {
+		while ((bytesToRead = fin.read(buffer)) != -1)
+		{
 			out.write(buffer, 0, bytesToRead);
 		}
-	
-		try {
-			if (fin != null) {
+
+		try
+		{
+			if (fin != null)
+			{
 				fin.close();
 			}
-			if (out != null) {
+			if (out != null)
+			{
 				out.close();
 			}
-			if (file != null) {
+			if (file != null)
+			{
 				file.delete(); // 删除临时文件
 			}
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
-        
-	
+
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.xmgreat.annotation.SystemLog;
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.biz.ProjectBiz;
 
@@ -63,6 +64,7 @@ public class ProjectAction
 	}
 
 	@RequestMapping(value = "/affirmAdd")
+	@SystemLog(module = "系统管理", methods = "项目管理，新增项目")
 	public String affirmAdd(HttpServletRequest request, ProjectBean projectBean, Integer[] subentryId, String name,
 			Integer currentPage)
 	{
@@ -80,6 +82,7 @@ public class ProjectAction
 	}
 
 	@RequestMapping(value = "/affirmUpdate")
+	@SystemLog(module = "系统管理", methods = "项目管理，更新项目")
 	public String affirmUpdate(HttpServletRequest request, ProjectBean projectBean, Integer[] subentryId, String name,
 			Integer currentPage)
 	{
@@ -88,6 +91,7 @@ public class ProjectAction
 	}
 
 	@RequestMapping(value = "/delProject")
+	@SystemLog(module = "系统管理", methods = "项目管理，删除项目")
 	public String delProject(HttpServletRequest request, Integer projectId, String name, Integer currentPage)
 	{
 		projectBiz.delProject(projectId);
