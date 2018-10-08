@@ -9,7 +9,7 @@
 	<select id="queryByPhyId" parameterType="java.lang.Long" resultType="org.xmgreat.bean.UserPhyRecordBean">
 		select tupr.*, tbi.username, tp.itemname, ts.setmealname, tm.managername mangername
 		from TBLUSERPHYRECORD tupr, tbluserinfo tbi, tblproject tp, tblsetmeal ts, tblmanager tm
-		where tupr.userid = tbi.userid and tupr.adminid = tm.adminid
+		where tupr.userid = tbi.userid and tupr.adminid = tm.adminid(+)
 		and tupr.projectid = tp.projectid(+) and tupr.setmealid = ts.setmealid(+)
 		and tupr.PHYSICAIID = #{physicaiId}
 	</select>
@@ -29,7 +29,7 @@
 	</insert>
 	<!-- 添加用户体检开单记录 -->
 	<insert id="billing">
-		insert into TBLUSERPHYRECORD(physicaiId, userId, setmealId, projectId, phyTime, parameterId)
+		insert into TBLUSERPHYRECORD(physicaiId, barcode, userId, setmealId, projectId, phyTime, parameterId)
 		values(phySeq.NEXTVAL, barcodeseq.nextval, #{uprb.userId}, #{uprb.setmealId,jdbcType=INTEGER}, 
 			#{uprb.projectId,jdbcType=INTEGER}, to_char(sysdate, 'yyyy-mm-dd'), 22)
 	</insert>
@@ -113,7 +113,7 @@
 	<!-- 根据体检号和项目id查询项目结果信息 -->
 	<select id="queryProResInfo" resultType="org.xmgreat.bean.ProResBean">
 		select tpr.*, tm.managername  from tbrprojectresult tpr, tblmanager tm 
-		where tpr.adminid = tm.adminid and 
+		where tpr.adminid = tm.adminid(+) and 
 		tpr.physicaiId = #{physicaiId} and tpr.projectId = #{projectId}
 	</select>
 	<!-- 初始化细项结果数据 -->

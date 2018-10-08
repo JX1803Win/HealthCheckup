@@ -75,7 +75,11 @@
 		</form>
 	</div>
 
-	<div class="clearfix"></div>
+	<ul class="toolbar">
+	<img src="<%=path%>images/t01.png" />
+	<a href="<%=path%>ManageAction/userAdd.action">添加用户</a>
+	
+	</ul> 
 	<table class="tablelist">
 		<thead>
 			<tr>

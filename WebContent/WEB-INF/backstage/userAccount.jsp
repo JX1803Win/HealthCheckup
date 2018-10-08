@@ -71,8 +71,13 @@
 		
 		</tbody>
 		</table>
-	<button type="button"  class="btn btn-primary x-left" data-toggle="modal"
-			data-target="#myModal" id="increased">充值</button>
+	 <div class="tools">
+			<button class="btn btn-primary x-right" data-toggle="modal"
+				data-target="#myModal" id="increased">充值</button>
+				<button class="btn btn-primary x-right" data-toggle="modal"
+				data-target="#myModal1" id="increased1">退款</button>
+			<div class="clearfix"></div>
+		</div>
 	<table class="tablelist">
 		<thead>
 			<tr>
@@ -143,14 +148,14 @@
 				</div>
 
 
-				<form action="<%=path%>ManageAction/topUp.action" id="addAdmin" name="addAdmin" enctype="multipart/form-data"
+				<form action="<%=path%>ManageAction/topUp.action"  enctype="multipart/form-data"
 					class="form-horizontal" role="form" method="post">
                      <input type="hidden" id="userId" name="userId" value="${userId}"/>
 					<div class="form-group">
 							<label for="pwd" class="col-sm-2 control-label">金额</label>
 							<div class="col-sm-10">
-								<input name="money" id="money" type="text" class="form-control"
-									placeholder="请输入参密码">
+								<input name="money" id="money" type="text" class="form-control" 
+									placeholder="请输入金额">
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -160,7 +165,7 @@
 						<button type="button" class="btn btn-primary"id="button4" value="500">500</button>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="colse">关闭</button>
 						<button type="submit" class="btn btn-primary">提交</button>
 					</div>
 				</form>
@@ -169,6 +174,36 @@
 		</div>
 		<!-- /.modal -->
 	</div>
+	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">退款</h4>
+				</div>
+				<form action="" enctype="multipart/form-data"
+					class="form-horizontal" role="form" method="post">
+                     <input type="hidden" id="userId1" name="userId1" value="${userId}"/>
+					<div class="form-group">
+							<label for="pwd" class="col-sm-2 control-label">金额</label>
+							<div class="col-sm-10">
+								<input name="money1" id="money1" type="text" class="form-control"value="${balance}"
+									placeholder="请输入金额">
+							</div>
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" id="refund">提交</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
+	
 </body>
 			<script type="text/javascript">
 $(document).ready(function(){
@@ -190,6 +225,42 @@ $(document).ready(function(){
 		 $("#money").val(str);
 });
 });
-
+$(function() {
+	$("#refund").click(
+			function() {
+				$.ajax({
+					url : "<%=path%>ManageAction/refund.action",//请求地址
+					data : "money="
+						+ $("#money1").val()+"&"+"userId="
+						+ $("#userId1").val(),//发送至服务器的键值数据
+					dataType : "json",//请求数据格式，如script,json,text等
+					type : "post",//发送方式，get/post
+					success : function(redata) {////定义各事件发生时回调的函数
+                    $.each(redata, function(i, item) {
+							alert(item.userName);
+							location.href="<%=path%>ManageAction/selectAccount.action?money="
+								+ $("#money1").val()+"&userId="
+								+ $("#userId1").val()+"&page=1";
+							
+						});
+					}
+				});
+			});
+});
+$(function() {
+	$("#colse").click(
+			function(){
+				$.ajax({
+					url : "<%=path%>ManageAction/selectAccount.action",//请求地址
+					data : "userId="
+						+ $("#userId1").val(),//发送至服务器的键值数据
+					dataType : "json",//请求数据格式，如script,json,text等
+					type : "post",//发送方式，get/post
+					success : function(redata) {//定义各事件发生时回调的函数
+                   
+					}
+				});
+			});
+});
 </script>
 </html>
