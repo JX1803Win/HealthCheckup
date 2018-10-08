@@ -97,9 +97,12 @@
 				<c:choose>
 					<c:when test="${resultMap['currentPage']>1}">
 						<span class="jump"><a
-							href="backstage/queryProject.action?currentPage=${resultMap['currentPage-1']}&&name=${name}">上一页</a></span>
+							href="backstage/queryProject.action?name=${name}">首页</a></span>
+						<span class="jump"><a
+							href="backstage/queryProject.action?currentPage=${resultMap['currentPage']-1}&&name=${name}">上一页</a></span>
 					</c:when>
 					<c:otherwise>
+						<span class="jump">首页</span>
 						<span class="jump">上一页</span>
 					</c:otherwise>
 				</c:choose>
@@ -108,9 +111,12 @@
 					<c:when test="${resultMap['currentPage']<resultMap['totalPage']}">
 						<span class="jump"><a
 							href="backstage/queryProject.action?currentPage=${resultMap['currentPage']+1}&&name=${name}">下一页</a></span>
+						<span class="jump"><a
+							href="backstage/queryProject.action?currentPage=${resultMap['totalPage']}&&name=${name}">末页</a></span>
 					</c:when>
 					<c:otherwise>
 						<span class="jump">下一页</span>
+						<span class="jump">末页</span>
 					</c:otherwise>
 				</c:choose>
 			</div>
