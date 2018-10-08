@@ -89,6 +89,7 @@
 			<thead>
 				<tr>
 					<th>序号</th>
+					<th>体检号</th>
 					<th>用户名</th>
 					<th>项目名</th>
 					<th>状态</th>
@@ -99,29 +100,20 @@
 				<c:forEach items="${uprbList}" var="menu" varStatus="vs">
 					<tr>
 						<td>${(pageNoD-1)*5+vs.index+1}</td>
-						<%-- <td>${menu.physicaiId}</td> --%>
+						<td>${menu.physicaiId}</td>
 						<td>${menu.userName}</td>
 						<td>${menu.projectName}</td>
 						<td>${menu.parameterName}</td>
 						<c:if test="${menu.parameterId==68}">
 							<td><a
-								href="backstage/skipExamination.action?projectId=${menu.projectId}&&proresId=${menu.proresId}"><button
+								href="doctor/doctorAccept.action?proresId=${menu.proresId}"><button
+										type="button" class="btn btn-primary">接收</button></a></td>
+						</c:if>
+						<c:if test="${menu.parameterId==38}">
+							<td><a
+								href="doctor/skipExamination.action?projectId=${menu.projectId}&&proresId=${menu.proresId}"><button
 										type="button" class="btn btn-primary">体检</button></a></td>
 						</c:if>
-						<c:if test="${menu.parameterId==12}">
-							<td><a
-								href="backstage/skipSummary.action?proresId=${menu.proresId}"><button
-										type="button" class="btn btn-primary">小结</button></a></td>
-						</c:if>
-						<c:if test="${menu.parameterId==13}">
-							<td><a
-								href="BlackAppointTableServlet?action=info&physicaiId=
-						${menu.physicaiId}"><button
-										type="button" class="btn btn-primary">查看详情</button></a></td>
-						</c:if>
-
-
-
 					</tr>
 				</c:forEach>
 			</tbody>

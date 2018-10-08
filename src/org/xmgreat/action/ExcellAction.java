@@ -45,14 +45,7 @@ public class ExcellAction {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String nowdate = df.format(now);
         // 打开文件
-        File file=new File("C:\\"+nowdate + ".xls");
-        
-        
-        
-        
-        
-        
-        
+        File file=new File("C:\\"+nowdate + ".xls");      
         WritableWorkbook book = Workbook.createWorkbook(file);
         
         // 生成名为"第一页"的工作表，参数0表示这是第一
@@ -111,9 +104,7 @@ public class ExcellAction {
      // 写入数据并关闭文件
         book.write();
         
-        book.close();
-        System.out.println("创建文件成功!");
-        
+        book.close();        
         fin = new FileInputStream(file);
 
 		response.setCharacterEncoding("utf-8");

@@ -31,7 +31,7 @@
 			and physicaiId=#{physicaiId}
 		</if>
 	</select>
-	<!-- 通过项目ID、套餐ID查询所有的体检记录表（再放上输入体检卡号） -->
+	<!-- 通过项目ID查询所有的体检记录表（再放上输入体检卡号） -->
 	<select id="selectUserPhyRecord"
 		resultType="org.xmgreat.bean.ProjectResultBean">
 		select * from(select t.* , rownum rn from tbrProjectResult t where
@@ -221,5 +221,9 @@
      <select id="selectAppointTimeWeekNum" resultType="int">
           select count(*) from tblUserAppo where appoTime &lt; #{EndTime} and appoTime &gt; #{StarTime}
      </select>
+     <!-- 更改接收状态 -->
+     <update id="updateAcceptState">
+          update tbrProjectResult set parameterId=38 where proresId=#{proresId} 
+     </update>
            
 </mapper>
