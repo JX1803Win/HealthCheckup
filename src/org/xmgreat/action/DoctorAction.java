@@ -123,7 +123,7 @@ public class DoctorAction {
 	@RequestMapping(value = "/skipExamination")
 	public String skipExamination(HttpServletRequest request, Integer projectId, Integer proresId)
 	{
-
+//
 		ProjectBean project = summaryBiz.skipExamination(projectId);
 		request.setAttribute("proresId", proresId);
 		request.setAttribute("project", project);
