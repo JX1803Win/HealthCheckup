@@ -24,9 +24,11 @@ public class PhySumAction {
 	
 	@RequestMapping("/query.action")
 	public String query(HttpServletRequest request) {
-		if(request.getParameter("physicaiId") != null) {
+		if(request.getParameter("physicaiId") != null && request.getParameter("physicaiId") != "") {
 			physicaiId = Long.parseLong(request.getParameter("physicaiId"));
 			request.setAttribute("physicaiId", physicaiId);
+		} else {
+			physicaiId = null;
 		}
 		if(currentPage == null || request.getParameter("currentPage") == null) {
 			currentPage = 1;

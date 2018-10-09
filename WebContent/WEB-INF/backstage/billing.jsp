@@ -25,12 +25,18 @@
 	function show1() {
 		$("#combo_div").show();
 		$("#project_div").hide();
-		$("#btn").show();
+	    $("#btn1").removeClass("btn-primary");
+		$("#btn1").addClass("btn-success");
+	    $("#btn2").removeClass("btn-success");
+		$("#btn2").addClass("btn-primary");
 	}
 	function show2() {
 		$("#project_div").show();
 		$("#combo_div").hide();
-		$("#btn").show();
+		$("#btn2").removeClass("btn-primary");
+		$("#btn2").addClass("btn-success");
+	    $("#btn1").removeClass("btn-success");
+		$("#btn1").addClass("btn-primary");
 	}
 	function check() {
 		var result = "";
@@ -81,6 +87,13 @@
 			alert("开单成功，您的体检号为:"+msg);
 		}
 	})
+	$(function() {
+		var msg = "${requestScope.get('msg')}";
+		console.log(msg);
+		if(msg.length > 0) {
+			alert(msg);
+		}
+	})
 </script>
 </head>
 <body>
@@ -106,8 +119,8 @@
 				<br>
 				<div class="form-group">
 					<div class="col-sm-12">
-						<input type="button" class="btn btn-primary" onclick="show1()" value="选择体检套餐" />&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="button" class="btn btn-primary" onclick="show2()" value="选择体检项目" />
+						<input type="button" id="btn1" class="btn btn-primary" onclick="show1()" value="选择体检套餐" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" id="btn2" class="btn btn-primary" onclick="show2()" value="选择体检项目" />
 					</div>
 				</div>
 				<br>

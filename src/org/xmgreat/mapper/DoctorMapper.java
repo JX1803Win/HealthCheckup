@@ -33,5 +33,5 @@ public interface DoctorMapper {
           public int selectAppointTimeNum(@Param("appoTime")String appoTime);
           public int selectPhyTimeWeekNum(@Param("StarTime")String StarTime,@Param("EndTime")String EndTime);
           public int selectAppointTimeWeekNum(@Param("StarTime")String StarTime,@Param("EndTime")String EndTime);
-          public void updateAcceptState(@Param("proresId")int proresId);//更改接收状态
+          public void updateAcceptState(@Param("proresId")Integer proresId,@Param("adminId")Integer adminId);//更改接收状态
 }

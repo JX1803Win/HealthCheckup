@@ -28,5 +28,5 @@ public interface DoctorBiz {
     public List<UserInfoBean> selectMedicalManS(String userName,Long phone,Long barCode,String starDay,String end);//查询体检人信息
     public int selectPhyTimeNum(String PhyTime);
     public int selectPhyTimeWeekNum(String StarTime,String EndTime);
-    public void updateAcceptState(int proresId);//更改接收状态
+    public void updateAcceptState(Integer proresId,Integer adminId);//更改接收状态
 }

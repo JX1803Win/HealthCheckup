@@ -335,4 +335,9 @@ public class PhyBizImpl implements PhyBiz {
 	public void writeSummary(UserPhyRecordBean uprb) {
 		phyMapper.writeSummary(uprb);
 	}
+
+	@Override
+	public UserInfoBean queryUserByPhyCardId(Long phyCardId) {
+		return phyMapper.queryUserByPhyCardId(phyCardId);
+	}
 }

@@ -24,7 +24,11 @@ import org.xmgreat.bean.UserAccoutBean;
 import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.bean.UserPhyRecordBean;
 import org.xmgreat.biz.AdminBiz;
+import org.xmgreat.util.ALiPay;
 import org.xmgreat.util.Excel;
+
+import com.alipay.api.AlipayApiException;
+
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -241,5 +245,21 @@ public class ManageAction {
 	public @ResponseBody List<UserInfoBean> refund(Double money, Integer userId) {
 		return adminBizImpl.refund( money,userId);
 
+	}
+	
+	// 支付宝支付
+	@RequestMapping(value = "/alipayment.action")
+	public ModelAndView alipayment(HttpServletRequest request,HttpServletResponse response,Integer userId,Double money) throws AlipayApiException {
+		String money1=money.toString();
+		String result;
+		try {
+			result = ALiPay.pay(response, money1,userId);
+			mav.addObject("result",result);
+			mav.setViewName("backstage/QR.code");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mav;
 	}
 }

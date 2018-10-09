@@ -42,4 +42,5 @@ public interface AdminBiz
 	public String  regUser (UserInfoBean userInfoBean);//增加用户
 	public  List<UserInfoBean> selectUser(UserInfoBean userInfoBean);//查询用户知否以注册
 	public  List<UserInfoBean> refund(Double money, Integer userId);//退款
+	public String  zhifubao(Integer userId,Double money);//充值
 }

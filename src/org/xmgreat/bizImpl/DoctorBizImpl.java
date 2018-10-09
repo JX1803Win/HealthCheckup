@@ -168,9 +168,9 @@ public class DoctorBizImpl implements DoctorBiz {
 	}
 
 	@Override
-	public void updateAcceptState(int proresId) {
+	public void updateAcceptState(Integer proresId,Integer adminId) {
 		// TODO Auto-generated method stub
-		doctorMapper.updateAcceptState(proresId);
+		doctorMapper.updateAcceptState(proresId,adminId);
 	}
 
 }

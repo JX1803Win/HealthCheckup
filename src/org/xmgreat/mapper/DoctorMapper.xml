@@ -135,7 +135,7 @@
 	
 	
 	<select id="selectMedicalMan" resultMap="onlyUser">
-		select * from (select ti.* ,tpr.phyTime,tpr.physicaiId, rownum rn from tblUserInfo ti ,tblUserPhyRecord tpr where
+		select * from (select ti.* ,tpr.phyTime,tpr.physicaiId,tpr.appoTime, rownum rn from tblUserInfo ti ,tblUserPhyRecord tpr where
 		ti.userId=tpr.userId
 		<if test="userName!=null and userName != ''">
 			and ti.userName like concat(concat('%',#{userName}),'%')
@@ -164,6 +164,7 @@
 			<id property="physicaiId" column="physicaiId" />
 			<result property="userId" column="userId" />
 			<result property="phyTime" column="phyTime" />
+			<result property="appoTime" column="appoTime" />
 		</association>
 	</resultMap>
 <!-- 查询用户信息数量 -->
@@ -190,7 +191,7 @@
 	</select>
 
 	<select id="selectMedicalManS" resultMap="onlyUser">
-		select ti.* ,tpr.phyTime,tpr.physicaiId from tblUserInfo ti ,tblUserPhyRecord tpr where
+		select ti.* ,tpr.phyTime,tpr.physicaiId ,tpr.appoTime from tblUserInfo ti ,tblUserPhyRecord tpr where
 		ti.userId=tpr.userId
 		<if test="userName!=null and userName != ''">
 			and ti.userName like concat(concat('%',#{userName}),'%')
@@ -212,18 +213,18 @@
           select count(*) from tblUserPhyRecord where phyTime like concat(concat('%',#{phyTime}),'%')
      </select>
      <select id="selectAppointTimeNum" resultType="int">
-          select count(*) from tblUserAppo where appoTime like concat(concat('%',#{appoTime}),'%')
+          select count(*) from tblUserPhyRecord where appoTime like concat(concat('%',#{appoTime}),'%')
      </select> 
      <!-- 查询单月/三月用户体检数量 -->
      <select id="selectPhyTimeWeekNum" resultType="int">
           select count(*) from tblUserPhyRecord where phyTime &lt; #{EndTime} and phyTime &gt; #{StarTime}
      </select>
      <select id="selectAppointTimeWeekNum" resultType="int">
-          select count(*) from tblUserAppo where appoTime &lt; #{EndTime} and appoTime &gt; #{StarTime}
+          select count(*) from tblUserPhyRecord where appoTime &lt; #{EndTime} and appoTime &gt; #{StarTime}
      </select>
      <!-- 更改接收状态 -->
      <update id="updateAcceptState">
-          update tbrProjectResult set parameterId=38 where proresId=#{proresId} 
+          update tbrProjectResult set parameterId=38 , adminId=#{adminId} where proresId=#{proresId} 
      </update>
            
 </mapper>

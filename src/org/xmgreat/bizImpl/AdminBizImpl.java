@@ -466,4 +466,21 @@ public class AdminBizImpl implements AdminBiz
 		list.add(userInfo);
 		return list;
 	}
+	
+	//支付宝充值
+	@Override
+	public String zhifubao(Integer userId, Double money) {
+		UserAccoutBean userAccout=adminMapper.selectBalance(userId);
+		Double balance=userAccout.getBalance()+money;
+		UserAccoutBean accout=new UserAccoutBean();
+		accout.setUserId(userId);
+		accout.setBalance(balance);
+		accout.setMoney(money);
+		accout.setOccurMatter("支付宝充值");
+		adminMapper.addRecord(accout);
+		String result=null;
+	/*	result="redirect:/ManageAction/selectAccount.action?page=1&&userId="+userId+"";*/
+		result="redirect:/admin/login.action";
+		return result;
+	}
 }
