@@ -48,7 +48,6 @@ public interface AdminMapper
 	public boolean applyCard(UserInfoBean userInfoBean);//办卡
 	public boolean phyCardAdd(PhyCardBean phyCardBean);//增加体检卡号
 	public int selectPhyCardId(PhyCardBean phyCardBean);//查询体检卡号否以注册
-//	public UserPhyRecordBean selectPhysicaiId(UserPhyRecordBean userPhyRecordBean);//查询体检号中的套餐或者项目
 	public List<UserPhyRecordBean> selectPhysicaiInfo(UserPhyRecordBean userPhyRecordBean);//查询体检人信息和套餐名称
 	public  List<SetmealBean> selectProjectInfo(Integer setmealId);//过套餐ID查显目信息
 	public List<ProjectBean> selectProjectInfo2(Integer projectId);//查询体检人信息和显目信息

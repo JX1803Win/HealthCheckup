@@ -2,8 +2,10 @@ package org.xmgreat.bizImpl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,7 @@ import org.xmgreat.mapper.ParamMapper;
 import org.xmgreat.mapper.ProjectResultMapper;
 import org.xmgreat.mapper.ProjectlMapper;
 import org.xmgreat.mapper.SubentryMapper;
+import org.xmgreat.util.Data;
 
 @Service
 public class SummaryBizImpl implements SummaryBiz
@@ -38,6 +41,10 @@ public class SummaryBizImpl implements SummaryBiz
 	private ProjectResultMapper projectResultMapper;
 	@Resource
 	private DetailMapper detailMapper;
+
+	public Integer totalPage;
+	public Integer total;
+	private Map<String, Object> resultMap = new HashMap<String, Object>();
 
 	@Override
 	public ProjectBean skipExamination(Integer projectId)
@@ -171,6 +178,37 @@ public class SummaryBizImpl implements SummaryBiz
 			projectResultBean.setProjectResult(projectResult);
 		}
 		projectResultMapper.updateProjectResul(projectResultBean);
+	}
+
+	@Override
+	public Map<String, Object> querySummary(Map<String, Object> condition)
+	{
+		total = projectResultMapper.count(condition);
+		resultMap.put("total", total);
+		if (total % Data.NUM == 0)
+		{
+			totalPage = total / Data.NUM;
+		} else
+		{
+			totalPage = total / Data.NUM + 1;
+		}
+		if (totalPage == 0)
+		{
+			totalPage = 1;
+		}
+		resultMap.put("totalPage", totalPage);
+		Integer currentPage = (Integer) condition.get("currentPage");
+		if (currentPage > totalPage)
+		{
+			currentPage = totalPage;
+		}
+		int max = currentPage * Data.NUM + 1;
+		int min = (currentPage - 1) * Data.NUM;
+		condition.put("max", max);
+		condition.put("min", min);
+		resultMap.put("currentPage", currentPage);
+		resultMap.put("projectResults", projectResultMapper.selectProjectResults(condition));
+		return resultMap;
 	}
 
 }

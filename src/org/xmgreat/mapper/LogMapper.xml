@@ -23,6 +23,12 @@
 		</if>
 	</select>
 
+	<!-- 查询所有日志 -->
+	<select id="selectAll" resultMap="selectLog"
+		parameterType="java.util.Map">
+		select * from tbllog order by executionDate asc
+	</select>
+
 	<!-- 查询日志 -->
 	<select id="getLogs" resultMap="selectLog"
 		parameterType="java.util.Map">
@@ -37,7 +43,8 @@
 
 	<select id="selectUser"
 		resultType="org.xmgreat.bean.ManagerBean">
-		select managerName mangerName from tblmanager where adminId = #{adminId}
+		select managerName mangerName from tblmanager where adminId
+		= #{adminId}
 	</select>
 
 	<resultMap type="org.xmgreat.bean.LogBean" id="selectLog">

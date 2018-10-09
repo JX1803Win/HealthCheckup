@@ -74,4 +74,18 @@ public class UserBizlmp implements UserBiz
 		return userMapper.getxi(mid);
 	}
 
+	@Override
+	public List<SetmealBean> selectMeal(String name,int page)
+	{
+		// TODO Auto-generated method stub
+		return userMapper.selectMeal(name,page);
+	}
+
+	@Override
+	public int countMeal()
+	{
+		// TODO Auto-generated method stub
+		return userMapper.countMeal();
+	}
+
 }

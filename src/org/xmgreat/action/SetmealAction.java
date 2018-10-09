@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.xmgreat.annotation.SystemLog;
 import org.xmgreat.bean.SetmealBean;
 import org.xmgreat.biz.SetmealBiz;
 
@@ -63,6 +64,7 @@ public class SetmealAction
 	}
 
 	@RequestMapping(value = "/affirmAddSetmeal")
+	@SystemLog(module = "系统管理", methods = "套餐管理，新增套餐")
 	public String affirmAddSetmeal(HttpServletRequest request, SetmealBean setmealBean, Integer[] projectId,
 			String name, Integer currentPage)
 	{
@@ -80,6 +82,7 @@ public class SetmealAction
 	}
 
 	@RequestMapping(value = "/affirmUpdateSetmeal")
+	@SystemLog(module = "系统管理", methods = "套餐管理，更新套餐")
 	public String affirmUpdateSetmeal(HttpServletRequest request, SetmealBean setmealBean, Integer[] projectId,
 			String name, Integer currentPage)
 	{
@@ -88,6 +91,7 @@ public class SetmealAction
 	}
 
 	@RequestMapping(value = "/delSetmeal")
+	@SystemLog(module = "系统管理", methods = "套餐管理，删除套餐")
 	public String delSetmeal(HttpServletRequest request, Integer setmealId, String name, Integer currentPage)
 	{
 		setmealBiz.delSetmeal(setmealId);

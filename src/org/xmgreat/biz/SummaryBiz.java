@@ -1,6 +1,7 @@
 package org.xmgreat.biz;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -60,4 +61,6 @@ public interface SummaryBiz
 	 * @return 项目结果实体
 	 */
 	public ProjectResultBean skipSummary(Integer proresId);
+
+	public Map<String, Object> querySummary(Map<String, Object> condition);
 }

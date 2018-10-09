@@ -11,6 +11,34 @@
 		proresId = #{proresId}
 	</update>
 
+	<!-- 根据条件查询项目结果列表 -->
+	<select id="count" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(*) from tbrprojectresult r,tblproject p where r.projectId
+		= p.projectId and p.officeId = #{officeId} and (r.parameterid !=40 or
+		r.parameterid != 68)
+		<if test="parameterId!=null">
+			and r.parameterId = #{parameterId}
+		</if>
+	</select>
+
+	<!-- 根据条件查询项目结果列表 -->
+	<select id="selectProjectResults" parameterType="java.util.Map"
+		resultMap="projectResult">
+		select * from (select a.*,rownum rn from (select
+		r.*,u.username,c.parametername from tbrprojectresult r,tblproject
+		p,tblparameter c,tbluserinfo u,tblUserPhyRecord d where r.projectId =
+		p.projectId and p.officeId = #{officeId} and c.parameterid = r.parameterid and r.physicaiid =
+		d.physicaiid and u.userid = d.userid and (r.parameterid !=40 or
+		r.parameterid != 68)
+		<if test="parameterId!=null">
+			and r.parameterId = #{parameterId}
+		</if>
+		) a where
+		rownum &lt; #{max}) where
+		rn&gt;#{min}
+	</select>
+
 	<!-- 根据项目结果id查询 -->
 	<select id="getProjectResult" resultMap="projectResult">
 		select * from

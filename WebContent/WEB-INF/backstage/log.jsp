@@ -51,7 +51,7 @@
 				role="form" method="post">
 				<input type="hidden" name="adminName" value="${adminName}">
 				<input type="hidden" name="currentPage"
-					value="${resultMap[currentPage]}">
+					value="${resultMap['currentPage']}">
 				<table class="table table-bordered" id="table1">
 					<caption>共有数据：${resultMap['total']} 条</caption>
 					<thead>
@@ -80,7 +80,7 @@
 								<td>${log.executionDate}</td>
 								<td>${log.commite}</td>
 								<td class="text-center"><a
-									href="backstage/delLog.action?logId=${log.logId}&&adminName=${adminName}&&currentPage=${resultMap[currentPage]}"
+									href="backstage/delLog.action?logId=${log.logId}&&adminName=${adminName}&&currentPage=${resultMap['currentPage']}"
 									onclick="return del()"><button type="button"
 											class="btn btn-primary">删除</button></a></td>
 							</tr>
@@ -93,9 +93,12 @@
 						<c:choose>
 							<c:when test="${resultMap['currentPage']>1}">
 								<span class="jump"><a
-									href="backstage/queryLog.action?currentPage=${resultMap['currentPage-1']}&&adminName=${adminName}">上一页</a></span>
+									href="backstage/queryLog.action?adminName=${adminName}">上一页</a></span>
+								<span class="jump"><a
+									href="backstage/queryLog.action?currentPage=${resultMap['currentPage']-1}&&adminName=${adminName}">上一页</a></span>
 							</c:when>
 							<c:otherwise>
+								<span class="jump">首页</span>
 								<span class="jump">上一页</span>
 							</c:otherwise>
 						</c:choose>
@@ -104,13 +107,16 @@
 							<c:when test="${resultMap['currentPage']<resultMap['totalPage']}">
 								<span class="jump"><a
 									href="backstage/queryLog.action?currentPage=${resultMap['currentPage']+1}&&adminName=${adminName}">下一页</a></span>
+								<span class="jump"><a
+									href="backstage/queryLog.action?currentPage=${resultMap['totalPage']}&&adminName=${adminName}">末页</a></span>
 							</c:when>
 							<c:otherwise>
 								<span class="jump">下一页</span>
+								<span class="jump">末页</span>
 							</c:otherwise>
 						</c:choose>
-						<span id="right"><button type="button"
-								class="btn btn-primary m2">导出Excel</button>
+						<span id="right"><a href="backstage/exportExcel.action"><button
+									type="button" class="btn btn-primary m2">导出Excel</button></a>
 							<button type="submit" class="btn btn-primary">批量删除</button></span>
 					</div>
 				</div>

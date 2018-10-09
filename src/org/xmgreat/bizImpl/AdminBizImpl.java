@@ -379,8 +379,12 @@ public class AdminBizImpl implements AdminBiz
 		mav.addObject("userAge",userInfo.getAge());
 		mav.addObject("userSex",userInfo.getSex());
 		mav.addObject("page",page);
-		mav.addObject("balance",userAccoutBean.getBalance());
-		mav.addObject("userId",userAccoutBean.getUserId());
+		if(null == userAccoutBean) {
+			mav.addObject("balance", 0);
+		} else {
+			mav.addObject("balance",userAccoutBean.getBalance());
+		}
+		mav.addObject("userId",userInfoBean.getUserId());
 		mav.setViewName("backstage/userAccount");
 		return mav;
 	}
@@ -392,6 +396,10 @@ public class AdminBizImpl implements AdminBiz
 		
 		Integer userId=userAccoutBean.getUserId();
 		UserAccoutBean userAccout=adminMapper.selectBalance(userId);
+		if(null == userAccout) {
+			userAccout = new UserAccoutBean();
+			userAccout.setBalance(0D);
+		}
 		Double balance=userAccout.getBalance()+userAccoutBean.getMoney();
 		UserAccoutBean accout=new UserAccoutBean();
 		accout.setUserId(userId);
@@ -432,6 +440,28 @@ public class AdminBizImpl implements AdminBiz
 			userInfo.setUserName("已注册");
 		}else {
 			userInfo.setUserName("未注册");
+		}
+		list.add(userInfo);
+		return list;
+	}
+	
+	//退费
+	@Override
+	public List<UserInfoBean> refund(Double money, Integer userId) {
+		List<UserInfoBean> list = new ArrayList<UserInfoBean>();
+		UserInfoBean userInfo=new UserInfoBean();
+		UserAccoutBean userAccout=adminMapper.selectBalance(userId);
+		if(userAccout.getBalance()<money||userAccout.getBalance()==0) {
+			userInfo.setUserName("余额不足");
+		}else {
+		Double balance=userAccout.getBalance()-money;
+		UserAccoutBean accout=new UserAccoutBean();
+		accout.setUserId(userId);
+		accout.setBalance(balance);
+		accout.setMoney(money);
+		accout.setOccurMatter("退款");
+		adminMapper.addRecord(accout);
+		userInfo.setUserName("退款成功");
 		}
 		list.add(userInfo);
 		return list;

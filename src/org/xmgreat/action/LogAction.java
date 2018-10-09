@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.xmgreat.annotation.SystemLog;
 import org.xmgreat.biz.LogBiz;
+import org.xmgreat.util.ObjectExcelView;
 
 /**
  * @author 周鸿谊
@@ -56,5 +59,25 @@ public class LogAction
 	{
 		logBiz.delLogs(logId);
 		return queryLog(request, adminName, currentPage);
+	}
+
+	@RequestMapping(value = "exportExcel")
+	@SystemLog(module = "系统管理", methods = "日志管理，导出日志")
+	public ModelAndView exportExcel()
+	{
+		ModelAndView mv = new ModelAndView();
+
+		// 设置标题
+		try
+		{
+			// 新建新的Excel模板
+			ObjectExcelView erv = new ObjectExcelView();
+			// 提供下载
+			mv = new ModelAndView(erv, logBiz.exportExcel());
+		} catch (RuntimeException e)
+		{
+			e.printStackTrace();
+		}
+		return mv;
 	}
 }
