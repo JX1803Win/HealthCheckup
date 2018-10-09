@@ -8,6 +8,7 @@ import org.xmgreat.bean.ProResBean;
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.bean.SetmealBean;
 import org.xmgreat.bean.UserAccoutBean;
+import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.bean.UserPhyRecordBean;
 
 /**
@@ -57,6 +58,13 @@ public interface PhyBiz {
 	 * @return 用户余额信息
 	 */
 	public UserAccoutBean queryUserAcc(Integer userId);
+	
+	/**
+	 * @description 根据体检卡查询用户信息
+	 * @param phyCardId 体检号
+	 * @return 用户信息
+	 */
+	public UserInfoBean queryUserByPhyCardId(Long phyCardId);
 	
 	/**
 	 * @description 查询指定套餐总费用

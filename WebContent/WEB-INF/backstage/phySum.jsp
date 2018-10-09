@@ -35,6 +35,13 @@
 				alert(msg);
 			}
 		})
+	    $(function() {
+			var condition = "${requestScope.get('physicaiId')}";
+			var msg = "${requestScope.get('uprbList')}";
+			if(msg == "[]" && condition.length > 0) {
+				alert("未查询到结果！");
+			}
+		})
     </script>
 </head>
 <body>
@@ -47,7 +54,7 @@
 		<form class="form-inline" role="form" id="myForm">
 			<div class="form-group">
 				<label for="name" class="m">体检号:</label> <input type="text"
-					class="form-control input-sm  m5" id="name" name="name"  value="${physicaiId}">
+					class="form-control input-sm  m5" id="physicaiId" name="physicaiId" value="${physicaiId}">
 			</div>
 			<input type="button" class="btn btn-primary" onclick="search(1)" value="查询"/>
 		</form>

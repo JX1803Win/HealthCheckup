@@ -88,7 +88,11 @@ public class PhyAction {
 			projectId = Integer.parseInt(request.getParameter("project"));
 			userPhyRecordBean.setProjectId(projectId);
 		}
-		request.setAttribute("physicaiId", phyBizImpl.billing(physicaiId, setmealId, projectId));
+		if(phyBizImpl.queryUserByPhyCardId(physicaiId) != null) {
+			request.setAttribute("physicaiId", phyBizImpl.billing(physicaiId, setmealId, projectId));
+		} else {
+			request.setAttribute("msg", "开单失败，体检卡号错误！");
+		}
 		return goBilling();
 	}
 	

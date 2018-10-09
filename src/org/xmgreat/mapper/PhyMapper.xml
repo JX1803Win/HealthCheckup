@@ -182,7 +182,7 @@
 		order by tupr.physicaiid desc
 		) t ) t1 where t1.rn &lt;= #{pageNo}*5 ) t2 where t2.rn &gt; (#{pageNo}-1)*5
 	</select>
-	<select id="countOfSummary" resultType="java.lang.Integer" parameterType="java.lang.Long">
+	<select id="countOfSummary" resultType="java.lang.Integer">
 		select count(r1.physicaiid )from (
 		select tupr.physicaiid, tupr.setmealid, tupr.projectid, count(tsi.projectid) num1
 		from tbluserphyrecord tupr, tblsetmealitme tsi 

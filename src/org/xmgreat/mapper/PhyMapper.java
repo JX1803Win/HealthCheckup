@@ -182,7 +182,7 @@ public interface PhyMapper {
 	 * @param physicaiId 查询条件（体检号）
 	 * @return 可以填写总结的体检记录总数
 	 */
-	public Integer countOfSummary(Long physicaiId);
+	public Integer countOfSummary(@Param("physicaiId")Long physicaiId);
 	
 	/**
 	 * @description 根据体检号查询项目小结信息
