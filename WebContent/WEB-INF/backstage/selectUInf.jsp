@@ -149,15 +149,15 @@
 				<c:forEach items="${uprbList}" var="user" varStatus="vs">
 					<tr>
 						<td>${(pageNoM-1)*5+vs.index+1}</td>
-						<td>${user.userPhyRecordBean.physicaiId}</td>
-						<td>${user.userName}</td>
-						<td>${user.sex}</td>
-						<td>${user.age}</td>
-						<td>${user.phone}</td>
-						<td><c:if test="${user.userPhyRecordBean.phyTime!=null}">
-								${user.userPhyRecordBean.phyTime}
-							</c:if> <c:if test="${user.userPhyRecordBean.appoTime!=null}">
-								${user.userPhyRecordBean.appoTime}
+						<td>${user.physicaiId}</td>
+						<td>${user.userInfoBean.userName}</td>
+						<td>${user.userInfoBean.sex}</td>
+						<td>${user.userInfoBean.age}</td>
+						<td>${user.userInfoBean.phone}</td>
+						<td><c:if test="${user.phyTime!=null}">
+								${user.phyTime}
+							</c:if> <c:if test="${user.appoTime!=null}">
+								${user.appoTime}
 							</c:if>
 						</td>
 					</tr>

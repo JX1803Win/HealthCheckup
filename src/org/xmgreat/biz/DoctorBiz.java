@@ -23,9 +23,9 @@ public interface DoctorBiz {
     public List<ProjectResultBean> selectProjectResult(Integer setmealId,Integer physicaiId);//查询小结
     public List<ProjectResultBean> selectProjectResults(Integer projectId,Integer physicaiId);//查询小结
     public int selectMedicalManNum(String userName,Long phone,Long barCode,String starDay,String end);//查询体检人信息
-    public List<UserInfoBean> selectMedicalMan(String userName,Long phone,Long barCode,String starDay,String end,Integer pageNo);//查询体检人信息
+    public List<UserPhyRecordBean> selectMedicalMan(String userName,Long phone,Long barCode,String starDay,String end,Integer pageNo);//查询体检人信息
     public String selectAppoTime(Long physicaiId);//通过体检卡查询用户预约时间
-    public List<UserInfoBean> selectMedicalManS(String userName,Long phone,Long barCode,String starDay,String end);//查询体检人信息
+    public List<UserPhyRecordBean> selectMedicalManS(String userName,Long phone,Long barCode,String starDay,String end);//查询体检人信息
     public int selectPhyTimeNum(String PhyTime);
     public int selectPhyTimeWeekNum(String StarTime,String EndTime);
     public void updateAcceptState(Integer proresId,Integer adminId);//更改接收状态

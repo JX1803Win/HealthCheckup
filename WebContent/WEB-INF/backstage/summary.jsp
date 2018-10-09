@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8">
 <base href="<%=basePath%>">
-<title>检查</title>
+<title>小结</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -29,7 +29,7 @@
 <body>
 	<div class="container">
 		<div class="page-header text-center">
-			<h1>${projectResult.projectBean.itemName}检查</h1>
+			<h1>${projectResult.projectBean.itemName}小结</h1>
 		</div>
 		<div id="div8">
 			<c:if test="${projectResult.projectBean.parameterId==26}">
@@ -63,7 +63,7 @@
 					</div>
 
 					<div class="text-center t2">
-						<a href="doctor/projectInf.action">
+						<a href="backstage/querySummary.action">
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 						<button type="submit" class="btn btn-primary m2"
@@ -96,7 +96,7 @@
 						</tbody>
 					</table>
 					<div class="text-center t2">
-						<a href="doctor/projectInf.action">
+						<a href="backstage/querySummary.action">
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 						<button type="submit" class="btn btn-primary m2"
@@ -141,13 +141,13 @@
 					</div>
 
 					<div class="text-center t2">
-						<a href="doctor/projectInf.action">
+						<a href="backstage/querySummary.action">
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 						<button type="submit" class="btn btn-primary m2"
 							onclick="change3('backstage/projectSummary.action?parameterId=12')">保存</button>
-					 	<!-- <button type="submit" class="btn btn-primary m2"
-							onclick="change3('backstage/projectSummary.action?parameterId=13')">提交</button>  -->
+						<button type="submit" class="btn btn-primary m2"
+							onclick="change3('backstage/projectSummary.action?parameterId=13')">提交</button>
 					</div>
 				</form>
 			</c:if>

@@ -80,7 +80,7 @@
 								data-target="#update"
 								onclick="alter('${detail.subentryId}','${detail.detailName}','${detail.parameterBean.parameterId}','${detail.upperLimit}','${detail.lowerLimit}','${detail.initValue}')">修改</button>&nbsp;&nbsp;
 							<a
-							href="backstage/delDetail.action?subentryId=${detail.subentryId}&&currentPage=${resultMap['currentPage']}&&name=${resultMap['name']}"
+							href="backstage/delDetail.action?subentryId=${detail.subentryId}&&currentPage=${resultMap['currentPage']}&&name=${name}"
 							onclick="return del()"><button type="button"
 									class="btn btn-primary">删除</button></a>
 						</td>
@@ -133,8 +133,8 @@
 					<form action="backstage/addDetail.action?" id="addDetail"
 						name="addDetail" class="form-horizontal" role="form" method="post">
 						<div class="modal-body">
-
-							<input type="hidden" name="name" value="${name}"> <input
+							<input type="hidden" name="check" value="false"> <input
+								type="hidden" name="name" value="${name}"> <input
 								type="hidden" name="currentPage"
 								value="${resultMap['currentPage']}">
 							<div class="form-group">
@@ -188,7 +188,8 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">关闭</button>
-							<button type="submit" class="btn btn-primary">提交</button>
+							<button type="submit" class="btn btn-primary"
+								onclick="return ckeck1()">提交</button>
 						</div>
 					</form>
 				</div>
@@ -215,11 +216,10 @@
 						method="post">
 
 						<div class="modal-body">
-
-							<input type="hidden" name="name" value="${name}"> <input
-								type="hidden" name="currentPage"
-								value="${resultMap['currentPage']}"> <input
-								type="hidden" name="subentryId" id="subentryId">
+							<input type="hidden" id ="deName"> <input type="hidden"
+								name="name" value="${name}"> <input type="hidden"
+								name="currentPage" value="${resultMap['currentPage']}">
+							<input type="hidden" name="subentryId" id="subentryId">
 							<div class="form-group">
 								<label for="detailName" class="col-sm-2 control-label">细项名称：</label>
 								<div class="col-sm-10">

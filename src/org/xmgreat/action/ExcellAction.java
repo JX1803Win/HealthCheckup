@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.xmgreat.bean.UserInfoBean;
+import org.xmgreat.bean.UserPhyRecordBean;
 import org.xmgreat.bizImpl.DoctorBizImpl;
 
 import jxl.Workbook;
@@ -61,14 +62,16 @@ public class ExcellAction
         format1.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE);
 
         Label labelA = new Label(0, 0, "序号", format1);
-        Label labelB = new Label(1, 0, "姓名", format1);
-        Label labelC = new Label(2, 0, "性别", format1);
-        Label labelD = new Label(3, 0, "年龄", format1);
-        Label labelE = new Label(4, 0, "联系电话", format1);
-        Label labelF = new Label(5, 0, "体检时间", format1);
+        Label labelB1 = new Label(1, 0, "体检号", format1);
+        Label labelB = new Label(2, 0, "姓名", format1);
+        Label labelC = new Label(3, 0, "性别", format1);
+        Label labelD = new Label(4, 0, "年龄", format1);
+        Label labelE = new Label(5, 0, "联系电话", format1);
+        Label labelF = new Label(6, 0, "体检时间", format1);
 
         // 将定义好的单元格添加到工作表中
         sheet.addCell(labelA);
+        sheet.addCell(labelB1);
         sheet.addCell(labelB);
         sheet.addCell(labelC);
         sheet.addCell(labelD);
@@ -82,25 +85,23 @@ public class ExcellAction
 		{
 			barCode = (long) 0;
 		}
-		List<UserInfoBean> uprbList = doctorBizImpl.selectMedicalManS(userName, phone, barCode, starDay, end);
-		for (int i = 0; i < uprbList.size(); i++)
-		{
-			Label labelAi = new Label(0, i + 1, String.valueOf(i + 1));
-			Label labelBi = new Label(1, i + 1, uprbList.get(i).getUserName());
-			Label labelCi = new Label(2, i + 1, uprbList.get(i).getSex());
-			Label labelDi = new Label(3, i + 1, String.valueOf(uprbList.get(i).getAge()));
-			Label labelEi = new Label(4, i + 1, String.valueOf(uprbList.get(i).getPhone()));
-			Label labelFi;
-			if (uprbList.get(i).getUserPhyRecordBean().getPhyTime() != null)
-			{
-				labelFi = new Label(5, i + 1, uprbList.get(i).getUserPhyRecordBean().getPhyTime());
-			} else
-			{
-				String appoTime = doctorBizImpl.selectAppoTime(uprbList.get(i).getUserPhyRecordBean().getPhysicaiId());
-				labelFi = new Label(5, i + 1, appoTime);
+        List<UserPhyRecordBean> uprbList=doctorBizImpl.selectMedicalManS(userName, phone, barCode, starDay,end); 
+        for (int i = 0; i < uprbList.size(); i++) {
+            Label labelAi = new Label(0, i + 1, String.valueOf(i+1));
+            Label labelB1i = new Label(1, i + 1, String.valueOf(uprbList.get(i).getPhysicaiId()));
+            Label labelBi = new Label(2, i + 1, uprbList.get(i).getUserInfoBean().getUserName());
+            Label labelCi = new Label(3, i + 1, uprbList.get(i).getUserInfoBean().getSex());
+            Label labelDi = new Label(4, i + 1, String.valueOf(uprbList.get(i).getUserInfoBean().getAge()));
+            Label labelEi = new Label(5, i + 1, String.valueOf(uprbList.get(i).getUserInfoBean().getPhone()));
+            Label labelFi;
+            if (uprbList.get(i).getPhyTime()!=null) {
+            	labelFi = new Label(6, i + 1, uprbList.get(i).getPhyTime());
+			}else {				
+				labelFi = new Label(6, i + 1, uprbList.get(i).getAppoTime());
 
 			}                        
             sheet.addCell(labelAi);
+            sheet.addCell(labelB1i);
             sheet.addCell(labelBi);
             sheet.addCell(labelCi);
             sheet.addCell(labelDi);
