@@ -36,7 +36,7 @@
 	text-align: center;
 	line-height: 26px;
 	border-radius: 25px;
-	background: #1161ee;
+	background: #1161ee; 
 	width: 100px;
 	height: 27px;
 	color:#fff;
@@ -44,7 +44,6 @@
 </style>
 <script type="text/javascript">
     var sleep = 30, interval = null;
-   
    
     window.onload = function ()
     {
