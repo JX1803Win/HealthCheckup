@@ -83,4 +83,10 @@ public class DetailBizImpl implements DetailBiz
 
 	}
 
+	@Override
+	public DetailBean checkDetail(String detailName)
+	{
+		return detailMapper.selectDetail(detailName);
+	}
+
 }
