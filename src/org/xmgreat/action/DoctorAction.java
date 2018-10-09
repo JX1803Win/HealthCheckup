@@ -112,18 +112,18 @@ public class DoctorAction {
 	
 	@RequestMapping(value="/doctorAccept.action")
 	public ModelAndView doctorAccept(HttpServletRequest request,HttpServletResponse response) throws Exception{
-		String proresId= request.getParameter("proresId");
+		String proresId= request.getParameter("proresId");HttpSession session = request.getSession();
+		ManagerBean managerBean=(ManagerBean) session.getAttribute("admin");
 		int proresIds=0;
 		if (proresId!=null) {
 			proresIds=Integer.parseInt(proresId);
 		}
-		doctorBizImpl.updateAcceptState(proresIds);
+		doctorBizImpl.updateAcceptState(proresIds,managerBean.getAdminId());
 		return selectAllRole(request,response,0);
 	}
 	@RequestMapping(value = "/skipExamination")
 	public String skipExamination(HttpServletRequest request, Integer projectId, Integer proresId)
 	{
-//
 		ProjectBean project = summaryBiz.skipExamination(projectId);
 		request.setAttribute("proresId", proresId);
 		request.setAttribute("project", project);

@@ -1,9 +1,7 @@
 package org.xmgreat.bizImpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -132,7 +130,7 @@ public class DoctorBizImpl implements DoctorBiz {
 	}
 
 	@Override
-	public List<UserInfoBean> selectMedicalMan(String userName, Long phone, Long barCode, String starDay, String end,
+	public List<UserPhyRecordBean> selectMedicalMan(String userName, Long phone, Long barCode, String starDay, String end,
 			Integer pageNo) {
 		// TODO Auto-generated method stub		
 		return doctorMapper.selectMedicalMan(userName, phone, barCode, starDay, end, pageNo);
@@ -145,7 +143,7 @@ public class DoctorBizImpl implements DoctorBiz {
 	}
 
 	@Override
-	public List<UserInfoBean> selectMedicalManS(String userName, Long phone, Long barCode, String starDay, String end) {
+	public List<UserPhyRecordBean> selectMedicalManS(String userName, Long phone, Long barCode, String starDay, String end) {
 		// TODO Auto-generated method stub
 		return doctorMapper.selectMedicalManS(userName, phone, barCode, starDay, end);
 	}
@@ -168,9 +166,9 @@ public class DoctorBizImpl implements DoctorBiz {
 	}
 
 	@Override
-	public void updateAcceptState(int proresId) {
+	public void updateAcceptState(Integer proresId,Integer adminId) {
 		// TODO Auto-generated method stub
-		doctorMapper.updateAcceptState(proresId);
+		doctorMapper.updateAcceptState(proresId,adminId);
 	}
 
 }

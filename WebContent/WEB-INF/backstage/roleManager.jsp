@@ -25,19 +25,7 @@
 <script type="text/javascript" src="<%=path%>lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path%>js/AdminManagement.js"></script>
 <script type="text/javascript">
-	var typeList;
-	$(function() {
-		$.getJSON("<%=path%>ParamAction/queryAllTypeName.action", 
-		function(data) {
-			console.log(data);
-			typeList = data;
-			//var data = JSON.parse(datas);
-			for (var i = 0; i < data.length; i++) {
-				console.log(data[i].parameterId);
-				$("#typeName").append("<option value="+ data[i].parameterId +">"+data[i].parameterName+"</option>");
-			}
-		});
-	})
+	var typeList;	
 	function turn() {
 		var msg = "是否确定修改？";
 		if(confirm(msg) == true) {
@@ -63,26 +51,33 @@
 		myForm.submit();
 	}
 	function add() {
-		var roleName = $("#roleNames").val();
-		alert($("#roleNames").val())
+		var roleName = $("#roleNames").val();		
 		if(roleName == "") {
 			alert("角色名称不能为空");
 			return;
 		}
+		<%-- $.ajax({
+    		url : "del.action",
+    		data : "officeid=" + id,
+    		dataType : "text",
+    		type : "post",
+    		success : function() {
+    			window.location.href = "<%=path%>backstage/office.action?page="+page;
+    		}
+    	}); --%>
+		
 		var myForm=document.getElementById("myForm2");
 		myForm.action="<%=path%>role/add.action";
 		myForm.method="post";
 		myForm.submit();
 	}
-	function alter(roleId, roleName) {
-		//alert(parameterId);
+	function alter(roleId, roleName) {		
 		$("#uproleId").val(roleId);
 		$("#uproleName").val(roleName);
 		
 	}
 	function adds() {
-		var roleName = $("#uproleName").val();
-		alert($("#uproleName").val())
+		var roleName = $("#uproleName").val();		
 		if(roleName == "") {
 			alert("修改角色不能为空");
 			return;

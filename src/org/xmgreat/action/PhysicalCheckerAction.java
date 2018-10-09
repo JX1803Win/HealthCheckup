@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.xmgreat.bean.MouthBean;
 import org.xmgreat.bean.TriMouthBean;
 import org.xmgreat.bean.UserInfoBean;
+import org.xmgreat.bean.UserPhyRecordBean;
 import org.xmgreat.bean.WeekBean;
 import org.xmgreat.biz.SummaryBiz;
 import org.xmgreat.bizImpl.DoctorBizImpl;
@@ -63,14 +64,7 @@ public class PhysicalCheckerAction {
 				
 			request.setAttribute("pageNoM", pageNo);
 			request.setAttribute("AllPageM", AllPage);
-		    List<UserInfoBean> uprbList=doctorBizImpl.selectMedicalMan(userName, phone, barCode, starDay,end, pageNo);	
-		   for (int i = 0; i < uprbList.size(); i++) {
-			   if (uprbList.get(i).getUserPhyRecordBean().getPhyTime()==null) {
-					String appoTime=doctorBizImpl.selectAppoTime(uprbList.get(i).getUserPhyRecordBean().getPhysicaiId());
-					uprbList.get(i).getUserPhyRecordBean().setAppoTime(appoTime);
-				}
-		}
-		    
+		    List<UserPhyRecordBean> uprbList=doctorBizImpl.selectMedicalMan(userName, phone, barCode, starDay,end, pageNo);			    
 		    request.setAttribute("uprbList", uprbList);    
 			ModelAndView mav = new ModelAndView();
 		  	mav.setViewName("backstage/selectUInf");

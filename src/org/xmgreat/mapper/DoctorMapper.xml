@@ -10,20 +10,7 @@
 		resultType="org.xmgreat.bean.ProjectBean">
 		select * from tblProject where officeId=#{officeId}
 	</select>
-	<!-- 查询项目下的套餐信息 -->
-	<!-- <select id="selectSetmeal" resultMap="SetmealInf"> select t.*,tp.itemName 
-		from tblsetmeal t,tblsetmealitme tm ,tblProject tp where t.setmealId=tm.setmealId 
-		and tm.projectId=tp.projectId and tp.officeId=#{officeId} </select> <resultMap 
-		type="org.xmgreat.bean.SetmealBean" id="SetmealInf"> <id property="setmealId" 
-		column="setmealId" /> <result property="setmealName" column="setmealName" 
-		/> <association property="setmealitmeBean" column="setmealId" javaType="org.xmgreat.bean.SetmealitmeBean"> 
-		<id property="setmealId" column="setmealId" /> <result property="projectId" 
-		column="projectId" /> 一对多 <collection property="pbList" ofType="org.xmgreat.bean.ProjectBean"> 
-		<id property="projectId" column="projectId" /> <result property="departmentId" 
-		column="departmentId" /> <result property="itemName" column="itemName" /> 
-		</collection> </association> </resultMap> -->
-
-
+	
 	<!-- 通过项目ID、套餐ID查询所有的体检记录表（再放上输入体检卡号） -->
 	<select id="selectUserPhyRecordNum" resultType="int">
 		select count(*) from tbrProjectResult where projectId=#{projectId}
@@ -135,7 +122,7 @@
 	
 	
 	<select id="selectMedicalMan" resultMap="onlyUser">
-		select * from (select ti.* ,tpr.phyTime,tpr.physicaiId, rownum rn from tblUserInfo ti ,tblUserPhyRecord tpr where
+		select * from (select ti.* ,tpr.phyTime,tpr.physicaiId,tpr.appoTime, rownum rn from tblUserInfo ti ,tblUserPhyRecord tpr where
 		ti.userId=tpr.userId
 		<if test="userName!=null and userName != ''">
 			and ti.userName like concat(concat('%',#{userName}),'%')
@@ -151,21 +138,22 @@
 			and tpr.phyTime &lt; #{end} and tpr.phyTime &gt; #{starDay}
 		</if>
 		and rownum &lt; (#{pageNo} * 5 + 1)) where rn &gt;((#{pageNo} - 1)* 5)
-	</select>
-	<resultMap type="org.xmgreat.bean.UserInfoBean" id="onlyUser">
-		<id property="userId" column="userId" />
-		<result property="userName" column="userName" />
-		<result property="sex" column="sex" />
-		<result property="age" column="age" />
-		<result property="phone" column="phone" />
-		<result property="useradd" column="useradd" />
-		<association property="userPhyRecordBean" column="userId"
-			javaType="org.xmgreat.bean.UserPhyRecordBean">
-			<id property="physicaiId" column="physicaiId" />
-			<result property="userId" column="userId" />
+	</select>	
+	<resultMap type="org.xmgreat.bean.UserPhyRecordBean" id="onlyUser">
+		    <id property="physicaiId" column="physicaiId" />
 			<result property="phyTime" column="phyTime" />
+			<result property="appoTime" column="appoTime" />
+		<association property="userInfoBean" column="userId"
+			javaType="org.xmgreat.bean.UserInfoBean">
+			<id property="userId" column="userId" />
+		    <result property="userName" column="userName" />
+		    <result property="sex" column="sex" />
+		    <result property="age" column="age" />
+		    <result property="phone" column="phone" />
+		    <result property="useradd" column="useradd" />
 		</association>
 	</resultMap>
+	
 <!-- 查询用户信息数量 -->
 	<select id="selectMedicalManNum" resultType="int">
 		select count(*) from tblUserInfo ti ,tblUserPhyRecord tpr where
@@ -190,7 +178,7 @@
 	</select>
 
 	<select id="selectMedicalManS" resultMap="onlyUser">
-		select ti.* ,tpr.phyTime,tpr.physicaiId from tblUserInfo ti ,tblUserPhyRecord tpr where
+		select ti.* ,tpr.phyTime,tpr.physicaiId ,tpr.appoTime from tblUserInfo ti ,tblUserPhyRecord tpr where
 		ti.userId=tpr.userId
 		<if test="userName!=null and userName != ''">
 			and ti.userName like concat(concat('%',#{userName}),'%')
@@ -207,23 +195,27 @@
 		</if>
 		
 	</select>
+	
+	
+	
+	
       <!-- 查询单天用户体检数量 -->
      <select id="selectPhyTimeNum" resultType="int">
           select count(*) from tblUserPhyRecord where phyTime like concat(concat('%',#{phyTime}),'%')
      </select>
      <select id="selectAppointTimeNum" resultType="int">
-          select count(*) from tblUserAppo where appoTime like concat(concat('%',#{appoTime}),'%')
+          select count(*) from tblUserPhyRecord where appoTime like concat(concat('%',#{appoTime}),'%')
      </select> 
      <!-- 查询单月/三月用户体检数量 -->
      <select id="selectPhyTimeWeekNum" resultType="int">
           select count(*) from tblUserPhyRecord where phyTime &lt; #{EndTime} and phyTime &gt; #{StarTime}
      </select>
      <select id="selectAppointTimeWeekNum" resultType="int">
-          select count(*) from tblUserAppo where appoTime &lt; #{EndTime} and appoTime &gt; #{StarTime}
+          select count(*) from tblUserPhyRecord where appoTime &lt; #{EndTime} and appoTime &gt; #{StarTime}
      </select>
      <!-- 更改接收状态 -->
      <update id="updateAcceptState">
-          update tbrProjectResult set parameterId=38 where proresId=#{proresId} 
+          update tbrProjectResult set parameterId=38 , adminId=#{adminId} where proresId=#{proresId} 
      </update>
            
 </mapper>
