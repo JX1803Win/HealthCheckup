@@ -18,6 +18,8 @@ public interface DetailMapper
 {
 	public DetailBean getDetail(@Param("subentryId") Integer subentryId);
 
+	public DetailBean selectDetail(@Param("detailName") String detailName);
+
 	/**
 	 * @description 查询所有细项
 	 * @return 所有细项列表

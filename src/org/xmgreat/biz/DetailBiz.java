@@ -17,6 +17,9 @@ public interface DetailBiz
 	 * @return 页面显示信息
 	 */
 	public Map<String, Object> search(Map<String, Object> condition);
+	
+	
+	public DetailBean checkDetail(String detailName);
 
 	/**
 	 * @description 添加细项

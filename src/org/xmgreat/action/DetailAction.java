@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.xmgreat.annotation.SystemLog;
 import org.xmgreat.bean.DetailBean;
 import org.xmgreat.biz.DetailBiz;
@@ -43,6 +44,18 @@ public class DetailAction
 		request.setAttribute("name", name);
 		request.setAttribute("resultMap", resultMap);
 		return "backstage/detail";
+	}
+
+	@RequestMapping(value = "/checkDetail")
+	@ResponseBody
+	public boolean checkDetail(String detailName)
+	{
+		boolean mag = true;
+		if (null != detailBiz.checkDetail(detailName))
+		{
+			mag = false;
+		}
+		return mag;
 	}
 
 	@RequestMapping(value = "/addDetail")
