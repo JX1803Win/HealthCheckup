@@ -147,6 +147,7 @@
 			<thead>
 				<tr>
 					<th>序号</th>
+					<th>体检号</th>
 					<th>体检人</th>
 					<th>套餐信息</th>
 					<th>项目信息</th>
@@ -157,6 +158,7 @@
 				<c:forEach items="${uprbList}" var="user" varStatus="vs">
 					<tr>
 						<td>${(pageNoU-1)*5+vs.index+1}</td>
+						<td>${user.physicaiId}</td>
 						<td>${user.userInfoBean.userName}</td>
 						<td>${user.setmealName}</td>
 						<td>${user.itemName}</td>
