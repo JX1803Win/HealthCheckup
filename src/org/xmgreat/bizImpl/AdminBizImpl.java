@@ -334,6 +334,10 @@ public class AdminBizImpl implements AdminBiz
 		System.out.println(charge+"合计");
 		System.out.println(physicaiId+"体检号");*/
 		UserAccoutBean userAccoutBean=adminMapper.selectBalance(userId);
+		if(null == userAccoutBean) {
+			userAccoutBean = new UserAccoutBean();
+			userAccoutBean.setBalance(0D);
+		}
 		Double balance=userAccoutBean.getBalance()-charge;
 		UserAccoutBean userAccout=new UserAccoutBean();
 		userAccout.setUserId(userId);
@@ -359,7 +363,9 @@ public class AdminBizImpl implements AdminBiz
 	public ModelAndView selectAccount(UserInfoBean userInfoBean) {
 		/*System.out.println(userInfoBean.getUserId());
 		System.out.println(userInfoBean.getPage());*/
-		pageAll=adminMapper.selectAccountAll(userInfoBean);
+		
+		UserInfoBean userInfo=adminMapper.selectUserInfo(userInfoBean);
+		pageAll=adminMapper.selectAccountAll(userInfo);
 		int allPage = 0;
 		if (pageAll % 3 != 0) {
 			allPage = (pageAll / 3) + 1;
@@ -367,11 +373,9 @@ public class AdminBizImpl implements AdminBiz
 			allPage = (pageAll / 3);
 		}
 		page=userInfoBean.getPage();
-		
-		UserInfoBean userInfo=adminMapper.selectUserInfo(userInfoBean);
-		
+		userInfoBean.setUserId(userInfo.getUserId());
 		list=adminMapper.selectAccount(userInfoBean);
-		UserAccoutBean userAccoutBean=adminMapper.selectBalance(userInfoBean.getUserId());
+		UserAccoutBean userAccoutBean=adminMapper.selectBalance(userInfo.getUserId());
 		mav.addObject("list",list);
 		mav.addObject("pageAll",allPage);
 		mav.addObject("page",page);
@@ -385,12 +389,13 @@ public class AdminBizImpl implements AdminBiz
 			mav.addObject("balance",userAccoutBean.getBalance());
 		}
 		mav.addObject("userId",userInfoBean.getUserId());
+		mav.addObject("phyCardId",userInfo.getPhyCardId());
 		mav.setViewName("backstage/userAccount");
 		return mav;
 	}
 	//充值
 	@Override
-	public String topUp(UserAccoutBean userAccoutBean) {
+	public String topUp(UserAccoutBean userAccoutBean, Long phyCardId) {
 		System.out.println(userAccoutBean.getUserId());
 		System.out.println(userAccoutBean.getMoney());
 		
@@ -408,7 +413,7 @@ public class AdminBizImpl implements AdminBiz
 		accout.setOccurMatter("充值");
 		adminMapper.addRecord(accout);
 		String result=null;
-		result="redirect:/ManageAction/selectAccount.action?page=1&&userId="+userAccoutBean.getUserId()+"";
+		result="redirect:/ManageAction/selectAccount.action?page=1&&phyCardId="+phyCardId+"";
 	return result;
 	}
 	//跳转前端用户注册
@@ -480,7 +485,7 @@ public class AdminBizImpl implements AdminBiz
 		adminMapper.addRecord(accout);
 		String result=null;
 	/*	result="redirect:/ManageAction/selectAccount.action?page=1&&userId="+userId+"";*/
-		result="redirect:/admin/login.action";
+		result="redirect:/backstage/index.action";
 		return result;
 	}
 }

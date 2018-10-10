@@ -15,8 +15,8 @@
 	<select id="count" parameterType="java.util.Map"
 		resultType="java.lang.Integer">
 		select count(*) from tbrprojectresult r,tblproject p where r.projectId
-		= p.projectId and p.officeId = #{officeId} and (r.parameterid !=40 or
-		r.parameterid != 68)
+		= p.projectId and p.officeId = #{officeId} and r.parameterid !=38 and
+		r.parameterid != 68
 		<if test="parameterId!=null">
 			and r.parameterId = #{parameterId}
 		</if>
@@ -29,8 +29,8 @@
 		r.*,u.username,c.parametername from tbrprojectresult r,tblproject
 		p,tblparameter c,tbluserinfo u,tblUserPhyRecord d where r.projectId =
 		p.projectId and p.officeId = #{officeId} and c.parameterid = r.parameterid and r.physicaiid =
-		d.physicaiid and u.userid = d.userid and (r.parameterid !=40 or
-		r.parameterid != 68)
+		d.physicaiid and u.userid = d.userid and r.parameterid !=38 AND
+		r.parameterid != 68
 		<if test="parameterId!=null">
 			and r.parameterId = #{parameterId}
 		</if>

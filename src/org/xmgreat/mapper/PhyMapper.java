@@ -196,4 +196,10 @@ public interface PhyMapper {
 	 * @param uprb 体检信息
 	 */
 	public void writeSummary(@Param("uprb")UserPhyRecordBean uprb);
+	
+	/**
+	 * @description 取消预约后删除项目结果记录信息
+	 * @param physicaiId 体检号
+	 */
+	public void deleteProRes(Long physicaiId);
 }

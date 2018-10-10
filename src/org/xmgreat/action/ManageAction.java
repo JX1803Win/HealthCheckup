@@ -235,9 +235,9 @@ public class ManageAction {
 
 	// 充值
 	@RequestMapping(value = "/topUp.action")
-	public String topUp(UserAccoutBean userAccoutBean) {
+	public String topUp(UserAccoutBean userAccoutBean, Long phyCardId) {
 
-		return adminBizImpl.topUp(userAccoutBean);
+		return adminBizImpl.topUp(userAccoutBean, phyCardId);
 	}
 	
 	// 退款
@@ -261,5 +261,12 @@ public class ManageAction {
 			e.printStackTrace();
 		}
 		return mav;
+	}
+	
+	// 支付宝充值
+	@RequestMapping(value = "/zhifubao.action")
+	public String zhifubao(Integer userId,Double money) {
+
+		return adminBizImpl.zhifubao(userId,money);
 	}
 }

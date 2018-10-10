@@ -38,14 +38,20 @@ public class PhyBizImpl implements PhyBiz {
 		Double balance = phyMapper.queryUserAcc(uprb.getUserId()).getBalance();
 		if(uprb.getSetmealId() != null) {
 			cost = phyMapper.querySetmealCost(uprb.getSetmealId());
+			List<ProjectBean> projects = phyMapper.queryProjectBySetmeal(uprb.getSetmealId());
+        	for (int i = 1; i <= projects.size(); i++) {
+        		phyMapper.initProResInfo(uprb.getPhysicaiId(), projects.get(i-1).getProjectId());
+        	}
 		} else {
 			cost = phyMapper.queryProjectCost(uprb.getProjectId());
+			ProjectBean pb = phyMapper.queryProject(uprb.getProjectId());
+    		phyMapper.initProResInfo(uprb.getPhysicaiId(), pb.getProjectId());
 		}
 		userAccoutBean.setBalance(balance - cost);
 		userAccoutBean.setMoney(cost);
 		userAccoutBean.setUserId(uprb.getUserId());
 		userAccoutBean.setOccurMatter("体检预约");
-//		phyMapper.addAccRecord(uab);
+		phyMapper.addAccRecord(userAccoutBean);
 	}
 
 	@Override
@@ -65,6 +71,14 @@ public class PhyBizImpl implements PhyBiz {
 		userPhyRecordBean.setSetmealId(setmealId);
 		userPhyRecordBean.setProjectId(projectId);
 		phyMapper.billing(userPhyRecordBean);
+		if(setmealId != null) {
+			List<ProjectBean> projects = phyMapper.queryProjectBySetmeal(setmealId);
+        	for (int i = 1; i <= projects.size(); i++) {
+        		phyMapper.initProResInfo(physicaiId, projects.get(i-1).getProjectId());
+        	}
+		} else {
+    		phyMapper.initProResInfo(physicaiId, projectId);
+		}
 		return phyMapper.queryLastPhyRecord(userId);
 	}
 
@@ -111,6 +125,7 @@ public class PhyBizImpl implements PhyBiz {
 			userAccoutBean.setUserId(uprb.getUserId());
 			userAccoutBean.setOccurMatter("取消体检预约");
 			phyMapper.cancel(physicaiId);
+			phyMapper.deleteProRes(physicaiId);
 			phyMapper.addAccRecord(userAccoutBean);
 			return true;
 		}
@@ -149,8 +164,8 @@ public class PhyBizImpl implements PhyBiz {
         		map.put("officeName", projects.get(i-1).getOfficeBean().getOfficeName());
         		map.put("projectName", projects.get(i-1).getItemName());
         		newsList.add(map);
-        		phyMapper.initProResInfo(uprb.getPhysicaiId(), projects.get(i-1).getProjectId());
-        		initSubInfo(uprb.getPhysicaiId(), projects.get(i-1).getProjectId());
+//        		phyMapper.initProResInfo(uprb.getPhysicaiId(), projects.get(i-1).getProjectId());
+//        		initSubInfo(uprb.getPhysicaiId(), projects.get(i-1).getProjectId());
         	}
         } else {
         	ProjectBean pb = phyMapper.queryProject(uprb.getProjectId());
@@ -159,8 +174,8 @@ public class PhyBizImpl implements PhyBiz {
     		map.put("officeName", pb.getOfficeBean().getOfficeName());
     		map.put("projectName", pb.getItemName());
     		newsList.add(map);
-    		phyMapper.initProResInfo(uprb.getPhysicaiId(), pb.getProjectId());
-    		initSubInfo(uprb.getPhysicaiId(), pb.getProjectId());
+//    		phyMapper.initProResInfo(uprb.getPhysicaiId(), pb.getProjectId());
+//    		initSubInfo(uprb.getPhysicaiId(), pb.getProjectId());
         }
         dataMap.put("myListData",newsList);  
 		return dataMap;
@@ -293,9 +308,21 @@ public class PhyBizImpl implements PhyBiz {
 				detail.put("i", i);
 				detail.put("detailName", subList.get(i-1).getDetailBean().getDetailName());
 				detail.put("result", subList.get(i-1).getResult());
-				detail.put("unit", subList.get(i-1).getDetailBean().getParameterBean().getParameterName());
-				detail.put("reference",  subList.get(i-1).getDetailBean().getLowerLimit()+"-"+subList.get(i-1).getDetailBean().getUpperLimit());
-				detail.put("hint",  subList.get(i-1).getHint());
+				if(subList.get(i-1).getDetailBean().getParameterBean() != null) {
+					detail.put("unit", subList.get(i-1).getDetailBean().getParameterBean().getParameterName());
+				} else {
+					detail.put("unit", "");
+				}
+				if(subList.get(i-1).getDetailBean().getLowerLimit() != null) {
+					detail.put("reference", subList.get(i-1).getDetailBean().getLowerLimit()+"-"+subList.get(i-1).getDetailBean().getUpperLimit());
+				} else {
+					detail.put("reference", "");
+				}
+				if(subList.get(i-1).getHint() != null) {
+					detail.put("hint",  subList.get(i-1).getHint());
+				} else {
+					detail.put("hint",  "");
+				}
 				detailList.add(detail);
 			}
 			project.put(pb.getItemName(), detailList);

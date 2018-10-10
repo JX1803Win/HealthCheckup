@@ -66,10 +66,24 @@
 			alert("url地址不能为空");
 			return;
 		}
-		var myForm=document.getElementById("myForm2");
-		myForm.action="<%=path%>role/addSMenu.action";
-		myForm.method="post";
-		myForm.submit();
+		$.ajax({
+			url:"<%=path%>role/testaddFMenu.action",
+		    data:"menuName="+menuName,	       
+		    dataType:"json",
+			type:"POST",
+    		success : function(redata) {
+    			if(redata==true){    				
+    				var myForm=document.getElementById("myForm2");
+    				myForm.action="<%=path%>role/addSMenu.action";
+    				myForm.method="post";
+    				myForm.submit();
+    			}
+    			if(redata==false){
+    				window.alert("菜单已存在");
+    			}
+    		}
+    	}); 
+		
 	}
 	function alter(upmenuId, upmenuName,upurlAddress,uppreMenu) {
 		//alert(parameterId);
@@ -84,15 +98,34 @@
 		
 	}
 	function adds() {
-		var roleName = $("#upmenuName").val();
-		if(roleName == "") {
+		var menuName = $("#upmenuName").val();
+		if(menuName == "") {
 			alert("修改菜单不能为空");
 			return;
 		}
-		var myForm=document.getElementById("myForm3");
-		myForm.action="<%=path%>role/updateSMenu.action";
-		myForm.method="post";
-		myForm.submit();
+		var url = $("#upurlAddress").val();
+		if(url == "") {
+			alert("url地址不能为空");
+			return;
+		}
+		$.ajax({
+			url:"<%=path%>role/testaddFMenu.action",
+		    data:"menuName="+menuName,	       
+		    dataType:"json",
+			type:"POST",
+    		success : function(redata) {
+    			if(redata==true){    				
+    				var myForm=document.getElementById("myForm3");
+    				myForm.action="<%=path%>role/updateSMenu.action";
+    				myForm.method="post";
+    				myForm.submit();
+    			}
+    			if(redata==false){
+    				window.alert("菜单已存在");
+    			}
+    		}
+    	}); 
+		
 	}
 </script>
 </head>

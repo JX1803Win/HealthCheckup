@@ -85,7 +85,12 @@ public class RoleAction {
 			roleBizImpl.updateRole(uproleId,uproleName);
 			return selectAllRole(request, response, null);	    
 		}
-	
-							
-				
+	//查询角色是否已经存在
+		@RequestMapping(value="/testadd.action")//为这个方法定义映射子路劲 
+		@ResponseBody						
+		public boolean selectRoleAlive(HttpServletRequest request) {
+			String roleName=request.getParameter("roleName");
+			Boolean bl=roleBizImpl.selectRoleAlive(roleName);
+			return bl;
+		}
 }

@@ -40,12 +40,12 @@
 		<form name="selcet"action="<%=path%>ManageAction/selectAccount.action" class="form-inline" 
 			role="form" method="post">
 			<div class="form-group">
-				<label for="name" class="m">用户账号：</label> <input type="text"
-					class="form-control input-sm  m4" id="userId" name="userId"
+				<label for="name" class="m">卡号：</label> <input type="text"
+					class="form-control input-sm  m4" id="phyCardId" name="phyCardId"
 					placeholder="请输入账号" value="">
 			</div>
 			<input type="hidden" id="page" name="page" value="1"/>
-			<button type="submit" class="btn btn-primary" onclick="return checkUserId()">查询</button>
+			<button type="submit" class="btn btn-primary" onclick="return checkPhyCardId()">查询</button>
 		</form>
 	</div>
 	<div class="clearfix"></div>
@@ -111,11 +111,11 @@
 		<div class="page">
 		<div class="pagelist text-center">
 		<span class="jump"><a
-					href="<%=path%>ManageAction/selectAccount.action?page=1&&userId=${userId}">首页</a></span>
+					href="<%=path%>ManageAction/selectAccount.action?page=1&&phyCardId=${phyCardId}">首页</a></span>
 			<c:choose>
 				<c:when test="${page>1}">
 					<span class="jump"><a
-					href="<%=path%>ManageAction/selectAccount.action?page=${page-1}&&userId=${userId}">上一页</a></span>
+					href="<%=path%>ManageAction/selectAccount.action?page=${page-1}&&phyCardId=${phyCardId}">上一页</a></span>
 				</c:when>
 				<c:otherwise>
 					<span class="jump">上一页</span>
@@ -125,14 +125,14 @@
 			<c:choose>
 				<c:when test="${page<pageAll}">
 					<span class="jump"><a
-						href="<%=path%>ManageAction/selectAccount.action?page=${page+1}&&userId=${userId}">下一页</a></span>
+						href="<%=path%>ManageAction/selectAccount.action?page=${page+1}&&phyCardId=${phyCardId}">下一页</a></span>
 				</c:when>
 				<c:otherwise>
 					<span class="jump">下一页</span>
 				</c:otherwise>
 			</c:choose>
 			<span class="jump"><a
-					href="<%=path%>ManageAction/selectAccount.action?page=${pageAll}&&userId=${userId}">末页</a></span>
+					href="<%=path%>ManageAction/selectAccount.action?page=${pageAll}&&phyCardId=${phyCardId}">末页</a></span>
 		</div>
 	</div>
 	</c:if> 
@@ -148,9 +148,10 @@
 				</div>
 
 
-				<form action="<%=path%>ManageAction/topUp.action"  enctype="multipart/form-data"
+				<form name="form1"action=""  enctype="multipart/form-data"
 					class="form-horizontal" role="form" method="post">
                      <input type="hidden" id="userId" name="userId" value="${userId}"/>
+                       <input type="hidden" id="phyCardId" name="phyCardId" value="${phyCardId}"/>
 					<div class="form-group">
 							<label for="pwd" class="col-sm-2 control-label">金额</label>
 							<div class="col-sm-10">
@@ -166,7 +167,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="colse">关闭</button>
-						<button type="submit" class="btn btn-primary">提交</button>
+						<button type="button" class="btn btn-primary"onclick="modify() ">充值</button>
+						<button type="button" class="btn btn-primary"onclick="zhiFuBao() ">支付宝支付</button>
 					</div>
 				</form>
 			</div>
@@ -183,13 +185,14 @@
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">退款</h4>
 				</div>
-				<form action="" enctype="multipart/form-data"
+				<form action="<%=path%>ManageAction/refund.action" enctype="multipart/form-data"onSubmit="return checkRefund()"
 					class="form-horizontal" role="form" method="post">
-                     <input type="hidden" id="userId1" name="userId1" value="${userId}"/>
+					  <input type="hidden" id="userId1" name="userId1" value="${userId}"/>
+                     <input type="hidden" id="phyCardId1" name="phyCardId1" value="${phyCardId}"/>
 					<div class="form-group">
 							<label for="pwd" class="col-sm-2 control-label">金额</label>
 							<div class="col-sm-10">
-								<input name="money1" id="money1" type="text" class="form-control"value="${balance}"
+								<input name="money1" id="money1" type="text" class="form-control"value="${balance}"onblur="checkRefund(this.value)"
 									placeholder="请输入金额">
 							</div>
 						</div>
@@ -239,8 +242,8 @@ $(function() {
                     $.each(redata, function(i, item) {
 							alert(item.userName);
 							location.href="<%=path%>ManageAction/selectAccount.action?money="
-								+ $("#money1").val()+"&userId="
-								+ $("#userId1").val()+"&page=1";
+								+ $("#money1").val()+"&phyCardId="
+								+ $("#phyCardId1").val()+"&page=1";
 							
 						});
 					}
@@ -262,5 +265,49 @@ $(function() {
 				});
 			});
 });
+function modify() 
+{ 
+	var money = document.getElementById("money").value
+	var reg = /^[0-9]+$/; 
+	if(money==""){ 
+		alert('充值金额不能为空！'); 
+		return false; 
+		} 
+	if(money!=""&&!reg.test(money)){ 
+	alert('请输入正确充值金额'); 
+	return false; 
+	} 
+	
+	if (money.length > 5 ) {
+		
+		alert("单次充值金额不得高于十万");
+		return false;
+	}
+document.form1.action="<%=path%>ManageAction/topUp.action"; 
+document.form1.submit(); 
+
+} 
+function zhiFuBao() 
+{ 
+	var money = document.getElementById("money").value
+	var reg = /^[0-9]+$/; 
+	if(money==""){ 
+		alert('充值金额不能为空！'); 
+		return false; 
+		} 
+	if(money!=""&&!reg.test(money)){ 
+	alert('请输入正确充值金额'); 
+	return false; 
+	} 
+	
+	if (money.length > 5 ) {
+		
+		alert("单次充值金额不得高于十万");
+		return false;
+	}
+document.form1.action="<%=path%>ManageAction/alipayment.action"; 
+document.form1.submit(); 
+
+} 
 </script>
 </html>

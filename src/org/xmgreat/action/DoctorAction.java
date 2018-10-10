@@ -89,13 +89,14 @@ public class DoctorAction {
 		request.setAttribute("pageNoD", pageNo);
 		request.setAttribute("AllPageD", AllPage);
 	    List<ProjectResultBean> uprbList=doctorBizImpl.selectUserPhyRec(officeId,physicaiId,pageNo);
-	    for (int i = 0; i < uprbList.size(); i++) {
+	    
+	    for (int i = 0; i < uprbList.size(); i++) {	    	
 	    	if (uprbList.get(i).getPhysicaiId()!=null) {//查询用户名
 	    		UserInfoBean uib=doctorBizImpl.selectUserName(uprbList.get(i).getPhysicaiId());
 	    		uprbList.get(i).setUserName(uib.getUserName()); 
 			}
-	    	if (uprbList.get(i).getProjectId()!=null) {//查询项目名
-				ProjectBean pb=doctorBizImpl.selectitemName(uprbList.get(i).getProjectId());
+	    	if (uprbList.get(i).getProjectBean().getProjectId()!=null) {//查询项目名
+				ProjectBean pb=doctorBizImpl.selectitemName(uprbList.get(i).getProjectBean().getProjectId());
 				uprbList.get(i).setProjectName(pb.getItemName());
 			}
 	    	if (uprbList.get(i).getParameterId()!=null) {//查询参数名
@@ -128,6 +129,39 @@ public class DoctorAction {
 		request.setAttribute("proresId", proresId);
 		request.setAttribute("project", project);
 		return "backstage/examination";
+	}
+	@RequestMapping(value = "/particular")
+	public String particular(HttpServletRequest request, Integer proresId, Integer parameterId, Integer currentPage)
+	{
+		ProjectResultBean projectResultBean = summaryBiz.skipSummary(proresId);
+		request.setAttribute("projectResult", projectResultBean);
+		request.setAttribute("parameterId", parameterId);
+		request.setAttribute("currentPage", currentPage);
+		return "backstage/userAcceptInf";
+	}
+	
+	@RequestMapping(value = "/generalSummary")
+	public ModelAndView generalSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId, String[] result,
+			String projectResult, Integer parameterId) throws Exception
+	{
+		summaryBiz.generalSummary(proresId, subentryId, result, projectResult, parameterId);
+		return selectAllRole(request, null, null);
+	}
+	
+	@RequestMapping(value = "/projectSummary")
+	public ModelAndView projectSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId, String[] result,
+			String projectResult, Integer parameterId) throws Exception
+	{
+		summaryBiz.projectSummary(proresId, subentryId, result, projectResult, parameterId);
+		return selectAllRole(request, null, null);
+	}
+
+	@RequestMapping(value = "/imageSummary")
+	public ModelAndView imageSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId, String projectResult,
+			Integer parameterId) throws Exception
+	{
+		summaryBiz.imageSummary(proresId, subentryId, request, projectResult, parameterId);
+		return selectAllRole(request, null, null);
 	}
 	
 }

@@ -39,11 +39,12 @@ layui.use('form', function(){
 		<form name="regAdmin"action="<%=basePath %>ManageAction/regUser.action" class="form-inline" 
 			role="form" method="post">
 			<br>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="name" class="m">账号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text"
 					class="form-control input-sm  m4" id="userId" name="userId"onblur="checkNumber(this.value)"
-					placeholder="请输入名称" /><spen id="tiShi"></spen>
-			</div>
+					placeholder="请输入名称" />
+			</div><spen id="tiShi"></spen> -->
+			
 			<br>
 			<br>
 			<div class="form-group">
@@ -70,7 +71,7 @@ layui.use('form', function(){
 			<div class="form-group">
 				<label for="name" class="m">手机号：&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text"
 					class="form-control input-sm  m4" id="phone" name="phone"onblur="yzsj(this.value)"
-					placeholder="请输入手机" >
+					placeholder="请输入手机号" ><spen id="tiShi">
 			</div>
 			<br>
 			<br>
@@ -100,7 +101,7 @@ layui.use('form', function(){
 			<div class="form-group">
 				<label for="name" class="m">年龄：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text"
 					class="form-control input-sm  m4" id="age" name="age"onblur="checkage(this.value)"
-					placeholder="请输入手机" >
+					placeholder="请输入年龄" >
 			</div>
 			<br>
 			<br>
@@ -143,7 +144,7 @@ layui.use('form', function(){
 			  <input type="hidden" id="parameterID"name="parameterID" value="1"> 
 			<br>
 			<br>
-			<button type="submit" class="btn btn-primary">增加</button>
+			<button type="submit" class="btn btn-primary">增加</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="javascript:history.back(-1);">返回</button>
 		</form>
 	</div>
 
@@ -174,12 +175,12 @@ $(function() {//获取城市名
 
 });
  $(function() {
-	$("#userId").blur(
+	$("#phone").blur(
 			function() {
 				$.ajax({
 					url : "<%=basePath %>ManageAction/selectUser.action",//请求地址
-					data : "userId="
-						+ $("#userId").val(),//发送至服务器的键值数据
+					data : "phone="
+						+ $("#phone").val(),//发送至服务器的键值数据
 					dataType : "json",//请求数据格式，如script,json,text等
 					type : "post",//发送方式，get/post
 					success : function(redata) {////定义各事件发生时回调的函数

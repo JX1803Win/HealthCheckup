@@ -19,7 +19,7 @@ public class ALiPay {
 		
 		//设置请求参数
 		AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
-		alipayRequest.setReturnUrl(AlipayConfig.return_url="http://localhost:8080/HealthCheckup2/ManageAction/zhifubao.action?money="+money+"&&userId="+userId+"");
+		alipayRequest.setReturnUrl(AlipayConfig.return_url="http://localhost:8080/HealthCheckup/ManageAction/zhifubao.action?money="+money+"&&userId="+userId+"");
 		alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
 		Long time= Calendar.getInstance().getTimeInMillis();
 		//商户订单号，商户网站订单系统中唯一订单号，必填

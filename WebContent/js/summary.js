@@ -9,6 +9,5 @@ function change2(url) {
 }
 
 function change3(url) {
-	alert(url);
 	document.getElementById('method3').action = url;
 }

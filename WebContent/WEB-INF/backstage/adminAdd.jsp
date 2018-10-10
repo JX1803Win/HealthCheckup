@@ -36,11 +36,11 @@ layui.use('form', function(){
 		<form name="regAdmin"action="<%=basePath %>ManageAction/regAdmin.action" class="form-inline" 
 			role="form" method="post">
 			<br>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="name" class="m">账号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text"
 					class="form-control input-sm  m4" id="adminId" name="adminId"onblur="checkNumber(this.value)"
 					placeholder="请输入名称" /><spen id="tiShi"></spen>
-			</div>
+			</div> -->
 			<br>
 			<br>
 			<div class="form-group">
@@ -67,7 +67,7 @@ layui.use('form', function(){
 			<div class="form-group">
 				<label for="name" class="m">手机号：&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text"
 					class="form-control input-sm  m4" id="phoneNum" name="phoneNum"onblur="yzsj(this.value)"
-					placeholder="请输入手机" >
+					placeholder="请输入手机号" >
 			</div>
 			<br>
 			<br>
@@ -83,14 +83,14 @@ layui.use('form', function(){
 			<div class="form-group">
 				<label for="name" class="m">年龄：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text"
 					class="form-control input-sm  m4" id="age" name="age"onblur="checkage(this.value)"
-					placeholder="请输入手机" >
+					placeholder="请输入年龄" >
 			</div>
 			<br>
 			<br>
 			<div class="form-group">
 				<label for="name" class="m">出生日期：</label> <input type="text"
-					class="form-control input-sm  m4" id="birthDate" name="birthDate"
-					placeholder="请输入手机" >
+					class="form-control input-sm  m4" id="start" name="birthDate"
+					placeholder="请输入出生日期" >
 			</div>
 			<br>
 			<br>
@@ -121,7 +121,7 @@ layui.use('form', function(){
 			<div class="form-group">
 				<label for="name" class="m">详细地址：</label> <input type="text"
 					class="form-control input-sm  m4" id="address" name="address"
-					placeholder="请输入手机" >
+					placeholder="请输入详细地址" >
 			</div>
 			<br>
 			<br>
@@ -152,7 +152,7 @@ layui.use('form', function(){
 			</div>
 			<br>
 			<br>
-			<button type="submit" class="btn btn-primary">增加</button>
+			<button type="submit" class="btn btn-primary">增加</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="javascript:history.back(-1);">返回</button>
 		</form>
 	</div>
 
@@ -369,6 +369,52 @@ $(function() {
 			});
 
 });
+</script>
+<script>
+!function(){
+	laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+	laydate({elem: '#demo'});//绑定元素
+	}();
+	//日期范围限制
+	var start = {
+	    elem: '#start',
+	    format: 'YYYY-MM-DD',
+	   // min: laydate.now(), //设定最小日期为当前日期
+	    max: laydate.now(), //最大日期
+	    istime: true,
+	    istoday: false,
+	    choose: function(datas){
+	         end.min = datas; //开始日选好后，重置结束日的最小日期
+	         end.start = datas //将结束日的初始值设定为开始日
+	    }
+	};
+	var end = {
+	    elem: '#end',
+	    format: 'YYYY-MM-DD',
+	    min: '1918-06-16',
+	    max: '2099-06-16',
+	    istime: true,
+	    istoday: false,
+	    choose: function(datas){
+	        start.max = datas; //结束日选好后，充值开始日的最大日期
+	    }
+	};
+	laydate(start);
+	//自定义日期格式
+	laydate({
+	    elem: '#test1',
+	    format: 'YYYY年MM月DD日 hh:mm:ss',
+	    festival: true, //显示节日
+	    choose: function(datas){ //选择日期完毕的回调
+	        alert('得到：'+datas);
+	    }
+	});
+	//日期范围限定在昨天到明天
+	laydate({
+	    elem: '#hello3',
+	    min: laydate.now(-1), //-1代表昨天，-2代表前天，以此类推
+	    max: laydate.now(+1) //+1代表明天，+2代表后天，以此类推
+	});
 </script>
 </body>
 </html>

@@ -61,10 +61,24 @@
 			alert("菜单名称不能为空");
 			return;
 		}
-		var myForm=document.getElementById("myForm2");
-		myForm.action="<%=path%>role/addFMenu.action";
-		myForm.method="post";
-		myForm.submit();
+		$.ajax({
+			url:"<%=path%>role/testaddFMenu.action",
+		    data:"menuName="+menuName,	       
+		    dataType:"json",
+			type:"POST",
+    		success : function(redata) {
+    			if(redata==true){    				
+    				var myForm=document.getElementById("myForm2");
+    				myForm.action="<%=path%>role/addFMenu.action";
+    				myForm.method="post";
+    				myForm.submit();
+    			}
+    			if(redata==false){
+    				window.alert("菜单已存在");
+    			}
+    		}
+    	}); 
+		
 	}
 	function alter(upmenuId, upmenuName) {
 		//alert(parameterId);
@@ -73,15 +87,29 @@
 		
 	}
 	function adds() {
-		var roleName = $("#upmenuName").val();
-		if(roleName == "") {
+		var menuName = $("#upmenuName").val();
+		if(menuName == "") {
 			alert("修改菜单不能为空");
 			return;
 		}
-		var myForm=document.getElementById("myForm3");
-		myForm.action="<%=path%>role/updateFMenu.action";
-		myForm.method="post";
-		myForm.submit();
+		$.ajax({
+			url:"<%=path%>role/testaddFMenu.action",
+		    data:"menuName="+menuName,	       
+		    dataType:"json",
+			type:"POST",
+    		success : function(redata) {
+    			if(redata==true){    				
+    				var myForm=document.getElementById("myForm3");
+    				myForm.action="<%=path%>role/updateFMenu.action";
+    				myForm.method="post";
+    				myForm.submit();
+    			}
+    			if(redata==false){
+    				window.alert("菜单已存在");
+    			}
+    		}
+    	}); 
+		
 	}
 </script>
 </head>

@@ -40,4 +40,6 @@ public interface PermissionsMapper {
     public void addSMenu(@Param("preMenu")Integer preMenu,@Param("menuName")String menuName,@Param("urlAddress")String urlAddress);//添加子类菜单
     public void updateSMenu(@Param("permissionsId")Integer permissionsId,@Param("menuName")String menuName,@Param("urlAddress")String urlAddress);//修改子菜单
     public int  selectAllFMenus(@Param("permissionsId")Integer permissionsId);
+    public RoleBean selectRoleAlive(@Param("roleName")String roleName);//查询角色是否存在
+    public PermissionsInfBean selectMenuAlive(@Param("menuName")String menuName);
 }

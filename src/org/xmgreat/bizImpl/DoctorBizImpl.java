@@ -42,21 +42,13 @@ public class DoctorBizImpl implements DoctorBiz {
 	@Override
 	public List<ProjectResultBean> selectUserPhyRec(Integer officeId, Integer physicaiId, Integer pageNo) {
 		// TODO Auto-generated method stub
-		// 查询对应项目ID
-		List<ProjectBean> pblist = doctorMapper.selectProjectId(officeId);		
-				
-		// 通过项目ID、体检单查询所有的体检记录表（再放上输入体检卡号）
-		if (physicaiId==null) {
-			physicaiId=0;
-		}
-		List<ProjectResultBean> uprbList=new ArrayList<ProjectResultBean>();
-		List<ProjectResultBean> uprbList2=new ArrayList<ProjectResultBean>();
-		for (int i = 0; i < pblist.size(); i++) {			
-				uprbList = doctorMapper.selectUserPhyRecord(pblist.get(i).getProjectId(),physicaiId, pageNo);								
-				uprbList2.addAll(uprbList);
-		}
 		
-		return uprbList2;
+		// 通过项目ID、体检单查询所有的体检记录表（再放上输入体检卡号）
+				if (physicaiId==null) {
+					physicaiId=0;
+				}
+		List<ProjectResultBean> uprbList=doctorMapper.selectUserPhyRecord(officeId,physicaiId, pageNo);
+		return uprbList;
 	}
 
 	@Override
