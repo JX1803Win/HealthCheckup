@@ -155,4 +155,10 @@ public class ProjectBizImpl implements ProjectBiz
 		}
 	}
 
+	@Override
+	public ProjectBean checkProject1(String itemName)
+	{
+		return projectlMapper.selectProject(itemName);
+	}
+
 }

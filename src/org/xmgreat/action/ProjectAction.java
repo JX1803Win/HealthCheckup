@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.xmgreat.annotation.SystemLog;
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.biz.ProjectBiz;
@@ -43,6 +44,18 @@ public class ProjectAction
 		request.setAttribute("name", name);
 		request.setAttribute("resultMap", resultMap);
 		return "backstage/project";
+	}
+
+	@RequestMapping(value = "/checkProject1")
+	@ResponseBody
+	public boolean checkProject1(String itemName)
+	{
+		boolean mag = true;
+		if (null != projectBiz.checkProject1(itemName))
+		{
+			mag = false;
+		}
+		return mag;
 	}
 
 	@RequestMapping(value = "/checkProject")

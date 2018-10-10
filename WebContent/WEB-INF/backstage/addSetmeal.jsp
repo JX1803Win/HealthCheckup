@@ -22,6 +22,7 @@
 <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <link href="css/project.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/jscript" src="js/setmeal.js"></script>
 
 </head>
@@ -33,9 +34,10 @@
 		<div id="div8">
 
 			<form role="form" action="backstage/affirmAddSetmeal.action"
-				method="post">
+				id="addSetmeal" method="post">
 				<input type="hidden" name="currentPage" value="${currentPage}">
-				<input type="hidden" name="name" value="${name}">
+				<input type="hidden" name="name" value="${name}"> <input
+					type="hidden" id="check" value="true">
 				<div class="form-group">
 					<label for="setmealName">套餐名称：</label> <input type="text"
 						class="form-control" name="setmealName" id="setmealName"

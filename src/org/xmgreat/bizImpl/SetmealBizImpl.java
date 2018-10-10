@@ -159,4 +159,10 @@ public class SetmealBizImpl implements SetmealBiz
 		}
 	}
 
+	@Override
+	public SetmealBean checkSetmealName(String setmealName)
+	{
+		return setmealMapper.selectSetmeal(setmealName);
+	}
+
 }

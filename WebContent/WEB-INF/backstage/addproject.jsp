@@ -22,6 +22,7 @@
 <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <link href="css/project.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/jscript" src="js/project.js"></script>
 
 </head>
@@ -32,9 +33,11 @@
 		</div>
 		<div id="div8">
 
-			<form role="form" action="backstage/affirmAdd.action" method="post">
+			<form role="form" action="backstage/affirmAdd.action" id="addProject"
+				method="post">
 				<input type="hidden" name="currentPage" value="${currentPage}">
-				<input type="hidden" name="name" value="${name}">
+				<input type="hidden" name="name" value="${name}"> <input
+					type="hidden" id="check" value="true">
 				<div class="form-group">
 					<label for="itemName">项目名称：</label> <input type="text"
 						class="form-control" name="itemName" id="itemName"
@@ -85,7 +88,8 @@
 					<a
 						href="backstage/queryProject.action?currentPage=${currentPage}&&name=${name}"><button
 							type="button" class="btn btn-default m2">返回</button></a>
-					<button type="submit" class="btn btn-primary m2">提交</button>
+					<button type="submit" class="btn btn-primary m2"
+						onclick="return ckeck()">提交</button>
 				</div>
 			</form>
 
