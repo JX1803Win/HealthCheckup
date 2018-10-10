@@ -74,10 +74,11 @@
 						<td>${projectResult.userName}</td>
 						<td>${projectResult.projectBean.itemName}</td>
 						<td>${projectResult.parameterName}</td>
+
 						<td class="text-center"><c:if
 								test="${projectResult.parameterId==12}">
 								<a
-									href="backstage/skipSummary.action?proresId=${projectResult.proresId}"><button
+									href="backstage/skipSummary.action?proresId=${projectResult.proresId}&&currentPage=${resultMap['currentPage']}&&parameterId=${parameterId}"><button
 										type="button" class="btn btn-primary">小结</button></a>
 							</c:if> <c:if test="${projectResult.parameterId==13}">
 								<a

@@ -72,34 +72,20 @@ public class SummaryAction
 	}
 
 	@RequestMapping(value = "/skipSummary")
-	public String skipSummary(HttpServletRequest request, Integer proresId)
+	public String skipSummary(HttpServletRequest request, Integer proresId, Integer parameterId, Integer currentPage)
 	{
 		ProjectResultBean projectResultBean = summaryBiz.skipSummary(proresId);
 		request.setAttribute("projectResult", projectResultBean);
+		request.setAttribute("parameter", parameterId);
+		request.setAttribute("currentPage", currentPage);
 		return "backstage/summary";
 	}
 
-	@RequestMapping(value = "/generalSummary")
-	public String generalSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId, String[] result,
-			String projectResult, Integer parameterId)
+	@RequestMapping(value = "/summary")
+	public String summary(HttpServletRequest request, Integer proresId, String projectResult, Integer parameterId,
+			Integer currentPage, Integer parameter)
 	{
-		summaryBiz.generalSummary(proresId, subentryId, result, projectResult, parameterId);
-		return querySummary(request, null, null);
-	}
-
-	@RequestMapping(value = "/projectSummary")
-	public String projectSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId, String[] result,
-			String projectResult, Integer parameterId)
-	{
-		summaryBiz.projectSummary(proresId, subentryId, result, projectResult, parameterId);
-		return querySummary(request, null, null);
-	}
-
-	@RequestMapping(value = "/imageSummary")
-	public String imageSummary(HttpServletRequest request, Integer proresId, Integer[] subentryId, String projectResult,
-			Integer parameterId) throws Exception
-	{
-		summaryBiz.imageSummary(proresId, subentryId, request, projectResult, parameterId);
-		return querySummary(request, null, null);
+		summaryBiz.summary(proresId, projectResult, parameterId);
+		return querySummary(request, parameter, currentPage);
 	}
 }
