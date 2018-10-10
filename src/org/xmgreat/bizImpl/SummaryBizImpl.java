@@ -52,8 +52,10 @@ public class SummaryBizImpl implements SummaryBiz
 		ProjectBean project = projectlMapper.getProject(projectId);
 		for (int i = 0; i < project.getDetails().size(); i++)
 		{
-			ParameterBean parameter = paramMapper.getParameter(project.getDetails().get(i).getParameterId());
-			project.getDetails().get(i).setParameterBean(parameter);
+			if(null != project.getDetails().get(i).getParameterId()){
+				ParameterBean parameter = paramMapper.getParameter(project.getDetails().get(i).getParameterId());
+				project.getDetails().get(i).setParameterBean(parameter);
+			}
 		}
 		return project;
 	}

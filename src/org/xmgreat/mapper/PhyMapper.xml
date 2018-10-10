@@ -211,4 +211,7 @@
 		adminId = #{uprb.adminId}, sumTime = to_char(sysdate, 'yyyy-mm-dd')
 		where physicaiId = #{uprb.physicaiId}
 	</update>
+	<delete id="deleteProRes" parameterType="java.lang.Long">
+		delete from tbrprojectresult tpr where tpr.physicaiId = #{physicaiId}
+	</delete>
 </mapper>

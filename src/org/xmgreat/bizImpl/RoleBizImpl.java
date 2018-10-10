@@ -194,6 +194,28 @@ public class RoleBizImpl implements RoleBiz {
 		// TODO Auto-generated method stub
 		return permissionsMapper.selectAllFMenus(permissionsId);
 	}
+
+	@Override
+	public boolean selectRoleAlive(String roleName) {
+		// TODO Auto-generated method stub
+		RoleBean rBean=permissionsMapper.selectRoleAlive(roleName);
+		if (rBean==null) {
+			return true;
+		}else {
+			return false;
+		}		
+	}
+
+	@Override
+	public boolean selectMenuAlive(String menuName) {
+		// TODO Auto-generated method stub
+		PermissionsInfBean pInfBean=permissionsMapper.selectMenuAlive(menuName);
+		if (pInfBean==null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	
 

@@ -56,20 +56,25 @@
 			alert("角色名称不能为空");
 			return;
 		}
-		<%-- $.ajax({
-    		url : "del.action",
-    		data : "officeid=" + id,
-    		dataType : "text",
-    		type : "post",
-    		success : function() {
-    			window.location.href = "<%=path%>backstage/office.action?page="+page;
+		$.ajax({
+			url:"<%=path%>role/testadd.action",
+		    data:"roleName="+roleName,	       
+		    dataType:"json",
+			type:"POST",
+    		success : function(redata) {
+    			if(redata==true){    				
+    				var myForm=document.getElementById("myForm2");
+    				myForm.action="<%=path%>role/add.action";
+    				myForm.method="post";
+    				myForm.submit();
+    			}
+    			if(redata==false){
+    				window.alert("角色已存在");
+    			}
     		}
-    	}); --%>
+    	}); 
 		
-		var myForm=document.getElementById("myForm2");
-		myForm.action="<%=path%>role/add.action";
-		myForm.method="post";
-		myForm.submit();
+		
 	}
 	function alter(roleId, roleName) {		
 		$("#uproleId").val(roleId);
@@ -82,10 +87,24 @@
 			alert("修改角色不能为空");
 			return;
 		}
-		var myForm=document.getElementById("myForm3");
-		myForm.action="<%=path%>role/update.action";
-		myForm.method="post";
-		myForm.submit();
+		$.ajax({
+			url:"<%=path%>role/testadd.action",
+		    data:"roleName="+roleName,	       
+		    dataType:"json",
+			type:"POST",
+    		success : function(redata) {
+    			if(redata==true){    				
+    				var myForm=document.getElementById("myForm3");
+    				myForm.action="<%=path%>role/update.action";
+    				myForm.method="post";
+    				myForm.submit();
+    			}
+    			if(redata==false){
+    				window.alert("角色已存在");
+    			}
+    		}
+    	}); 
+		
 	}
 </script>
 </head>

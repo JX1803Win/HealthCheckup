@@ -119,7 +119,7 @@ public class MenuManageAction {
 		Integer menuId=roleBizImpl.selectAllFMenus(permissionsId);
 		return selectAllSonMenu(request, response,menuId, null);	    
 	}
-	//添加子类菜单
+	        //添加子类菜单
 			@RequestMapping(value="/addSMenu.action")//为这个方法定义映射子路劲 
 			@ResponseBody
 			public ModelAndView  addSMenu (HttpServletRequest request,HttpServletResponse response,Integer upperMenu,String menuNames,String url)throws Exception {			   		
@@ -133,6 +133,16 @@ public class MenuManageAction {
 			public ModelAndView  updateSMenu (HttpServletRequest request,HttpServletResponse response,Integer upmenuId,String upmenuName,String upurlAddress,Integer uppreMenu)throws Exception {			   			
 						roleBizImpl.updateSMenu(upmenuId,upmenuName,upurlAddress);
 						return selectAllSonMenu(request, response,uppreMenu, null);	    
-			}		
+			}
+			//查询菜单是否已经存在
+			@RequestMapping(value="/testaddFMenu.action")//为这个方法定义映射子路劲 
+			@ResponseBody						
+			public boolean selectRoleAlive(HttpServletRequest request) {
+				String menuName=request.getParameter("menuName");
+				Boolean bl=roleBizImpl.selectMenuAlive(menuName);
+				return bl;
+			}	
+			
+			
 			
 }

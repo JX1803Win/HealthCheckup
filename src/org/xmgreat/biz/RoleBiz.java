@@ -35,8 +35,8 @@ public interface RoleBiz {
       public void addSMenu(Integer preMenu,String menuName,String url);//添加子类菜单
       public void updateSMenu(Integer upmenuId,String upmenuName,String upurlAddress);//修改子菜单
       public int  selectAllFMenus(Integer permissionsId);
-
-
+      public boolean selectRoleAlive(String roleName);//查询角色是否存在
+      public boolean selectMenuAlive(String menuName);//查询菜单是否存在
 
 
 }

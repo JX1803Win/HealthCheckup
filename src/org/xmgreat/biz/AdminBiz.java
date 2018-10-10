@@ -37,7 +37,7 @@ public interface AdminBiz
 	public ModelAndView  selectProject (UserPhyRecordBean userPhyRecordBean);//项目收费信息
 	public  List<CityBean> settleAccount(Double charge,Integer userId,Integer physicaiId);//结算
 	public ModelAndView selectAccount(UserInfoBean userInfoBean);//流水账
-	public String  topUp (UserAccoutBean userAccoutBean);//充值
+	public String  topUp (UserAccoutBean userAccoutBean, Long phyCardId);//充值
 	public  ModelAndView userAdd();//查询注册下拉框的值
 	public String  regUser (UserInfoBean userInfoBean);//增加用户
 	public  List<UserInfoBean> selectUser(UserInfoBean userInfoBean);//查询用户知否以注册

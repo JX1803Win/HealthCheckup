@@ -44,9 +44,14 @@ function mydelete(){
 		alert('必须输入中文！');
 		return false; 
 		} 
+		return true;
 		}
 	function isChineseName(obj){ 
-		var reg=/^[\u0391-\uFFE5]+$/; 
+		var reg=/^[\u0391-\uFFE5]+$/;
+		if(obj==""){ 
+			alert('姓名不能为空！');
+			return false; 
+			} 
 		if(obj!=""&&!reg.test(obj)){ 
 		alert('必须输入汉字！');
 		return false; 
@@ -60,19 +65,28 @@ function mydelete(){
 			alert("姓名不得低于2个汉字");
 			return false;
 		}
-	
+		return true;
 		}
 	function yzsj(phoneNum){
 	    var reg = /^1(3|4|5|7|8)\d{1}[-]?\d{4}[-]?\d{4}$/;
+	if(phoneNum==""){ 
+		alert('手机号码不能为空！');
+		return false; 
+		} 
 	    if(!reg.test(phoneNum)){
 	        alert("手机号码格式不正确");
 	return false; 
 	    }
+	return true;
 	}
 	//验证注册账号 
 	//验证只能为数字 
 	function checkNumber(obj){ 
 	var reg = /^[0-9]+$/; 
+	if(obj==""){ 
+		alert('注册账号不能为空'); 
+		return false; 
+		}
 	if(obj!=""&&!reg.test(obj)){ 
 	alert('只能输入数字！'); 
 	return false; 
@@ -86,6 +100,7 @@ function mydelete(){
 		alert("账户ID不超过8位数字");
 		return false;
 	}
+	return true;
 	} 
 	//验证密码
 	function checkPwd(obj){ 
@@ -99,6 +114,7 @@ function mydelete(){
 			alert("密码不超过16位数字");
 			return false;
 		}
+		return true;
 		} 
 	
 	function checkage(obj){ 
@@ -113,6 +129,7 @@ function mydelete(){
 			alert("年龄不超过100岁");
 			return false;
 		}
+		return true;
 		} 
 	//验证只能为数字 
 	function checkCardNumber(obj){ 
@@ -125,12 +142,13 @@ function mydelete(){
 		alert("请输入正确11位卡号！");
 		return false;
 	}
+	return true;
 	} 
 	
 	function checkPhysicaiId(){ 
 		var physicaiId = document.getElementById("physicaiId").value
 		var reg = /^[0-9]+$/; 
-		if(physicaiId==""&&!reg.test(obj)){ 
+		if(physicaiId==""){ 
 		alert('请输入查询体检号！'); 
 		return false; 
 		} 
@@ -147,30 +165,66 @@ function mydelete(){
 			alert("体检号不超过8位数字");
 			return false;
 		}
+		return true;
 		} 
 	
-	function checkUserId(){ 
-		var userId = document.getElementById("userId").value
+	function checkPhyCardId(){ 
+		var phyCardId = document.getElementById("phyCardId").value
 		var reg = /^[0-9]+$/; 
-		if(physicaiId==""&&!reg.test(obj)){ 
-		alert('请输入查询用户账号！'); 
+		if(phyCardId==""){ 
+		alert('请输入查询卡 号！'); 
 		return false; 
 		} 
-		if(!reg.test(physicaiId)){ 
+		if(!reg.test(phyCardId)){ 
 			alert('请输入正确的账号！'); 
 			return false; 
 			} 
-		if (physicaiId.length < 6 ) {
-			alert("账号不得低于6位");
+		if (phyCardId.length != 11 ) {
+			alert("请输入11位卡号");
 			return false;
 		}
-		if (physicaiId.length > 8 ) {
-			
-			alert("账号不超过8位数字");
-			return false;
-		}
+		return true;
 		} 
-	
+	//验证充值金额
+	function checkTopUp(){ 
+		var money = document.getElementById("money").value
+		var reg = /^[0-9]+$/; 
+		if(money==""){ 
+			alert('充值金额不能为空！'); 
+			return false; 
+			} 
+		if(money!=""&&!money.test(obj)){ 
+		alert('请输入正确充值金额'); 
+		return false; 
+		} 
+		
+		if (money.length > 5 ) {
+			
+			alert("单次充值金额不得高于十万");
+			return false;
+		}
+		return true;
+		} 
+	//验证退款金额
+	function checkRefund(){ 
+		var money1 = document.getElementById("money1").value
+		var reg = /^[0-9]+$/; 
+		if(money1==""){ 
+			alert('退款金额不能为空！'); 
+			return false; 
+			} 
+		if(money1!=""&&!reg.test(money1)){ 
+		alert('请输入正确退款金额'); 
+		return false; 
+		} 
+		
+		if (money1.length > 4 ) {
+			
+			alert("单次退款金额不得高于一万");
+			return false;
+		}
+		return true;
+		} 
 	
 	
 	

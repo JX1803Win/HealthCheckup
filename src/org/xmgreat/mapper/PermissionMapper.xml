@@ -226,6 +226,13 @@
 	<select id="selectAllFMenus" resultType="int">
 	  select preMenu from tblPermissionsInf where permissionsId=#{permissionsId}
 	</select>
-	
+	<!-- 查询角色是否存在 -->
+	<select id="selectRoleAlive" resultType="org.xmgreat.bean.RoleBean">
+	   select * from tblRole where roleName=#{roleName}
+	</select>
+	<!-- 查询菜单是否存在 -->
+	<select id="selectMenuAlive" resultType="org.xmgreat.bean.PermissionsInfBean">
+	  select * from tblPermissionsInf where menuName=#{menuName}
+	</select>
 	
 </mapper>

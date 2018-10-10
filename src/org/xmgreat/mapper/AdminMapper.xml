@@ -167,7 +167,7 @@
 			<if test="officeId1!=null">
 				<if test="officeId1!=''">and officeId =#{officeId1}</if>
 			</if>
-			and parameterId != 0
+			and parameterId != 0 AND roleId!=1
 
 		</where>
 	</select>
@@ -216,7 +216,7 @@
 		parameterType="org.xmgreat.bean.ManagerBean">
 		INSERT INTO TBLMANAGER (ADMINID, MANAGERNAME, SEX, AGE, BIRTHDATE, CITYID,
 		ADDRESS, PHONENUM, PASSWORD, ROLEID, OFFICEID, PARAMETERID) VALUES
-		(#{adminId}, #{mangerName}, #{sex}, #{age}, #{birthDate}, #{cityId},
+		(USERREG.nextVal, #{mangerName}, #{sex}, #{age}, #{birthDate}, #{cityId},
 		#{address}, #{phoneNum}, #{password}, #{roleId}, #{officeId},
 		#{paramterId})
 	</insert>
@@ -427,7 +427,7 @@
 	<select id="selectUserInfo"
 		parameterType="org.xmgreat.bean.UserInfoBean"
 		resultType="org.xmgreat.bean.UserInfoBean">
-		select * from tbluserinfo where USERID=#{userId}
+		select * from tbluserinfo where phyCardId=#{phyCardId}
 	</select>
 	<!--查询用户流水账 -->
 	<select id="selectAccount"
@@ -444,7 +444,7 @@
 	<insert id="regUser"
 		parameterType="org.xmgreat.bean.UserInfoBean">
 		INSERT INTO TBLUSERINFO (USERID, USERNAME, SEX, AGE, BIRTH, BLOODTYPE,
-		CITYID, USERADD, PHONE, PWD, REGTIME,PARAMETERID) VALUES (#{userId},
+		CITYID, USERADD, PHONE, PWD, REGTIME,PARAMETERID) VALUES (USERREG.nextVal,
 		#{userName}, #{sex}, #{age}, #{birth}, #{bloodType}, #{cityId},
 		#{useradd}, #{phone}, #{pwd}, to_char(sysdate, 'yyyy-mm-dd
 		hh24:mi'),#{parameterID})

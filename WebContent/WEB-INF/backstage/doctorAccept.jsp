@@ -60,11 +60,11 @@
 	<div class="container">
 		<div class="x-nav">
 			<span class="layui-breadcrumb"> <a href="main.jsp"><cite>医生工作</cite></a>
-				<a><cite>查看体检人</cite></a>
+				<a><cite>项目接收</cite></a>
 			</span>
 		</div>
 		<div class="page-header text-center">
-			<h1>查看体检人</h1>
+			<h1>项目接收</h1>
 		</div>
 		<div class="text-center" id="div4">
 			<form class="form-inline" role="form" id="myForm">
@@ -111,8 +111,18 @@
 						</c:if>
 						<c:if test="${menu.parameterId==38}">
 							<td><a
-								href="doctor/skipExamination.action?projectId=${menu.projectId}&&proresId=${menu.proresId}"><button
+								href="doctor/skipExamination.action?projectId=${menu.projectBean.projectId}&&proresId=${menu.proresId}"><button
 										type="button" class="btn btn-primary">体检</button></a></td>
+						</c:if>
+						<c:if test="${menu.parameterId==12}">
+							<td><a
+								href="doctor/particular.action?projectId=${menu.projectBean.projectId}&&proresId=${menu.proresId}"><button
+										type="button" class="btn btn-primary">查看详情</button></a></td>
+						</c:if>
+						<c:if test="${menu.parameterId==13}">
+							<td><a
+								href="doctor/particular.action?projectId=${menu.projectBean.projectId}&&proresId=${menu.proresId}"><button
+										type="button" class="btn btn-primary">查看详情</button></a></td>
 						</c:if>
 					</tr>
 				</c:forEach>
