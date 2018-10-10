@@ -76,10 +76,6 @@ public class SummaryBizImpl implements SummaryBiz
 		}
 		ProjectResultBean projectResultBean = projectResultMapper.getProjectResult(proresId);
 		projectResultBean.setParameterId(parameterId);
-		if (null != projectResult)
-		{
-			projectResultBean.setProjectResult(projectResult);
-		}
 		projectResultMapper.updateProjectResul(projectResultBean);
 
 	}
@@ -172,6 +168,11 @@ public class SummaryBizImpl implements SummaryBiz
 					i++;
 				}
 			}
+			
+			ProjectResultBean projectResultBean = projectResultMapper.getProjectResult(proresId);
+			projectResultBean.setParameterId(parameterId);
+			projectResultMapper.updateProjectResul(projectResultBean);
+
 		}
 
 	}
