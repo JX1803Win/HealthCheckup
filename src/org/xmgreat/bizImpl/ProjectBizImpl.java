@@ -76,8 +76,11 @@ public class ProjectBizImpl implements ProjectBiz
 		ProjectBean project = projectlMapper.getProject(projectId);
 		for (int i = 0; i < project.getDetails().size(); i++)
 		{
-			ParameterBean parameter = paramMapper.getParameter(project.getDetails().get(i).getParameterId());
-			project.getDetails().get(i).setParameterBean(parameter);
+			if (null != project.getDetails().get(i).getParameterId())
+			{
+				ParameterBean parameter = paramMapper.getParameter(project.getDetails().get(i).getParameterId());
+				project.getDetails().get(i).setParameterBean(parameter);
+			}
 		}
 		return project;
 	}
@@ -153,6 +156,12 @@ public class ProjectBizImpl implements ProjectBiz
 				projectlMapper.addRelation(projectBean.getProjectId(), subentryId[i]);
 			}
 		}
+	}
+
+	@Override
+	public ProjectBean checkProject1(String itemName)
+	{
+		return projectlMapper.selectProject(itemName);
 	}
 
 }

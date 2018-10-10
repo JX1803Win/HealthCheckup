@@ -22,6 +22,7 @@
 <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <link href="css/project.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/jscript" src="js/project.js"></script>
 
 </head>
@@ -32,12 +33,14 @@
 		</div>
 		<div id="div8">
 
-			<form role="form" action="backstage/affirmUpdate.action"
-				method="post">
-				<input type="hidden" name="projectId"
+			<form role="form" id="updateProject"
+				action="backstage/affirmUpdate.action" method="post">
+				<input type="hidden" id="check" value="true"> <input
+					type="hidden" name="projectId"
 					value="${resultMap['project'].projectId}"> <input
 					type="hidden" name="currentPage" value="${currentPage}"> <input
-					type="hidden" name="name" value="${name}">
+					type="hidden" name="name" value="${name}"> <input
+					type="hidden" id="iName" value="${resultMap['project'].itemName}">
 				<div class="form-group">
 					<label for="itemName">项目名称：</label> <input type="text"
 						class="form-control" name="itemName" id="itemName"

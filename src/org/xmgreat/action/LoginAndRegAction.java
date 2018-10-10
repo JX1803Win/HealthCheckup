@@ -173,5 +173,21 @@ public class LoginAndRegAction
 		userBiz.forGotPwd(Long.parseLong(phone), pass);
 		return "../ForGot3";
 	}
+	
+	//进入预约
+	@RequestMapping(value = "/gotoappo.action")
+	public String gotoappo(HttpServletRequest request)
+	{
+		return "user/appointment";
+	}
+	
+	
+	// 退出登入
+		@RequestMapping(value = "/backlog.action")
+		@ResponseBody
+		public void backlog(HttpServletRequest request)
+		{
+			session.invalidate();
+		}
 
 }

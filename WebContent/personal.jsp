@@ -220,7 +220,6 @@
 					<li id="one1" onclick="setTab('one',1)">资料更改</li>
 					<li id="one2" onclick="setTab('one',2)">密码更改</li>
 					<li id="one3" onclick="setTab('one',3)">我的账户</li>
-					<li id="one4" onclick="setTab('one',4)">QAQ</li>
 				</ul>
 			</div>
 			<div class="menudiv">
@@ -395,8 +394,6 @@
 						<h3 align="center">暂无账户记录</h3>
 					</c:if>
 				</div>
-
-				<div id="con_one_4" style="display: none;">QAQ</div>
 			</div>
 		</div>
 	</div>

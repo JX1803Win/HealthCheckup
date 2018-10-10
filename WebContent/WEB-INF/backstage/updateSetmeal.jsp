@@ -22,6 +22,7 @@
 <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <link href="css/project.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/jscript" src="js/setmeal.js"></script>
 
 </head>
@@ -33,8 +34,11 @@
 		<div id="div8">
 
 			<form role="form" action="backstage/affirmUpdateSetmeal.action"
-				method="post">
-				<input type="hidden" name="setmealId"
+				id="updateSetmeal" method="post">
+				<input type="hidden" id="check" value="true"> <input
+					type="hidden" id="sName"
+					value="${resultMap['setmeal'].setmealName}"> <input
+					type="hidden" name="setmealId"
 					value="${resultMap['setmeal'].setmealId}"> <input
 					type="hidden" name="currentPage" value="${currentPage}"> <input
 					type="hidden" name="name" value="${name}">
@@ -75,7 +79,8 @@
 					<a
 						href="backstage/querySetmeal.action?currentPage=${currentPage}&&name=${name}"><button
 							type="button" class="btn btn-default m2">返回</button></a>
-					<button type="submit" class="btn btn-primary m2" onclick="return uodate()">提交</button>
+					<button type="submit" class="btn btn-primary m2"
+						onclick="return update()">提交</button>
 				</div>
 			</form>
 

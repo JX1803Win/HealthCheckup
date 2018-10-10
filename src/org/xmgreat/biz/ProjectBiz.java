@@ -26,6 +26,13 @@ public interface ProjectBiz
 	public ProjectBean getProject(Integer projectId);
 
 	/**
+	 * @description 根据项目id查询项目详情
+	 * @param itemName 项目名称
+	 * @return 项目详情
+	 */
+	public ProjectBean checkProject1(String itemName);
+
+	/**
 	 * @description 跳转到添加项目页面
 	 * @return 返回添加页面需要的数据
 	 */

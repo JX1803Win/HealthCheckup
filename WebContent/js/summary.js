@@ -1,13 +1,17 @@
 // JavaScript Document
 
-function change1(url) {
-	document.getElementById('method1').action = url;
+function change(num) {
+	$("#parameterId").val(num);
 }
 
-function change2(url) {
-	document.getElementById('method2').action = url;
-}
+$(function() {
+	$('#method').submit(function() {
+		var projectResult = $('#projectResult').val();
+		if (projectResult == "") {
+			alert('医师小结不能为空');
+			return false;
+		}
 
-function change3(url) {
-	document.getElementById('method3').action = url;
-}
+		return true;
+	});
+})

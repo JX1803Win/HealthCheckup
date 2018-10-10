@@ -53,7 +53,6 @@
         {
         	var phonenb = document.getElementById('phonenb').value;
         	if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenb))){
-        		alert(1);
         		document.getElementById('mag').innerHTML = '请输入正确的手机号'
         		return
         	}
@@ -104,8 +103,6 @@
         } 
     }
 </script>
-
-
 
 
 </head>

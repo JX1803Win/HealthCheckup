@@ -62,7 +62,7 @@ $(function() {
 });
 
 function ckeck1() {
-	if ($("check").val() == 'false') {
+	if ($("#check").val() == 'true') {
 		return true;
 	}
 	alert('该细项名称已被使用');
@@ -79,7 +79,7 @@ function checkDetailName() {
 			if ('false' == result) {
 				alert('该细项名称已被使用');
 			}
-			$("check").val(result);
+			$("#check").val(result);
 		},
 		error : function() {
 			alert("异常！");
@@ -97,7 +97,7 @@ function checkDetailName1() {
 			if ('false' == result) {
 				alert('该细项名称已被使用');
 			}
-			$("check").val(result);
+			$("#check").val(result);
 		},
 		error : function() {
 			alert("异常！");

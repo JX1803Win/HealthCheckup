@@ -133,7 +133,7 @@
 					<form action="backstage/addDetail.action?" id="addDetail"
 						name="addDetail" class="form-horizontal" role="form" method="post">
 						<div class="modal-body">
-							<input type="hidden" name="check" value="false"> <input
+							<input type="hidden" id="check" value="false"> <input
 								type="hidden" name="name" value="${name}"> <input
 								type="hidden" name="currentPage"
 								value="${resultMap['currentPage']}">
@@ -216,7 +216,7 @@
 						method="post">
 
 						<div class="modal-body">
-							<input type="hidden" id ="deName"> <input type="hidden"
+							<input type="hidden" id="deName"> <input type="hidden"
 								name="name" value="${name}"> <input type="hidden"
 								name="currentPage" value="${resultMap['currentPage']}">
 							<input type="hidden" name="subentryId" id="subentryId">

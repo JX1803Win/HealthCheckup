@@ -1,18 +1,6 @@
 package org.xmgreat.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-import jxl.format.Colour;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,28 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.xmgreat.bean.ManagerBean;
-import org.xmgreat.bean.MouthBean;
 import org.xmgreat.bean.ParameterBean;
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.bean.ProjectResultBean;
-import org.xmgreat.bean.RoleBean;
-import org.xmgreat.bean.SetmealBean;
-import org.xmgreat.bean.TriMouthBean;
 import org.xmgreat.bean.UserInfoBean;
-import org.xmgreat.bean.UserPhyRecordBean;
-import org.xmgreat.bean.WeekBean;
 import org.xmgreat.biz.SummaryBiz;
 import org.xmgreat.bizImpl.DoctorBizImpl;
-import org.xmgreat.util.DateUtils;
 
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
 
 
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.xmgreat.annotation.SystemLog;
 import org.xmgreat.bean.SetmealBean;
 import org.xmgreat.biz.SetmealBiz;
@@ -25,6 +26,18 @@ public class SetmealAction
 	@Resource
 	private SetmealBiz setmealBiz;
 	private Map<String, Object> resultMap; // 结果map
+
+	@RequestMapping(value = "/checkSetmealName")
+	@ResponseBody
+	public boolean checkSetmealName(String setmealName)
+	{
+		boolean mag = true;
+		if (null != setmealBiz.checkSetmealName(setmealName))
+		{
+			mag = false;
+		}
+		return mag;
+	}
 
 	@RequestMapping(value = "/querySetmeal")
 	public String querySetmeal(HttpServletRequest request, String name, Integer currentPage)

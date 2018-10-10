@@ -83,8 +83,11 @@ public class SetmealBizImpl implements SetmealBiz
 			ProjectBean project = projectlMapper.getProject(setmealBean.getItems().get(i).getProjectId());
 			for (int j = 0; j < project.getDetails().size(); j++)
 			{
-				ParameterBean parameter = paramMapper.getParameter(project.getDetails().get(j).getParameterId());
-				project.getDetails().get(j).setParameterBean(parameter);
+				if (null != project.getDetails().get(j).getParameterId())
+				{
+					ParameterBean parameter = paramMapper.getParameter(project.getDetails().get(j).getParameterId());
+					project.getDetails().get(j).setParameterBean(parameter);
+				}
 			}
 			projects.add(project);
 		}
@@ -157,6 +160,12 @@ public class SetmealBizImpl implements SetmealBiz
 				setmealMapper.addRelation(setmealBean.getSetmealId(), projectId[i]);
 			}
 		}
+	}
+
+	@Override
+	public SetmealBean checkSetmealName(String setmealName)
+	{
+		return setmealMapper.selectSetmeal(setmealName);
 	}
 
 }
