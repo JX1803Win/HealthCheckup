@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xmgreat.bean.ManagerBean;
 import org.xmgreat.bean.PermissionsInfBean;
+import org.xmgreat.bean.UserInfoBean;
 import org.xmgreat.biz.AdminBiz;
 import org.xmgreat.biz.BackLogBiz;
 
@@ -33,36 +34,50 @@ public class BackstageLoginAction
 	private BackLogBiz backLogBiz;
 	@Resource
 	private ManagerBean managerBean;
-    
+
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public void login(HttpServletRequest request,String mangerName,String password, String verification) throws IOException
+	public void login(HttpServletRequest request, String mangerName, String password, String verification)
+			throws IOException
 	{
-		System.out.println(mangerName+password+verification);
 		PrintWriter out = response.getWriter();
 		String tips;
 		HttpSession session = request.getSession();
 		String code = (String) session.getAttribute("keyCode");
-		managerBean=backLogBiz.checkBackLog(mangerName, password);
-		if(managerBean==null||!(code.equals(verification))) {
+		managerBean = backLogBiz.checkBackLog(mangerName, password);
+		if (managerBean == null || !(code.equals(verification)))
+		{
 			tips = "错误";
 			Gson gson = new Gson();
 			String str = gson.toJson(tips);
 			out.print(str);
 			out.close();
-		}else {
-			//通过角色查询动态菜单
-			int roleId=managerBean.getRoleId();
-			List<PermissionsInfBean> pibList=adminBiz.selectRoleInfo(roleId);
+		} else
+		{
+			// 通过角色查询动态菜单
+			int roleId = managerBean.getRoleId();
+			List<PermissionsInfBean> pibList = adminBiz.selectRoleInfo(roleId);
 			session.setAttribute("pibList", pibList);
 			session.setAttribute("admin", managerBean);
 		}
 
 	}
-	
-	@RequestMapping(value = "/index.action")
-	public String index(HttpServletRequest request,String mangerName,String password, String verification) throws IOException
+
+	@RequestMapping(value = "/indexs")
+	public String login(HttpServletRequest request)
 	{
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "backstage/login";
+	}
+
+	@RequestMapping(value = "/index.action")
+	public String index(HttpServletRequest request, String mangerName, String password, String verification)
+			throws IOException
+	{
+		
 		return "backstage/index";
 	}
+
+
 }

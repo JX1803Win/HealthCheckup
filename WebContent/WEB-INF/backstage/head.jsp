@@ -11,11 +11,9 @@
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>健康体检散检后台管理</title>
-
-
-
 <link href="css/myPublic.css" rel="stylesheet" type="text/css" />
 </head>
+
 
 <body>
 	<!-- 头部 -->
@@ -24,7 +22,7 @@
 			<h1 id="headL">健康体检散检后台管理</h1>
 		</div>
 		<div class="headR">
-			<a href="AdminServlet?action=exit" target="_parent">【退出】</a>
+			<a href="backstage/indexs.action" target="_parent">【退出】</a>
 		</div>
 	</div>
 	<div class="user">
