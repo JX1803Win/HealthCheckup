@@ -58,4 +58,6 @@ public interface SetmealBiz
 	 * @param setmealId 项目id
 	 */
 	public void delSetmeal(Integer setmealId);
+	
+	public SetmealBean checkSetmealName(String setmealName);
 }

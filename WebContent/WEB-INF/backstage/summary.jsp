@@ -59,7 +59,8 @@
 					</table>
 					<div class="form-group">
 						<label for="projectResult">医师小结:</label>
-						<textarea class="form-control" name="projectResult" rows="3">${projectResult.projectResult}</textarea>
+						<textarea class="form-control" name="projectResult"
+							id="projectResult" rows="3">${projectResult.projectResult}</textarea>
 					</div>
 
 					<div class="text-center t2">
@@ -91,7 +92,8 @@
 						<tbody>
 							<tr>
 								<th>医师小结</th>
-								<td><textarea class="form-control" rows="3"></textarea></td>
+								<td><textarea class="form-control" name="projectResult"
+										id="projectResult" rows="3"></textarea></td>
 							</tr>
 						</tbody>
 					</table>
@@ -100,9 +102,9 @@
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 						<button type="submit" class="btn btn-primary m2"
-							onclick="change2('backstage/projectSummary.action?parameterId=12')">保存</button>
+							onclick="change2('backstage/imageSummary.action?parameterId=12')">保存</button>
 						<button type="submit" class="btn btn-primary m2"
-							onclick="change2('backstage/projectSummary.action?parameterId=13')">提交</button>
+							onclick="change2('backstage/imageSummary.action?parameterId=13')">提交</button>
 					</div>
 				</form>
 			</c:if>
@@ -137,7 +139,8 @@
 					</table>
 					<div class="form-group">
 						<label for="name">医师小结:</label>
-						<textarea class="form-control" rows="3"></textarea>
+						<textarea class="form-control" name="projectResult"
+							id="projectResult" rows="3"></textarea>
 					</div>
 
 					<div class="text-center t2">
