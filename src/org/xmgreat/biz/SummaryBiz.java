@@ -56,6 +56,14 @@ public interface SummaryBiz
 			Integer parameterId) throws IllegalStateException, IOException;
 
 	/**
+	 * @description 医师小结
+	 * @param proresId      项目结果id
+	 * @param projectResult 项目结果
+	 * @param parameterId   小结状态
+	 */
+	public void summary(Integer proresId, String projectResult, Integer parameterId);
+
+	/**
 	 * 
 	 * @param proresId 项目结果id
 	 * @return 项目结果实体
