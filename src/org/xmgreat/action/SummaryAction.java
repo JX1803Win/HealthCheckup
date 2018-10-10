@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.xmgreat.bean.ManagerBean;
-import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.bean.ProjectResultBean;
 import org.xmgreat.biz.SummaryBiz;
 
@@ -29,16 +28,6 @@ public class SummaryAction
 	private DoctorAction doctorAction;
 
 	private Map<String, Object> resultMap; // 结果map
-
-	@RequestMapping(value = "/skipExamination")
-	public String skipExamination(HttpServletRequest request, Integer projectId, Integer proresId)
-	{
-
-		ProjectBean project = summaryBiz.skipExamination(projectId);
-		request.setAttribute("proresId", proresId);
-		request.setAttribute("project", project);
-		return "backstage/examination";
-	}
 
 	@RequestMapping(value = "/querySummary")
 	public String querySummary(HttpServletRequest request, Integer parameterId, Integer currentPage)
