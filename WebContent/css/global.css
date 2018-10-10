@@ -73,7 +73,7 @@ ul.headT li span a {display: block;font-size: 28px;height: 100%;width: 100%;}
 
 
 
-dl.ind_TuBiao{ width: 100%;display: inline-block;}
+dl.ind_TuBiao{ width: 103%;display: inline-block;}
 dl.ind_TuBiao dd{ width: 24.5%;display: inline-block;float: left;text-align: center;background: #fff;margin: 0 2px 2px 0;}
 dl.ind_TuBiao dd:nth-child(4n){margin: 0 0 2px 0;}
 dl.ind_TuBiao dd a{ width: 100%;display: inline-block;float: left;padding-bottom: 15px;}
