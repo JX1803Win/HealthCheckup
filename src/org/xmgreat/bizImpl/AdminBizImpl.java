@@ -309,21 +309,23 @@ public class AdminBizImpl implements AdminBiz
 	@Override
 	public ModelAndView selectProject(UserPhyRecordBean userPhyRecordBean) {
 		// TODO Auto-generated method stub
-		List<UserPhyRecordBean> lisUserPhy=adminMapper.selectPhysicaiInfo(userPhyRecordBean);
-		System.out.println("套餐ID"+lisUserPhy.get(0).getSetmealId());
-		System.out.println("项目ID"+	lisUserPhy.get(0).getProjectId());
+		List<UserPhyRecordBean> lisUserPhy = adminMapper.selectPhysicaiInfo(userPhyRecordBean);
+		if (lisUserPhy.size() >0) {
+			mav.addObject("lisUserPhy", lisUserPhy);
+			if (lisUserPhy.get(0).getSetmealId() != null) {// 查套餐下的项目
+				list = adminMapper.selectProjectInfo(lisUserPhy.get(0).getSetmealId());
+				Double charge = adminMapper.charge(lisUserPhy.get(0).getSetmealId());
+				mav.addObject("list", list);
+				mav.addObject("charge", charge);
+			}
+			if (lisUserPhy.get(0).getProjectId() != null) {// 查项目
+				list = adminMapper.selectProjectInfo2(lisUserPhy.get(0).getProjectId());
+				mav.addObject("list", list);
+			}
+		} else {
+			mav.addObject("msg", "体检号不存在");
+		}
 		mav.setViewName("backstage/chargeWork");
-		mav.addObject("lisUserPhy",lisUserPhy);
-		if(lisUserPhy.get(0).getSetmealId()!=null) {//查套餐下的项目
-			list=adminMapper.selectProjectInfo(lisUserPhy.get(0).getSetmealId());
-			Double charge =adminMapper.charge(lisUserPhy.get(0).getSetmealId());
-			mav.addObject("list",list);
-			mav.addObject("charge",charge);
-		}
-		if(lisUserPhy.get(0).getProjectId()!=null) {//查项目
-			list=adminMapper.selectProjectInfo2(lisUserPhy.get(0).getProjectId());
-			mav.addObject("list",list);
-		}
 		return mav;
 	}
 	//结账
@@ -365,31 +367,35 @@ public class AdminBizImpl implements AdminBiz
 		System.out.println(userInfoBean.getPage());*/
 		
 		UserInfoBean userInfo=adminMapper.selectUserInfo(userInfoBean);
-		pageAll=adminMapper.selectAccountAll(userInfo);
-		int allPage = 0;
-		if (pageAll % 3 != 0) {
-			allPage = (pageAll / 3) + 1;
+		if (userInfo != null) {
+			pageAll=adminMapper.selectAccountAll(userInfo);
+			int allPage = 0;
+			if (pageAll % 3 != 0) {
+				allPage = (pageAll / 3) + 1;
+			} else {
+				allPage = (pageAll / 3);
+			}
+			page=userInfoBean.getPage();
+			userInfoBean.setUserId(userInfo.getUserId());
+			list=adminMapper.selectAccount(userInfoBean);
+			UserAccoutBean userAccoutBean=adminMapper.selectBalance(userInfo.getUserId());
+			mav.addObject("list",list);
+			mav.addObject("pageAll",allPage);
+			mav.addObject("page",page);
+			mav.addObject("userName",userInfo.getUserName());
+			mav.addObject("userAge",userInfo.getAge());
+			mav.addObject("userSex",userInfo.getSex());
+			mav.addObject("page",page);
+			if(null == userAccoutBean) {
+				mav.addObject("balance", 0);
+			} else {
+				mav.addObject("balance",userAccoutBean.getBalance());
+			}
+			mav.addObject("userId",userInfoBean.getUserId());
+			mav.addObject("phyCardId",userInfo.getPhyCardId());
 		} else {
-			allPage = (pageAll / 3);
+			mav.addObject("msg", "卡号不存在");
 		}
-		page=userInfoBean.getPage();
-		userInfoBean.setUserId(userInfo.getUserId());
-		list=adminMapper.selectAccount(userInfoBean);
-		UserAccoutBean userAccoutBean=adminMapper.selectBalance(userInfo.getUserId());
-		mav.addObject("list",list);
-		mav.addObject("pageAll",allPage);
-		mav.addObject("page",page);
-		mav.addObject("userName",userInfo.getUserName());
-		mav.addObject("userAge",userInfo.getAge());
-		mav.addObject("userSex",userInfo.getSex());
-		mav.addObject("page",page);
-		if(null == userAccoutBean) {
-			mav.addObject("balance", 0);
-		} else {
-			mav.addObject("balance",userAccoutBean.getBalance());
-		}
-		mav.addObject("userId",userInfoBean.getUserId());
-		mav.addObject("phyCardId",userInfo.getPhyCardId());
 		mav.setViewName("backstage/userAccount");
 		return mav;
 	}

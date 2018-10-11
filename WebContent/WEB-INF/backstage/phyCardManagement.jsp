@@ -178,7 +178,7 @@ $("#increased").click(function() {
 
 						<td class="td-manage"> <a title="挂失"
 							href="<%=path%>ManageAction/reportTheLossOf.action?page=${page}&&parameterId=18&&phyCardId=${phyCard.phyCardId}"
-							onclick="return mydelete()" style="text-decoration: none"> <i
+							onclick="return guashiCard()" style="text-decoration: none"> <i
 								class="layui-icon">&#xe640;</i>
 						</a></td>
 					</c:if>

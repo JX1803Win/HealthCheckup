@@ -38,6 +38,56 @@ function mydelete(){
 		}
 		
 	}
+	function myCard(){
+		var x;
+		var r=confirm("确定要激活此卡吗？");
+		if(r==true){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	function chushihuaCard(){
+		var x;
+		var r=confirm("确定要初始化此卡吗？");
+		if(r==true){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	function jinyongCard(){
+		var x;
+		var r=confirm("确定要禁用此卡吗？");
+		if(r==true){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	function shanchuCard(){
+		var x;
+		var r=confirm("确定要删除此卡吗？");
+		if(r==true){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	function guashiCard(){
+		var x;
+		var r=confirm("确定要挂失此卡吗？");
+		if(r==true){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
 	function isChinese(obj){ 
 		var reg=/^[\u0391-\uFFE5]+$/; 
 		if(obj!=""&&!reg.test(obj)){ 

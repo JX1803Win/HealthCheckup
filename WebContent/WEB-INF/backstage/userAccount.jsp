@@ -42,7 +42,7 @@
 			<div class="form-group">
 				<label for="name" class="m">卡号：</label> <input type="text"
 					class="form-control input-sm  m4" id="phyCardId" name="phyCardId"
-					placeholder="请输入账号" value="">
+					placeholder="请输入体检卡号" value="">
 			</div>
 			<input type="hidden" id="page" name="page" value="1"/>
 			<button type="submit" class="btn btn-primary" onclick="return checkPhyCardId()">查询</button>
@@ -309,5 +309,11 @@ document.form1.action="<%=path%>ManageAction/alipayment.action";
 document.form1.submit(); 
 
 } 
+$(function(){
+	var msg="${msg}";
+	if(msg.length>0){
+		alert(msg);
+	}
+});
 </script>
 </html>

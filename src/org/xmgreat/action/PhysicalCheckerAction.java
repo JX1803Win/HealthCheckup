@@ -33,18 +33,12 @@ public class PhysicalCheckerAction {
 	public int pageNo;
 	//查询体检人信息
 		@RequestMapping(value="/medicalManInf.action")//为这个方法定义映射子路劲 
-		public ModelAndView selectmedicalManInf (HttpServletRequest request,HttpServletResponse response,String userName,Long phone,Long barCode,String starDay,String end)throws Exception {
+		public ModelAndView selectmedicalManInf (HttpServletRequest request,HttpServletResponse response,String userName,Long phone,Long barCode,String starDay,String endDay)throws Exception {
 			String aString=request.getParameter("pageNo");
 			if (aString!=null) {
 				pageNo=Integer.parseInt(aString);
 			}
-			if (phone==null) {
-				phone=(long) 0;
-			}
-			if (barCode==null) {
-				barCode=(long) 0;
-			}
-			int size=doctorBizImpl.selectMedicalManNum(userName, phone, barCode, starDay,end);
+			int size=doctorBizImpl.selectMedicalManNum(userName, phone, barCode, starDay,endDay);
 			request.setAttribute("sizeM", size);
 	  	    int AllPage = 0;
 				if (size % 5 != 0) {
@@ -61,10 +55,14 @@ public class PhysicalCheckerAction {
 						pageNo = AllPage;
 					}
 				}  
-				
+				request.setAttribute("userName", userName);
+			    request.setAttribute("phone", phone);
+			    request.setAttribute("barCode", barCode);
+			    request.setAttribute("starDay", starDay);
+			    request.setAttribute("endDay", endDay);
 			request.setAttribute("pageNoM", pageNo);
 			request.setAttribute("AllPageM", AllPage);
-		    List<UserPhyRecordBean> uprbList=doctorBizImpl.selectMedicalMan(userName, phone, barCode, starDay,end, pageNo);			    
+		    List<UserPhyRecordBean> uprbList=doctorBizImpl.selectMedicalMan(userName, phone, barCode, starDay,endDay, pageNo);			    
 		    request.setAttribute("uprbList", uprbList);    
 			ModelAndView mav = new ModelAndView();
 		  	mav.setViewName("backstage/selectUInf");

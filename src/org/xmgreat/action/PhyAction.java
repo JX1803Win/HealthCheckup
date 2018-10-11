@@ -61,7 +61,7 @@ public class PhyAction {
 		if(cost <= balance) {
 			userPhyRecordBean.setAppoTime(time);
 			phyBizImpl.addPhyRecord(userPhyRecordBean);
-			request.setAttribute("msg", "");
+			request.setAttribute("msg", "预约成功");
 		} else {
 			request.setAttribute("msg", "您的余额不足！");
 		}

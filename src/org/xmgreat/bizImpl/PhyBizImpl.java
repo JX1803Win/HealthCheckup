@@ -34,6 +34,7 @@ public class PhyBizImpl implements PhyBiz {
 	@Override
 	public void addPhyRecord(UserPhyRecordBean uprb) {
 		phyMapper.addPhyRecord(uprb);
+		uprb.setPhysicaiId(phyMapper.queryLastPhyRecord(uprb.getUserId()));
 		Double cost = null;
 		Double balance = phyMapper.queryUserAcc(uprb.getUserId()).getBalance();
 		if(uprb.getSetmealId() != null) {
