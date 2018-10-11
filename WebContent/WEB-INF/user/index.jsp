@@ -64,24 +64,18 @@ function back() {
     <div class="headse">
 		<div class="headL">
 			<h1 id="headL">健康体检散检</h1>
-		</div>
-		
-		<c:if test="${user.userName==null}">
-		
+		</div>	
+		<c:if test="${user.userName==null}">	
 		<div class="headR">
 			<a href="UserLoginAndReg.jsp" target="_parent">【登入】</a>
 		</div>
-		</c:if>
-		
-		<c:if test="${user.userName!=null}">
-		
+		</c:if>	
+		<c:if test="${user.userName!=null}">		
 		<div class="user">
 		<span>${user.userName}</span>
 		<a href="" onclick="return back()" target="_parent">【退出】</a>
 		</div>
-		
 		</c:if>
-		
 	</div>
     
     <div id="banner" class="flexslider">
