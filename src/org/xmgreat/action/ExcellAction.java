@@ -78,13 +78,7 @@ public class ExcellAction
         sheet.addCell(labelE);
         sheet.addCell(labelF);
         //接收数据
-		if (phone==null) {
-			phone=(long) 0;
-		}
-		if (barCode == null)
-		{
-			barCode = (long) 0;
-		}
+		
         List<UserPhyRecordBean> uprbList=doctorBizImpl.selectMedicalManS(userName, phone, barCode, starDay,end); 
         for (int i = 0; i < uprbList.size(); i++) {
             Label labelAi = new Label(0, i + 1, String.valueOf(i+1));

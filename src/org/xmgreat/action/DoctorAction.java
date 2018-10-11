@@ -78,6 +78,7 @@ public class DoctorAction {
 			}
 
 		}
+	    request.setAttribute("physicaiId", physicaiId);
   	    session.setAttribute("uprbList", uprbList); 
   	    ModelAndView mav = new ModelAndView();
   	    mav.setViewName("backstage/doctorAccept");

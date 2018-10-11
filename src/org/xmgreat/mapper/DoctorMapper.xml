@@ -84,10 +84,10 @@
 		<if test="userName!=null and userName != ''">
 			and tui.userName like concat(concat('%',#{userName}),'%')
 		</if>
-		<if test="phone!=0 and phone != ''">
+		<if test="phone!=null and phone != ''">
 			and tui.phone like concat(concat('%',#{phone}),'%')
 		</if>
-		<if test="barCode!=0 and barCode != ''">
+		<if test="barCode!=null and barCode != ''">
 			and tpr.barCode like concat(concat('%',#{barCode}),'%')
 		</if>
 		<if
@@ -103,10 +103,10 @@
 		<if test="userName!=null and userName != ''">
 			and tui.userName like concat(concat('%',#{userName}),'%')
 		</if>
-		<if test="phone!=0 and phone != ''">
+		<if test="phone!=null and phone != ''">
 			and tui.phone like concat(concat('%',#{phone}),'%')
 		</if>
-		<if test="barCode!=0 and barCode != ''">
+		<if test="barCode!=null and barCode != ''">
 			and tpr.barCode like concat(concat('%',#{barCode}),'%')
 		</if>
 		<if
@@ -153,10 +153,10 @@
 		<if test="userName!=null and userName != ''">
 			and ti.userName like concat(concat('%',#{userName}),'%')
 		</if>
-		<if test="phone!=0 and phone != ''">
+		<if test="phone!=null and phone != ''">
 			and ti.phone like concat(concat('%',#{phone}),'%')
 		</if>
-		<if test="barCode!=0 and barCode != ''">
+		<if test="barCode!=null and barCode != ''">
 			and tpr.barCode like concat(concat('%',#{barCode}),'%')
 		</if>
 		<if
@@ -189,10 +189,10 @@
 		<if test="userName!=null and userName != ''">
 			and ti.userName like concat(concat('%',#{userName}),'%')
 		</if>
-		<if test="phone!=0 and phone != ''">
+		<if test="phone!=null and phone != ''">
 			and ti.phone like concat(concat('%',#{phone}),'%')
 		</if>
-		<if test="barCode!=0 and barCode != ''">
+		<if test="barCode!=null and barCode != ''">
 			and tpr.barCode like concat(concat('%',#{barCode}),'%')
 		</if>
 		<if
@@ -211,10 +211,10 @@
 		<if test="userName!=null and userName != ''">
 			and ti.userName like concat(concat('%',#{userName}),'%')
 		</if>
-		<if test="phone!=0 and phone != ''">
+		<if test="phone!=null and phone != ''">
 			and ti.phone like concat(concat('%',#{phone}),'%')
 		</if>
-		<if test="barCode!=0 and barCode != ''">
+		<if test="barCode!=null and barCode != ''">
 			and tpr.barCode like concat(concat('%',#{barCode}),'%')
 		</if>
 		<if

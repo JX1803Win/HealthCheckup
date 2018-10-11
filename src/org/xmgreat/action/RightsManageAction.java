@@ -48,7 +48,8 @@ public class RightsManageAction {
 						} else if (pageNo > AllPage) {
 							pageNo = AllPage;
 						}
-					}  
+					} 
+					request.setAttribute("roleName", roleName);
 				request.setAttribute("pageNo", pageNo);
 				request.setAttribute("AllPage", AllPage);
 		 	    List<RoleBean> rbList =roleBizImpl.selectAllRoleInfo(roleName,pageNo);

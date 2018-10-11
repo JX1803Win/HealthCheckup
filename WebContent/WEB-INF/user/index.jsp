@@ -96,16 +96,16 @@ function back() {
     </div>
     <!--幻灯片 结束-->
         <dl class="ind_TuBiao">
-            <dd><a href="user/gosetmeal.action" onclick="return check(${user.userName})">
+            <dd><a href="user/gosetmeal.action" target="_blank" onclick="return check(${user.userName})">
                 <img src="img/ind_02.png" /><p>服务项目</p>
             </a></dd>
-            <dd><a href="user/gotoappo.action"  onclick="return check(${user.userName})">
+            <dd><a href="user/gotoappo.action" target="_blank" onclick="return check(${user.userName})">
                 <img src="img/ind_07.png" /><p>体检预约</p>
             </a></dd>
-            <dd><a href="PhyAction/queryAppo.action" onclick="return check(${user.userName})">
+            <dd><a href="PhyAction/queryAppo.action" target="_blank" onclick="return check(${user.userName})">
                 <img src="img/ind_06.png" /><p>我的预约</p>
             </a></dd>
-            <dd><a href="user/gopersonal.action"  onclick="return check(${user.userName})">
+            <dd><a href="user/gopersonal.action" target="_blank"  onclick="return check(${user.userName})">
                 <img src="img/ind_05.png" /><p>我的资料</p>
             </a></dd>
             

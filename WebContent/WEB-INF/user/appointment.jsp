@@ -12,16 +12,24 @@
     <script src="laydate/laydate.js"></script>
 	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
-		function show1() {
-			$("#combo_div").show();
-			$("#project_div").hide();
-			$("#btn").show();
-		}
-		function show2() {
-			$("#project_div").show();
-			$("#combo_div").hide();
-			$("#btn").show();
-		}
+	function show1() {
+		$("#combo_div").show();
+		$("#btn").show();
+		$("#project_div").hide();
+	    $("#btn1").removeClass("btn-primary");
+		$("#btn1").addClass("btn-success");
+	    $("#btn2").removeClass("btn-success");
+		$("#btn2").addClass("btn-primary");
+	}
+	function show2() {
+		$("#project_div").show();
+		$("#btn").show();
+		$("#combo_div").hide();
+		$("#btn2").removeClass("btn-primary");
+		$("#btn2").addClass("btn-success");
+	    $("#btn1").removeClass("btn-success");
+		$("#btn1").addClass("btn-primary");
+	}
 		function check() {
 			var result = "";
 			var time = $("#time").val();
@@ -77,8 +85,8 @@
 					<input class="form-control" type="text" id="time" name="time"/>
 				</div>
 				<div><br/>
-					<input type="button" class="btn btn-primary" onclick="show1()" value="选择体检套餐" />&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" class="btn btn-primary" onclick="show2()" value="选择体检项目" />
+					<input type="button" id="btn1" class="btn btn-primary" onclick="show1()" value="选择体检套餐" />&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="btn2" class="btn btn-primary" onclick="show2()" value="选择体检项目" />
 				</div>
 				<div class="form-inline" id="combo_div" style="display: none"><br/>
 					<label for="combo" class="control-label">体检套餐：</label>
@@ -95,7 +103,7 @@
 					</select>
 				</div>
 				<div id="btn" style="display: none"><br/>
-					<input type="button" class="btn btn-primary"  value="详情"/>&nbsp;&nbsp;&nbsp;&nbsp;
+					<!-- <input type="button" class="btn btn-primary"  value="详情"/>&nbsp;&nbsp;&nbsp;&nbsp; -->
 					<input type="submit" class="btn btn-primary" value="提交"/>
 				</div>
 			</div>

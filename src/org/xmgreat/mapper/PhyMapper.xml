@@ -23,8 +23,8 @@
 	</select>
 	<!-- 添加用户预约体检记录 -->
 	<insert id="addPhyRecord">
-		insert into TBLUSERPHYRECORD(physicaiId, userId, setmealId, projectId, appoTime,parameterId)
-		values(phySeq.NEXTVAL, #{uprb.userId}, #{uprb.setmealId,jdbcType=INTEGER}, 
+		insert into TBLUSERPHYRECORD(physicaiId, barcode, userId, setmealId, projectId, appoTime,parameterId)
+		values(phySeq.NEXTVAL, barcodeseq.nextval, #{uprb.userId}, #{uprb.setmealId,jdbcType=INTEGER}, 
 			#{uprb.projectId,jdbcType=INTEGER}, #{uprb.appoTime},10)
 	</insert>
 	<!-- 添加用户体检开单记录 -->
