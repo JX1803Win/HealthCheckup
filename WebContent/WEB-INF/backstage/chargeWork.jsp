@@ -187,5 +187,11 @@ $(function() {
 				});
 			});
 });
+$(function(){
+	var msg="${msg}";
+	if(msg.length>0){
+		alert(msg);
+	}
+});
 </script>
 </html>

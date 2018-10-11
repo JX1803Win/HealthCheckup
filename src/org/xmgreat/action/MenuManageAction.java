@@ -45,6 +45,7 @@ public class MenuManageAction {
 					pageNo = AllPage;
 				}
 			}  
+			request.setAttribute("menuName", menuName);
 			request.setAttribute("pageNoF", pageNo);
 			request.setAttribute("AllPageF", AllPage);
  	   List<PermissionsInfBean> rbList =roleBizImpl.selectAllMenuInfo(menuName,pageNo);	 	  

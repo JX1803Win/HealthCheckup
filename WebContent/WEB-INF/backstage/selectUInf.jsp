@@ -98,7 +98,7 @@
 				<div class="form-group">
 					<label for="name" class="m">用户名:</label> <input type="text"
 						class="form-control input-sm  m5" id="userName" name="userName"
-						placeholder="请输入名称" value="${roleName}"> <label for="name"
+						placeholder="请输入名称" value="${userName}"> <label for="name"
 						class="m">电话号码:</label> <input type="text"
 						class="form-control input-sm  m5" id="phone" name="phone"
 						placeholder="请输入手机号" value="${phone}"> <label for="name"
@@ -109,10 +109,10 @@
 						<ul class="inline">
 							开始时间：
 							<input type="text" class="inline laydate-icon" name="starDay"
-								id="start" value="" style="width: 200px; margin-right: 10px;" />
+								id="start" value="${starDay}" style="width: 200px; margin-right: 10px;" />
 							结束时间：
 							<input type="text" class="inline laydate-icon" name="endDay"
-								id="end" value="" style="width: 200px;" />
+								id="end" value="${endDay}" style="width: 200px;" />
 						</ul>
 					</div>
 				</div>

@@ -55,6 +55,7 @@ public class RoleAction {
 					pageNo = AllPage;
 				}
 			}  
+			request.setAttribute("roleName", roleName);
 		session.setAttribute("pageNo", pageNo);
 		session.setAttribute("AllPage", AllPage);
  	    List<RoleBean> rbList =roleBizImpl.selectAllRoleInfo(roleName,pageNo);

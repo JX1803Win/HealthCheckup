@@ -41,18 +41,19 @@ public class MedicalReportAction {
 	
 	@RequestMapping(value="/userPhyRecordInf.action")//为这个方法定义映射子路劲 
 	@ResponseBody
-	public ModelAndView selectuserPhyRecInf (HttpServletRequest request,HttpServletResponse response,String userName,Long phone,Long barCode,String starDay,String end)throws Exception {
+	public ModelAndView selectuserPhyRecInf (HttpServletRequest request,HttpServletResponse response,String userName,Long phone,Long barCode,String starDay,String endDay)throws Exception {
 		String aString=request.getParameter("pageNo");
 		if (aString!=null) {
 			pageNo=Integer.parseInt(aString);
 		}
-		if (phone==null) {
+		/*if (phone==null) {
 			phone=(long) 0;
 		}
 		if (barCode==null) {
 			barCode=(long) 0;
-		}
-		int size=doctorBizImpl.selectUserPhyNum(userName, phone, barCode, starDay,end);
+		}*/
+		System.out.println("------->"+phone+"<-----");
+		int size=doctorBizImpl.selectUserPhyNum(userName, phone, barCode, starDay,endDay);
 		request.setAttribute("sizeU", size);
   	    int AllPage = 0;
 			if (size % 5 != 0) {
@@ -72,7 +73,7 @@ public class MedicalReportAction {
 			
 		request.setAttribute("pageNoU", pageNo);
 		request.setAttribute("AllPageU", AllPage);
-	    List<UserPhyRecordBean> uprbList=doctorBizImpl.selectUserPhy(userName, phone, barCode, starDay,end, pageNo);
+	    List<UserPhyRecordBean> uprbList=doctorBizImpl.selectUserPhy(userName, phone, barCode, starDay,endDay, pageNo);
 	    for (int i = 0; i < uprbList.size(); i++) {
 	    	
 	    	if (uprbList.get(i).getProjectId()!=null) {//查询项目名
@@ -84,7 +85,12 @@ public class MedicalReportAction {
 					uprbList.get(i).setSetmealName(sb.getSetmealName());   	
 			}
 
-		}	    
+		}
+	    request.setAttribute("userName", userName);
+	    request.setAttribute("phone", phone);
+	    request.setAttribute("barCode", barCode);
+	    request.setAttribute("starDay", starDay);
+	    request.setAttribute("endDay", endDay);
 	    request.setAttribute("uprbList", uprbList);    
 		ModelAndView mav = new ModelAndView();
 	  	mav.setViewName("backstage/SelectUserInf");

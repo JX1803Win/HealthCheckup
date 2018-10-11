@@ -103,18 +103,18 @@
 						
 						<td class="td-manage"><a style="text-decoration: none"
 							href="<%=path%>ManageAction/updatePhyCardState.action?page=${page}&&phyCardId=${phyCard.phyCardId}&&parameterId=19"
-							title="激活 " onclick="return myforbidden()"> <i
+							title="激活 " onclick="return myCard()"> <i
 								class="layui-icon">&#xe601;</i>
 						</a>  <a title="删除"
 							href="<%=path%>ManageAction/updatePhyCardState.action?page=${page}&&phyCardId=${phyCard.phyCardId}&&parameterId=0"
-							onclick="return mydelete()" style="text-decoration: none"> <i
+							onclick="return shanchuCard()" style="text-decoration: none"> <i
 								class="layui-icon">&#xe640;</i>
 						</a></td>
 					</c:if>
 					<c:if test="${phyCard.parameterId==18}">
 						<td class="td-manage"><a style="text-decoration: none"
 							href="<%=path%>ManageAction/updatePhyCardState.action?page=${page}&&phyCardId=${phyCard.phyCardId}&&parameterId=17"
-							title="初始化" onclick="return mystar()"><i class="layui-icon">&#xe62f;</i></a>
+							title="初始化" onclick="return chushihuaCard()"><i class="layui-icon">&#xe62f;</i></a>
 							<a title="删除"
 							href="<%=path%>ManageAction/updatePhyCardState.action?page=${page}&&phyCardId=${phyCard.phyCardId}&&parameterId=0"
 							onclick="return mydelete()" style="text-decoration: none"> <i
@@ -124,10 +124,10 @@
 					<c:if test="${phyCard.parameterId==19}">
 						<td class="td-manage"><a style="text-decoration: none"
 							href="<%=path%>ManageAction/updatePhyCardState.action?page=${page}&&phyCardId=${phyCard.phyCardId}&&parameterId=18"
-							title="禁用" onclick="return mystar()"><i class="layui-icon">&#xe62f;</i></a>
+							title="禁用" onclick="return jinyongCard()"><i class="layui-icon">&#xe62f;</i></a>
 							 <a title="删除"
 							href="<%=path%>ManageAction/updatePhyCardState.action?page=${page}&&phyCardId=${phyCard.phyCardId}&&parameterId=0"
-							onclick="return mydelete()" style="text-decoration: none"> <i
+							onclick="return shanchuCard()" style="text-decoration: none"> <i
 								class="layui-icon">&#xe640;</i>
 						</a></td>
 					</c:if>
