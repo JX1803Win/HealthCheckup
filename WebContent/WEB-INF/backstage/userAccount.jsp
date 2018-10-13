@@ -307,7 +307,6 @@ function zhiFuBao()
 	}
 document.form1.action="<%=path%>ManageAction/alipayment.action"; 
 document.form1.submit(); 
-
 } 
 $(function(){
 	var msg="${msg}";

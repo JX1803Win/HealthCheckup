@@ -88,4 +88,11 @@ public class UserBizlmp implements UserBiz
 		return userMapper.countMeal();
 	}
 
+	@Override
+	public int countAcc(int userid)
+	{
+		// TODO Auto-generated method stub
+		return userMapper.countAcc(userid);
+	}
+
 }
