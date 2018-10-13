@@ -29,10 +29,12 @@ public class OfficeAction
 		{
 			page = 1;
 		}
+		int count=officeBiz.countOff();
 		HttpSession session = request.getSession();
 		session.setAttribute("pageNo", page);
 		session.setAttribute("AllPage", 2);
 		session.setAttribute("name", name);
+		session.setAttribute("sizeJ", count);
 		List<OfficeBean> list = officeBiz.getOffice(page);
 		request.setAttribute("list", list);
 		return "backstage/officeManager";

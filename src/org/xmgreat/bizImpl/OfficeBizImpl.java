@@ -56,4 +56,11 @@ public class OfficeBizImpl implements OfficeBiz
 		return officeMapper.selectOffice(page, name);
 	}
 
+	@Override
+	public int countOff()
+	{
+		// TODO Auto-generated method stub
+		return officeMapper.countOff();
+	}
+
 }

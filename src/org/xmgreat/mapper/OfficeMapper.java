@@ -29,4 +29,6 @@ public interface OfficeMapper
 	public void addOffice(@Param("officename")String officename);
 	//模糊搜索
 	public List<OfficeBean> selectOffice(@Param("page")int page,@Param("name")String name);
+	//获取科室总数
+	public int countOff();
 }
