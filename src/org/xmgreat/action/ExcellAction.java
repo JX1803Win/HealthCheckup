@@ -48,7 +48,7 @@ public class ExcellAction
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String nowdate = df.format(now);
         // 打开文件
-        File file=new File("C:\\"+nowdate + ".xls");      
+        File file=new File(request.getServletContext().getRealPath("/")+nowdate + ".xls");      
         WritableWorkbook book = Workbook.createWorkbook(file);
         
         // 生成名为"第一页"的工作表，参数0表示这是第一

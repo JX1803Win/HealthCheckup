@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>健康散检</title>
+<title>健康体检散检后台管理系统</title>
 <link href="css/login.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
@@ -58,7 +58,7 @@ function check() {
 <body>
 	<div id="center">
 		<div id="top">
-			<h2>健康散检后台登录</h2>
+			<h2>健康体检散检后台登录</h2>
 		</div>
 		<form action="" role="form" id="loginForm"  method="post">
 			<div class="div1" id="d_name">

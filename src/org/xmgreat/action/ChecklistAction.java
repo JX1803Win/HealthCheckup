@@ -32,7 +32,9 @@ public class ChecklistAction {
 		Long physicaiId = Long.parseLong(request.getParameter("physicaiId"));
 		Map<String, Object> map = phyBizImpl.createChecklist(physicaiId);
 		// 文件路径
-		String filePath = "C:\\";
+//		String filePath = "C:\\";
+		String filePath = request.getServletContext().getRealPath("/");
+		System.out.println("导检单临时路径：" + filePath);
 		// 文件名称
 		String fileName = "体检导检单" + physicaiId + ".doc";
 		// 生成word
@@ -73,7 +75,9 @@ public class ChecklistAction {
 		Long physicaiId = Long.parseLong(request.getParameter("physicaiId"));
 		Map<String, Object> map = phyBizImpl.lookChecklist(physicaiId);
 		// 文件路径
-		String filePath = "C:\\";
+//		String filePath = "C:\\";
+		String filePath = request.getServletContext().getRealPath("/");
+		System.out.println("导检单临时路径：" + filePath);
 		// doc文件名称
 		String docFileName = "体检导检单" + physicaiId + ".doc";
 		// pdf文件名称
