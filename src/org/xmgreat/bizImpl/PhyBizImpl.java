@@ -66,12 +66,13 @@ public class PhyBizImpl implements PhyBiz {
 	}
 
 	@Override
-	public Long billing(Long physicaiId, Integer setmealId, Integer projectId) {
-		Integer userId =phyMapper.queryUserByPhyCardId(physicaiId).getUserId();
+	public Long billing(Long phyCardId, Integer setmealId, Integer projectId) {
+		Integer userId =phyMapper.queryUserByPhyCardId(phyCardId).getUserId();
 		userPhyRecordBean.setUserId(userId);
 		userPhyRecordBean.setSetmealId(setmealId);
 		userPhyRecordBean.setProjectId(projectId);
 		phyMapper.billing(userPhyRecordBean);
+		Long physicaiId = phyMapper.queryLastPhyRecord(userId);
 		if(setmealId != null) {
 			List<ProjectBean> projects = phyMapper.queryProjectBySetmeal(setmealId);
         	for (int i = 1; i <= projects.size(); i++) {
@@ -80,7 +81,7 @@ public class PhyBizImpl implements PhyBiz {
 		} else {
     		phyMapper.initProResInfo(physicaiId, projectId);
 		}
-		return phyMapper.queryLastPhyRecord(userId);
+		return physicaiId;
 	}
 
 	@Override
