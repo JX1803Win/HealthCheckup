@@ -76,6 +76,11 @@
 		SELECT COUNT(*) FROM
 		TBLSETMEAL
 	</select>
+	<!-- 查询账户总数 -->
+	<select id="countAcc" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM
+		TBLUSERACCOUT WHERE USERID=#{userid}
+	</select>
 
 
 </mapper>

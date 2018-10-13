@@ -1,62 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" import="java.util.*,org.xmgreat.bean.UserAccoutBean"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<base href="<%=basePath%>"></base>
 <title>个人中心</title>
-<link href="../css/percss.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/jquery-1.8.3-min.js"></script>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="../js/birthday.js"></script>
+<link href="css/percss.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.8.3-min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/birthday.js"></script>
 <script>
-	function setTab(name, cursel) {
-		cursel_0 = cursel;
-		for (var i = 1; i <= links_len; i++) {
-			var menu = document.getElementById(name + i);
-			var menudiv = document.getElementById("con_" + name + "_" + i);
-			if (i == cursel) {
-				menu.className = "off";
-				menudiv.style.display = "block";
-			} else {
-				menu.className = "";
-				menudiv.style.display = "none";
-			}
+function setTab(name, cursel) {
+	cursel_0 = cursel;
+	for (var i = 1; i <= links_len; i++) {
+		var menu = document.getElementById(name + i);
+		var menudiv = document.getElementById("con_" + name + "_" + i);
+		if (i == cursel) {
+			menu.className = "off";
+			menudiv.style.display = "block";
+		} else {
+			menu.className = "";
+			menudiv.style.display = "none";
 		}
 	}
-	function Next() {
-		cursel_0++;
-		if (cursel_0 > links_len)
-			cursel_0 = 1
-		setTab(name_0, cursel_0);
-	}
-	var name_0 = 'one';
-	var cursel_0 = 1;
-	//循环周期，可任意更改（毫秒）
-	var links_len, iIntervalId;
-	onload = function() {
-		var links = document.getElementById("tab1").getElementsByTagName('li')
-		links_len = links.length;
-		for (var i = 0; i < links_len; i++) {
-			links[i].onmouseover = function() {
-				clearInterval(iIntervalId);
-				this.onmouseout = function() {
-
-				}
-			}
-		}
-		document.getElementById("con_" + name_0 + "_" + links_len).parentNode.onmouseover = function() {
+}
+function Next() {
+	cursel_0++;
+	if (cursel_0 > links_len)
+		cursel_0 = 1
+	setTab(name_0, cursel_0);
+}
+var name_0 = 'one';
+var cursel_0 = 1;
+//循环周期，可任意更改（毫秒）
+var links_len, iIntervalId;
+onload = function() {
+	var links = document.getElementById("tab1").getElementsByTagName('li')
+	links_len = links.length;
+	for (var i = 0; i < links_len; i++) {
+		links[i].onmouseover = function() {
 			clearInterval(iIntervalId);
 			this.onmouseout = function() {
 
 			}
 		}
-		setTab(name_0, cursel_0);
+	}
+	document.getElementById("con_" + name_0 + "_" + links_len).parentNode.onmouseover = function() {
+		clearInterval(iIntervalId);
+		this.onmouseout = function() {
+
+		}
+	}
+	setTab(name_0, cursel_0);
+
+}
+</script>
+
+<script>
+	function gobillinfo() {
+		window.location.href = "user/gobillinfo.action";
 
 	}
 </script>
+
+
 <script language="javascript" type="text/javascript">
 	//定义 城市 数据数组
 	cityArray = new Array();
@@ -128,23 +143,6 @@
 
 
 
-<script>
-	//获得request对象		
-		
-	function nextPage(page) {
-		page++;
-		$.ajax({
-			url : "nextpage.action",
-			data : "page=" + 0,
-			dataType : "text",
-			type : "post",
-			success : function(redata) {
-			}
-		});
-	}
-</script>
-
-
 
 <script>
 	function checkpwd() {
@@ -164,7 +162,7 @@
 			return false;
 		}
 		$.ajax({
-			url : "chengepsw.action",
+			url : "user/chengepsw.action",
 			data : "initpass=" + initpass + "&newpass=" + newpass,
 			dataType : "text",
 			type : "post",
@@ -192,7 +190,7 @@
 		var selMonth = document.getElementById('selMonth').value;
 		var selDay = document.getElementById('selDay').value;
 		$.ajax({
-			url : "chengeinfo.action",
+			url : "user/chengeinfo.action",
 			data : "sex=" + sex + "&phone=" + phone + "&blood=" + blood
 					+ "&dizhi=" + dizhi + "&selYear=" + selYear + "&selMonth="
 					+ selMonth + "&selDay=" + selDay,
@@ -208,6 +206,27 @@
 </script>
 
 
+<script>
+	function chongqian(id) {
+		var qian = document.getElementById('qian').value;
+		
+		if (qian == null || qian == "" || qian == "null") {
+			alert("请输入金额");
+			return false;
+		}
+		if (qian <= 0) {
+			alert("请输入正确金额");
+			return false;
+		}
+		if (qian >= 10000) {
+			alert("请输入正确金额");
+			return false;
+		}
+		window.location.href = "user/zfb.action"+"?qian="+qian+"&userId="+id;
+
+	}
+</script>
+
 </head>
 
 
@@ -219,7 +238,8 @@
 				<ul>
 					<li id="one1" onclick="setTab('one',1)">资料更改</li>
 					<li id="one2" onclick="setTab('one',2)">密码更改</li>
-					<li id="one3" onclick="setTab('one',3)">我的账户</li>
+					<li id="one3" onclick="gobillinfo()">我的账户</li>
+					<li id="one4" onclick="setTab('one',4)">充值</li>
 				</ul>
 			</div>
 			<div class="menudiv">
@@ -393,6 +413,25 @@
 					<c:if test="${empty accoutlist}">
 						<h3 align="center">暂无账户记录</h3>
 					</c:if>
+				</div>
+				<div id="con_one_4" style="display: none;">
+				
+				<div id="1" style="margin-top: 100px;">
+						<table width="500" border="0" cellpadding="0" cellspacing="0"
+							align="center">
+							<tr>
+								<td width="142" align="right">充值金额：</td>
+								<td width="352"><input type="text" id="qian"
+									name="qian" style="width: 200; height: 40" placeholder="请输入金额"
+									size="30" /></td>
+							</tr>
+						</table>
+					</div>
+					<div style="text-align: center; margin-top: 50px;"
+						class="subtijiao">
+						<input type="button" onClick="chongqian(${user.userId})" value="充值" />
+					</div>
+				
 				</div>
 			</div>
 		</div>

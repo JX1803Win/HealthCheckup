@@ -490,8 +490,22 @@ public class AdminBizImpl implements AdminBiz
 		accout.setOccurMatter("支付宝充值");
 		adminMapper.addRecord(accout);
 		String result=null;
-	/*	result="redirect:/ManageAction/selectAccount.action?page=1&&userId="+userId+"";*/
 		result="redirect:/backstage/index.action";
 		return result;
 	}
+	//前台支付宝充值
+		@Override
+		public String zfbtz(Integer userId, Double money) {
+			UserAccoutBean userAccout=adminMapper.selectBalance(userId);
+			Double balance=userAccout.getBalance()+money;
+			UserAccoutBean accout=new UserAccoutBean();
+			accout.setUserId(userId);
+			accout.setBalance(balance);
+			accout.setMoney(money);
+			accout.setOccurMatter("支付宝充值");
+			adminMapper.addRecord(accout);
+			String result=null;
+			result="redirect:/user/loginsuccess.action";
+			return result;
+		}
 }

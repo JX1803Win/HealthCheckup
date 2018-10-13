@@ -18,14 +18,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.xmgreat.bean.OfficeBean;
 import org.xmgreat.bean.ProjectBean;
 import org.xmgreat.bean.SetmealBean;
 import org.xmgreat.bean.UserAccoutBean;
 import org.xmgreat.bean.UserInfoBean;
+import org.xmgreat.biz.AdminBiz;
 import org.xmgreat.biz.UserBiz;
+import org.xmgreat.util.ALiPay;
 import org.xmgreat.util.AgeByBirth;
 
+import com.alipay.api.AlipayApiException;
 import com.aliyuncs.exceptions.ClientException;
 import com.google.gson.Gson;
 
@@ -45,8 +49,11 @@ public class PersonalCenterAction
 	private ServletContext sevletContext;
 	@Autowired
 	private UserBiz userBiz;
+	@Autowired
+	AdminBiz adminBizImpl;
 	@Resource
 	private UserInfoBean userInfoBean;
+	ModelAndView mav = new ModelAndView();
 
 	// 进入个人中心
 	@RequestMapping(value = "/gopersonal.action")
@@ -71,7 +78,6 @@ public class PersonalCenterAction
 	public void checkphone(HttpServletRequest request, String initpass, String newpass)
 			throws IOException, ClientException
 	{
-		System.out.println("改密码");
 		HttpSession session = request.getSession();
 		userInfoBean = (UserInfoBean) session.getAttribute("user");
 		Long phone = userInfoBean.getPhone();
@@ -157,5 +163,52 @@ public class PersonalCenterAction
 		request.setAttribute("list", list);
 		return "backstage/Package";
 	}
-
+	
+	// 支付宝支付
+		@RequestMapping(value = "/zfb.action")
+		public ModelAndView alipayment(HttpServletRequest request,HttpServletResponse response,Integer userId,Double qian) throws AlipayApiException {
+			String money1=qian.toString();
+			String result;
+			try {
+				result = ALiPay.pays(response, money1,userId);
+				mav.addObject("result",result);
+				mav.setViewName("backstage/QR.code");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return mav;
+		}
+		// 支付宝充值后跳转
+		@RequestMapping(value = "/zfbtz.action")
+		public String zhifubao(Integer userId,Double money) {
+			return adminBizImpl.zfbtz(userId,money);
+		}
+		
+		// 进入用户账户记录
+		@RequestMapping(value = "/gobillinfo.action")
+		public String gobillinfo(HttpServletRequest request,Integer page)
+		{
+			HttpSession session = request.getSession();
+			userInfoBean = (UserInfoBean) session.getAttribute("user");
+			int userid = userInfoBean.getUserId();
+			int coun = userBiz.countAcc(userid);
+			int counpage = (int) Math.ceil(1.0*coun/5);
+			if(page==null) {
+				page=1;
+			}
+			if(page==10000) {
+				page=1;
+			}
+			if(page==10001) {
+				page=counpage;
+			}
+			if(page>counpage) {
+				page--;
+			}
+			session.setAttribute("page", page);
+			List<UserAccoutBean> accoutlist = userBiz.getAccout(userid, page);
+			request.setAttribute("accoutlist", accoutlist);
+			return "user/billinfo";
+		}
 }

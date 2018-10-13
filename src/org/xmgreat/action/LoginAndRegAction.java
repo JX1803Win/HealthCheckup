@@ -43,8 +43,6 @@ public class LoginAndRegAction
 	PhoneCode phonecode = new PhoneCode();
 
 	int racode = (int) ((Math.random()*9+1)*100000);//随机生成的验证码
-	
-
 	// 验证前台登入
 	@RequestMapping(value = "/login.action")
 	@ResponseBody

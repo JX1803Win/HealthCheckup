@@ -19,4 +19,5 @@ public interface UserBiz
 	public List<ProjectBean> getxi(int mid);
 	public List<SetmealBean> selectMeal(String name,int page);
 	public int countMeal();
+	public int countAcc(int userid);
 }

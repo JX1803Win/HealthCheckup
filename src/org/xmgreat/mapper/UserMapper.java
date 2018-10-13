@@ -31,5 +31,6 @@ public interface UserMapper
 	public List<SetmealBean> selectMeal(@Param("name")String name,@Param("page")int page);
 	//查询总数
 	public int countMeal();
-
+	//查询用户总数
+	public int countAcc(@Param("userid")int userid);
 }

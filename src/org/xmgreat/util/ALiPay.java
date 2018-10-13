@@ -49,5 +49,32 @@ public class ALiPay {
 		return result;
 		
 	}
+	
+public static String pays(HttpServletResponse response,String money,Integer userId) throws Exception{
+		
+		
+		AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
+		
+		//设置请求参数
+		AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
+		alipayRequest.setReturnUrl(AlipayConfig.return_url="http://localhost:8080/HealthCheckup/user/zfbtz.action?money="+money+"&&userId="+userId+"");
+		alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
+		Long time= Calendar.getInstance().getTimeInMillis();
+		//商户订单号，商户网站订单系统中唯一订单号，必填
+		String out_trade_no =time.toString();
+		//付款金额，必填
+		String total_amount = money ;
+		//订单名称，必填
+		String subject = "充值";
+		alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\"," 
+				+ "\"total_amount\":\""+ total_amount +"\"," 
+				+ "\"subject\":\""+ subject +"\"," 
+				+ "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
+		String result = alipayClient.pageExecute(alipayRequest).getBody();
+		return result;
+		
+	}
 
 }
+
+
