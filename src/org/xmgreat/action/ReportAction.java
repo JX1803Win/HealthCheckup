@@ -41,7 +41,9 @@ public class ReportAction {
 			Map<String, Object> dataMap = phyBizImpl.createReport(physicaiId);
 
 			// 文件路径
-			String filePath = "C:\\";
+//			String filePath = "C:\\";
+			String filePath = request.getServletContext().getRealPath("/");
+			System.out.println("体检报告临时路径：" + filePath);
 
 			// 文件名称
 			String fileName = "体检报告" + System.currentTimeMillis() + ".doc";
@@ -88,7 +90,9 @@ public class ReportAction {
 		Long physicaiId = Long.parseLong(request.getParameter("physicaiId"));
 		Map<String, Object> map = phyBizImpl.createReport(physicaiId);
 		// 文件路径
-		String filePath = "C:\\";
+//		String filePath = "C:\\";
+		String filePath = request.getServletContext().getRealPath("/");
+		System.out.println("体检报告临时路径：" + filePath);
 		// doc文件名称
 		String docFileName = "体检报告" + physicaiId + ".doc";
 		// pdf文件名称
