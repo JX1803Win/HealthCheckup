@@ -51,5 +51,10 @@
 	<select id="selectAll" resultType="org.xmgreat.bean.OfficeBean">
 		select * from tbloffice
 	</select>
+	
+	<!-- 查询科室总数 -->
+	<select id="countOff" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM TBLOFFICE
+	</select>
 </mapper>
 	

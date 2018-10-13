@@ -17,6 +17,8 @@ public interface OfficeBiz
     public void changeOfficeName(String name,int id);
     //新增科室
     public void addOffice(String officename);
-  //模糊搜索
+    //模糊搜索
   	public List<OfficeBean> selectOffice(int page,String name);
+  	//获取科室总数
+  	public int countOff();
 }
