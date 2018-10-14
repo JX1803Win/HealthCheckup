@@ -34,6 +34,7 @@
 		<div id="div8">
 			<c:if test="${projectResult.projectBean.parameterId==26}">
 				<form action="backstage/summary.action" id="method" method="post">
+				<input type="hidden" name="physicaiId" value="${physicaiId}" />
 					<input type="hidden" name="parameterId" id="parameterId" /> <input
 						type="hidden" name="proresId" value="${projectResult.proresId}" />
 					<input type="hidden" name="parameter" value="${parameter}" /> <input
@@ -67,7 +68,7 @@
 
 					<div class="text-center t2">
 						<a
-							href="backstage/querySummary.action?currentPage=${currentPage}&&parameterId=${parameter}">
+							href="backstage/querySummary.action?currentPage=${currentPage}&&parameterId=${parameter}&&physicaiId=${physicaiId}">
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 						<button type="submit" class="btn btn-primary m2"
@@ -79,6 +80,7 @@
 			</c:if>
 			<c:if test="${projectResult.projectBean.parameterId==27}">
 				<form action="backstage/summary.action" id="method" method="post">
+				<input type="hidden" name="physicaiId" value="${physicaiId}" />
 					<input type="hidden" name="parameterId" id="parameterId" /> <input
 						type="hidden" name="proresId" value="${projectResult.proresId}" />
 					<input type="hidden" name="parameter" value="${parameter}" /> <input
@@ -104,7 +106,7 @@
 					</table>
 					<div class="text-center t2">
 						<a
-							href="backstage/querySummary.action?currentPage=${currentPage}&&parameterId=${parameter}">
+							href="backstage/querySummary.action?currentPage=${currentPage}&&parameterId=${parameter}&&physicaiId=${physicaiId}">
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 						<button type="submit" class="btn btn-primary m2"
@@ -116,6 +118,7 @@
 			</c:if>
 			<c:if test="${projectResult.projectBean.parameterId==28}">
 				<form action="backstage/summary.action" id="method" method="post">
+				<input type="hidden" name="physicaiId" value="${physicaiId}" />
 					<input type="hidden" name="parameterId" id="parameterId" /> <input
 						type="hidden" name="proresId" value="${projectResult.proresId}" />
 					<input type="hidden" name="parameter" value="${parameter}" /> <input
@@ -153,7 +156,7 @@
 
 					<div class="text-center t2">
 						<a
-							href="backstage/querySummary.action?currentPage=${currentPage}&&parameterId=${parameter}">
+							href="backstage/querySummary.action?currentPage=${currentPage}&&parameterId=${parameter}&&physicaiId=${physicaiId}">
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 						<button type="submit" class="btn btn-primary m2"

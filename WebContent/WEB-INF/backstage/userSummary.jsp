@@ -37,6 +37,11 @@
 			<form action="backstage/querySummary.action" class="form-inline"
 				role="form" method="post">
 				<div class="form-group">
+					<label for="name" class="m">体检号：</label> <input type="text"
+						class="form-control input-sm  m5" id="physicaiId" name="physicaiId"
+						placeholder="请输入体检号" value="${physicaiId}">
+				</div>
+				<div class="form-group">
 					<label for="parameterId" class="m">小结状态：</label><select
 						class="selectpicker form-control" name="parameterId"
 						id="parameterId" title="请选择一项" data-size="5">
@@ -78,11 +83,11 @@
 						<td class="text-center"><c:if
 								test="${projectResult.parameterId==12}">
 								<a
-									href="backstage/skipSummary.action?proresId=${projectResult.proresId}&&currentPage=${resultMap['currentPage']}&&parameterId=${parameterId}"><button
+									href="backstage/skipSummary.action?proresId=${projectResult.proresId}&&currentPage=${resultMap['currentPage']}&&parameterId=${parameterId}&&physicaiId=${physicaiId}"><button
 										type="button" class="btn btn-primary">小结</button></a>
 							</c:if> <c:if test="${projectResult.parameterId==13}">
 								<a
-									href="backstage/particular.action?proresId=${projectResult.proresId}&&currentPage=${resultMap['currentPage']}&&parameterId=${parameterId}"><button
+									href="backstage/particular.action?proresId=${projectResult.proresId}&&currentPage=${resultMap['currentPage']}&&parameterId=${parameterId}&&physicaiId=${physicaiId}"><button
 										type="button" class="btn btn-primary">查看详情</button></a>
 							</c:if></td>
 					</tr>

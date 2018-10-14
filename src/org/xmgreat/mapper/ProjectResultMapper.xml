@@ -17,6 +17,9 @@
 		select count(*) from tbrprojectresult r,tblproject p where r.projectId
 		= p.projectId and p.officeId = #{officeId} and r.parameterid !=38 and
 		r.parameterid != 68
+		<if test="physicaiId!=null">
+			and r.physicaiId = #{physicaiId}
+		</if>
 		<if test="parameterId!=null">
 			and r.parameterId = #{parameterId}
 		</if>
@@ -31,6 +34,9 @@
 		p.projectId and p.officeId = #{officeId} and c.parameterid =
 		r.parameterid and r.physicaiid = d.physicaiid and u.userid = d.userid
 		and r.parameterid != 38 and r.parameterid != 68
+		<if test="physicaiId!=null">
+			and r.physicaiId = #{physicaiId}
+		</if>
 		<if test="parameterId!=null">
 			and r.parameterId = #{parameterId}
 		</if>

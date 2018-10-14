@@ -136,7 +136,7 @@
 
 					<div class="text-center t2">
 						<a
-							href="backstage/querySummary.action?currentPage=${currentPage}&&parameterId=${parameterId}">
+							href="backstage/querySummary.action?currentPage=${currentPage}&&parameterId=${parameterId}&&physicaiId=${physicaiId}">
 							<button type="button" class="btn btn-default m2">返回</button>
 						</a>
 					</div>
