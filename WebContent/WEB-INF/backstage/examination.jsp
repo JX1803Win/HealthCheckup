@@ -23,6 +23,8 @@
 	type="text/css" />
 <link href="css/detail.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
 <script type="text/javascript" src="js/summary.js"></script>
 
 </head>
@@ -34,7 +36,7 @@
 		<div id="div8">
 			<c:if test="${project.parameterId==26}">
 				<form action="doctor/generalSummary.action?parameterId=12"
-					id="method1" method="post">
+					id="method" method="post">
 					<input type="hidden" name="proresId" value="${proresId}" />
 					<table class="table table-bordered">
 						<thead>
@@ -50,7 +52,8 @@
 								<tr>
 									<td>${vs.index+1}<input type="hidden" name="subentryId"
 										value="${detail.subentryId}" /></td>
-									<td>${detail.detailName}</td>
+									<td>${detail.detailName}<input type="hidden"
+										name="detailName" value="${detail.detailName}" /></td>
 									<td><input type="text" class="form-control" name="result"
 										placeholder="请输入数值" /></td>
 									<td>${detail.parameterBean.parameterName}</td>
@@ -93,7 +96,7 @@
 			</c:if>
 			<c:if test="${project.parameterId==28}">
 				<form action="doctor/projectSummary.action?parameterId=12"
-					id="method3" method="post">
+					id="method" method="post">
 					<input type="hidden" name="proresId" value="${proresId}" />
 					<table class="table table-bordered">
 						<thead>
@@ -110,7 +113,8 @@
 								<tr>
 									<td>${vs.index+1}<input type="hidden" name="subentryId"
 										value="${detail.subentryId}" /></td>
-									<td>${detail.detailName}</td>
+									<td>${detail.detailName}<input type="hidden"
+										name="detailName" value="${detail.detailName}" /></td>
 									<td><input type="text" class="form-control" name="result"
 										placeholder="请输入数值" value="${detail.initValue}" /></td>
 									<td>${detail.parameterBean.parameterName}</td>

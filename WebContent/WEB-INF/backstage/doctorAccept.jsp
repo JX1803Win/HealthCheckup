@@ -106,7 +106,7 @@
 						<td>${menu.parameterName}</td>
 						<c:if test="${menu.parameterId==68}">
 							<td><a
-								href="doctor/doctorAccept.action?proresId=${menu.proresId}"><button
+								href="doctor/doctorAccept.action?proresId=${menu.proresId}&physicaiId=${menu.physicaiId}"><button
 										type="button" class="btn btn-primary">接收</button></a></td>
 						</c:if>
 						<c:if test="${menu.parameterId==38}">
